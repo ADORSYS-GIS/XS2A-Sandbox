@@ -250,9 +250,6 @@ services:
       SPRING_DATASOURCE_HIKARI_JDBCURL: "jdbc:postgresql://xs2a-consent-management-db/consent?currentSchema=consent"
       SPRING_DATASOURCE_HIKARI_USERNAME: "cms"
       SPRING_DATASOURCE_HIKARI_PASSWORD: "cms"
-      SPRING_CONSENT_DATASOURCE_HIKARI_JDBCURL: "jdbc:postgresql://xs2a-consent-management-db/consent?currentSchema=consent"
-      SPRING_CONSENT_DATASOURCE_HIKARI_USERNAME: "cms"
-      SPRING_CONSENT_DATASOURCE_HIKARI_PASSWORD: "cms"
     ports:
       - "8094:8094"
       - "5006:5006"
