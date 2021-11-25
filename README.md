@@ -37,13 +37,15 @@ The 'Berlin Group' is a pan-European payments interoperability standards and har
 
 ModelBank is a dynamic sandbox environment that allows to emulate and test ASPSP's OpenAPI PSD2 services.
 
-ModelBank is based on [XS2A Service](https://github.com/adorsys/xs2a), [XS2A-connector-examples](https://github.com/adorsys/xs2a-connector-examples) and [Ledgers](https://github.com/adorsys/ledgers).
+ModelBank is based on [XS2A Service](https://github.com/adorsys/xs2a), [XS2A-connector-examples](https://github.com/adorsys/xs2a-connector-examples) and [Ledgers](https://github.com/adorsys/ledgers). ModelBank also uses Keycloak identity provider (IDP) for the security/token issues and for handling the system users.
 
-With ModelBank [TPP UI](https://github.com/adorsys/XS2A-Sandbox/tree/master/tpp-ui), you as a testing TPP can access banking APIs directly, get TPP certificates and manage testing accounts.
+With ModelBank [TPP UI](https://github.com/adorsys/XS2A-Sandbox/tree/master/tpp-ui), you as a testing TPP can access banking APIs directly, get TPP certificates and manage testing accounts. Administrators cannot login to TPP UI.
+
+The ModelBank Admin UI provides a user interface to manage administrators of the ModelBank, its users and TPPs. Please note, that TPPs cannot login to this application.
 
 [Developer Portal](https://github.com/adorsys/XS2A-Sandbox/tree/master/developer-portal-ui) contains testing instructions and all of the necessary documentation.
 
-All four SCA approaches are supported: REDIRECT, OAUTH, EMBEDDED, DECOUPLED. Two of them (REDIRECT, EMBEDDED) are directly testable on Developer portal. For the Redirect SCA Approach an [Online Banking UI](https://github.com/adorsys/XS2A-Sandbox/tree/master/oba-ui) is used for authorisation.
+All four SCA approaches are supported: REDIRECT, OAUTH, EMBEDDED, DECOUPLED. Two of them (REDIRECT, EMBEDDED) are directly testable on Developer portal. For the Redirect SCA Approach an [Online Banking UI](https://github.com/adorsys/XS2A-Sandbox/tree/master/oba-ui) is used for authorisation and SCA.
 
 ![ModelBank structure](https://github.com/adorsys/XS2A-Sandbox/blob/master/XS2ASandbox.png)
 
@@ -51,12 +53,12 @@ All four SCA approaches are supported: REDIRECT, OAUTH, EMBEDDED, DECOUPLED. Two
 
 -   [Release notes](https://github.com/adorsys/XS2A-Sandbox/tree/master/docs/release_notes) contain information about changes included into releases.
 -   [User Guide](https://github.com/adorsys/XS2A-Sandbox/tree/master/docs/user-guide.md) describes how to configure the ModelBank.
--   [UI Customization guide](https://github.com/adorsys/XS2A-Sandbox/blob/master/docs/customization_guide/UIs_customization_guide.md) describes how to customize Developer Portal, Online Banking UI and TPP UI.
--   [Architecture Documentation](https://github.com/adorsys/XS2A-Sandbox/blob/master/docs/arc42/README.adoc) describes how to instal, create and use tools for our diagrams.
+-   [UI Customization guide](https://github.com/adorsys/XS2A-Sandbox/blob/master/docs/customization_guide/UIs_customization_guide.md) describes how to customize Developer Portal, Online Banking UI, TPP UI and Admin UI.
+-   [Architecture Documentation](https://github.com/adorsys/XS2A-Sandbox/blob/master/docs/arc42/README.adoc) describes how to install, create and use tools for our diagrams.
 
 ## How to try it
 
--   [Running ModelBank instructions](https://github.com/adorsys/XS2A-Sandbox/tree/master/docs/running-modelbank.md) will help you getting you a copy of the project up and running on your local machine.
+-   [Running ModelBank instructions](https://github.com/adorsys/XS2A-Sandbox/tree/master/docs/running-modelbank.md) will help you with getting a copy of the project up and running on your local machine.
 
 ## Version policy
 
@@ -82,7 +84,7 @@ Any person is free to join us by implementing some parts of code or fixing some 
 
 If you think that our system behaves in an unexpected way or incorrect, or you need some clarifications, to contact ModelBank Team please [create an issue](https://github.com/adorsys/XS2A-Sandbox/issues). Team will provide comments and feedback there.
 
-For commercial support please contact [adorsys Team](https://adorsys-platform.de/solutions/).
+For commercial support please contact [adorsys Team](https://adorsys.com/de/produkte/).
 
 ## License
 
@@ -157,11 +159,11 @@ under their existing license.
 **What open-source products from Adorsys are affected by the licensing change?**
 The following products are affected:
 
-- XS2A Core,
-- XS2A Sandbox and ModelBank,
-- Open Banking Gateway incl. XS2A Adapters,
-- SmartAnalytics,
-- Datasafe.
+-   XS2A Core,
+-   XS2A Sandbox and ModelBank,
+-   Open Banking Gateway incl. XS2A Adapters,
+-   SmartAnalytics,
+-   Datasafe.
 
 **I’m using one of these products indirectly via some software integrator. How does the licensing
 change affect me?**

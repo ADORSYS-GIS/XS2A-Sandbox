@@ -14,10 +14,10 @@ To enable mail sending you should configure environment variables for ledgers se
   - SPRING_MAIL_PROPERTIES_MAIL_FROM=
   - SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH=
   - SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE=
- ```
+```
 
- If you want to debug mail messages you can add this properties as well:
- 
+If you want to debug mail messages you can add this property as well:
+
 ```
   - SPRING_MAIL_PROPERTIES_MAIL_DEBUG=true
 ```

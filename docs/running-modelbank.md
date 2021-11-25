@@ -115,9 +115,11 @@ Remember that after you update the project you should rebuild it - command **mak
 
 ## Links to local Swagger Interfaces
 
-Following urls will access the swagger interfaces:
+Following URLs will access the swagger interfaces for all ModelBank components (except the Keycloak - it uses its own web UI):
 
 ### XS2A Interface
+
+External endpoints for TPPs in accordance with BerlinGroup API specification.
 
 ```
 http://localhost:8089/swagger-ui.html
@@ -131,11 +133,39 @@ ASPSP-profile is a module where bank-specific settings are stored.
 http://localhost:48080/swagger-ui.html
 ```
 
+### CMS
+
+Consent Management System is a module where XS2A database is running.
+
+```
+http://localhost:38080/swagger-ui.html
+```
+
+### Ledgers
+
+Ledgers is a core banking emulating system used to handle accounts and payments. Security and user management is processed by Keycloak identity provider (IDP).
+
+```
+http://localhost:8088/swagger-ui.html
+```
+
+### Keycloak
+
+Identity provider used to handle ModelBank users (admins, TPPs and customers). Ledgers is using Keycloak under the hood, so there is no need to configure the IDP manually, thus its web UI is available at:
+
+```
+http://localhost:8080/auth
+```
+
 ## Links to local User Interfaces
 
 ### Developer portal UI
 
-Developer portal is the main information resource on how to get started, how to test and work with ModelBank.
+Developer portal is the main information resource on how to get started, how to test and work with ModelBank. You can try the main ModelBank functionality here also:
+
+-   create the payment in redirect approach and authorise it with SCA in Online Banking Application;
+-   create the AIS consent in redirect approach and authorise it with SCA in Online Banking Application;
+-   read payment details and accounts/balances/transactions for the consent.
 
 ```
 http://localhost:4206
