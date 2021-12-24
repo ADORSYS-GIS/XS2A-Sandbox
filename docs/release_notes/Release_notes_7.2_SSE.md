@@ -1,4 +1,4 @@
-# Release notes v.7.1
+# Release notes v.7.2
 
 Current version consists of following components:
 
@@ -9,3 +9,4 @@ Current version consists of following components:
 5. **XS2A Connector-Examples v.13.**
 
 -   Updated and fixed documentation.
+-   Fixed bug on TPP-UI and Admin-UI (SCA method name renamed from `EMAIL` to `SMTP_OTP`).
