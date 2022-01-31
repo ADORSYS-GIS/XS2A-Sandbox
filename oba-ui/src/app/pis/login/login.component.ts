@@ -13,6 +13,7 @@ import { OnlineBankingOauthAuthorizationService } from '../../api/services/onlin
 import { PSUPISProvidesAccessToOnlineBankingPaymentFunctionalityService } from '../../api/services/psupisprovides-access-to-online-banking-payment-functionality.service';
 import LoginUsingPOST3Params = PSUPISProvidesAccessToOnlineBankingPaymentFunctionalityService.LoginUsingPOST3Params;
 import PisAuthUsingGETParams = PSUPISProvidesAccessToOnlineBankingPaymentFunctionalityService.PisAuthUsingGETParams;
+import { PsupisprovidesGetPsuAccsService } from '../../api/services/psupisprovides-get-psu-accs.service';
 
 @Component({
   selector: 'app-login',
@@ -37,7 +38,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private shareService: ShareDataService,
     private onlineBankingOauthAuthorizationService: OnlineBankingOauthAuthorizationService,
-    private pisService: PisService
+    private pisService: PisService,
+    private pisAccServices: PsupisprovidesGetPsuAccsService
   ) {}
 
   ngOnInit() {
@@ -61,9 +63,32 @@ export class LoginComponent implements OnInit, OnDestroy {
         (authorisationResponse) => {
           console.log(authorisationResponse);
           this.shareService.changePaymentData(authorisationResponse);
-          this.router.navigate([
-            `${RoutingPath.PAYMENT_INITIATION}/${RoutingPath.CONFIRM_PAYMENT}`,
-          ]);
+          if (authorisationResponse.payment.debtorAccount) {
+            const {
+              currency,
+              iban,
+            } = authorisationResponse.payment.debtorAccount;
+            this.pisAccServices
+              .sendPisInitiate(
+                { currency, iban },
+                {
+                  encryptedPaymentId: this.encryptedPaymentId,
+                  authorisationId: this.redirectId,
+                }
+              )
+              .subscribe((res) => {});
+          }
+          this.router.navigate(
+            [
+              `${RoutingPath.PAYMENT_INITIATION}/${RoutingPath.CONFIRM_PAYMENT}`,
+            ],
+            {
+              queryParams: {
+                encryptedPaymentId: this.encryptedPaymentId,
+                authorisationId: this.redirectId,
+              },
+            }
+          );
         },
         (error: HttpErrorResponse) => {
           // if paymentId or redirectId is missing
