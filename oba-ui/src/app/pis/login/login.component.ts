@@ -1,26 +1,8 @@
-/*
- * Copyright 2018-2022 adorsys GmbH & Co KG
- *
- * This program is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Affero General Public License as published
- * by the Free Software Foundation, either version 3 of the License, or (at
- * your option) any later version. This program is distributed in the hope that
- * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see https://www.gnu.org/licenses/.
- *
- * This project is also available under a separate commercial license. You can
- * contact us at psd2@adorsys.com.
- */
-
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 
 import { InfoService } from '../../common/info/info.service';
 import { RoutingPath } from '../../common/models/routing-path.model';
@@ -29,9 +11,10 @@ import { PisService } from '../../common/services/pis.service';
 import { ShareDataService } from '../../common/services/share-data.service';
 import { OnlineBankingOauthAuthorizationService } from '../../api/services/online-banking-oauth-authorization.service';
 import { PSUPISProvidesAccessToOnlineBankingPaymentFunctionalityService } from '../../api/services/psupisprovides-access-to-online-banking-payment-functionality.service';
+import { PsupisprovidesGetPsuAccsService } from '../../api/services/psupisprovides-get-psu-accs.service';
+import { takeUntil } from 'rxjs/operators';
 import LoginUsingPOST3Params = PSUPISProvidesAccessToOnlineBankingPaymentFunctionalityService.LoginUsingPOST3Params;
 import PisAuthUsingGETParams = PSUPISProvidesAccessToOnlineBankingPaymentFunctionalityService.PisAuthUsingGETParams;
-import { PsupisprovidesGetPsuAccsService } from '../../api/services/psupisprovides-get-psu-accs.service';
 
 @Component({
   selector: 'app-login',
@@ -46,7 +29,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private encryptedPaymentId: string;
   private redirectId: string;
 
-  private subscriptions: Subscription[] = [];
+  private ngUnsubscribe = new Subject<void>();
 
   constructor(
     public customizeService: CustomizeService,
@@ -76,26 +59,21 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   public pisAuthorise(params: LoginUsingPOST3Params) {
-    this.subscriptions.push(
-      this.pisService.pisLogin(params).subscribe(
+    this.pisService
+      .pisLogin(params)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(
         (authorisationResponse) => {
-          console.log(authorisationResponse);
           this.shareService.changePaymentData(authorisationResponse);
-          if (authorisationResponse.payment.debtorAccount) {
-            const {
-              currency,
-              iban,
-            } = authorisationResponse.payment.debtorAccount;
-            this.pisAccServices
-              .sendPisInitiate(
-                { currency, iban },
-                {
-                  encryptedPaymentId: this.encryptedPaymentId,
-                  authorisationId: this.redirectId,
-                }
-              )
-              .subscribe((res) => {});
-          }
+          // if (authorisationResponse?.payment.debtorAccount) {
+          //   const {
+          //     currency,
+          //     iban,
+          //   } = authorisationResponse.payment.debtorAccount;
+          //   if (Boolean(currency) && Boolean(iban)) {
+          //     this.isExistedDebtorAccFromResponse(currency, iban);
+          //   }
+          // }
           this.router.navigate(
             [
               `${RoutingPath.PAYMENT_INITIATION}/${RoutingPath.CONFIRM_PAYMENT}`,
@@ -131,29 +109,43 @@ export class LoginComponent implements OnInit, OnDestroy {
             throw new HttpErrorResponse(error);
           }
         }
-      )
-    );
+      );
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach((sub) => sub.unsubscribe());
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
+  isExistedDebtorAccFromResponse(currency, iban): void {
+    this.pisAccServices
+      .sendPisInitiate(
+        { currency, iban },
+        {
+          encryptedPaymentId: this.encryptedPaymentId,
+          authorisationId: this.redirectId,
+        }
+      )
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((res) => {});
   }
 
   public getPisAuthCode(): void {
-    this.activatedRoute.queryParams.subscribe((params) => {
-      this.encryptedPaymentId = params.paymentId;
-      this.redirectId = params.redirectId;
+    this.activatedRoute.queryParams
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((params) => {
+        this.encryptedPaymentId = params.paymentId;
+        this.redirectId = params.redirectId;
 
-      // set oauth2 param in shared service
-      params.oauth2
-        ? this.shareService.setOauthParam(true)
-        : this.shareService.setOauthParam(false);
-      const pisAuthCodeParams: PisAuthUsingGETParams = {
-        encryptedPaymentId: this.encryptedPaymentId,
-        redirectId: this.redirectId,
-        ...(params.token && { Authorization: 'Bearer ' + params.token }),
-      };
-    });
+        // set oauth2 param in shared service
+        this.shareService.setOauthParam(!!params.oauth2);
+
+        const pisAuthCodeParams: PisAuthUsingGETParams = {
+          encryptedPaymentId: this.encryptedPaymentId,
+          redirectId: this.redirectId,
+          ...(params.token && { Authorization: 'Bearer ' + params.token }),
+        };
+      });
   }
 
   private initLoginForm(): void {
