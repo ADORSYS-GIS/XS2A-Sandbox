@@ -134,9 +134,9 @@ public class PiisConsentService {
      * @param consentId the identifier of PIIS consent
      * @return PIIS consent information
      */
-    public PiisConsent getPiisConsent(String consentId) {
+    public PiisConsent getPiisConsent(String consentId, String userLogin) {
         try {
-            Optional<PiisConsent> responseOptional = Optional.ofNullable(cmsPsuPiisClient.getConsent(consentId, null, null, null, null, DEFAULT_SERVICE_INSTANCE_ID))
+            Optional<PiisConsent> responseOptional = Optional.ofNullable(cmsPsuPiisClient.getConsent(consentId, userLogin, null, null, null, DEFAULT_SERVICE_INSTANCE_ID))
                                                          .map(ResponseEntity::getBody)
                                                          .map(tppPiisConsentMapper::toPiisConsent);
             return responseOptional.orElse(null);

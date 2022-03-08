@@ -53,6 +53,7 @@ public interface TppPiisConsentRestApi {
         authorizations = @Authorization(value = "apiKey"))
     @GetMapping("/{consentId}")
     ResponseEntity<PiisConsent> getPiisConsent(
+        @RequestParam("userLogin") String userLogin,
         @PathVariable(value = "consentId") String consentId);
 
     @ApiOperation(value = "Terminate the given PIIS consent",
