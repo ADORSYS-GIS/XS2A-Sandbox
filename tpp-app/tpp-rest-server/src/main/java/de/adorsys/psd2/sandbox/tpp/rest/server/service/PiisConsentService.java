@@ -33,6 +33,7 @@ import de.adorsys.psd2.consent.api.piis.v1.CmsPiisConsent;
 import de.adorsys.psd2.consent.aspsp.api.piis.CreatePiisConsentRequest;
 import de.adorsys.psd2.consent.aspsp.api.piis.CreatePiisConsentResponse;
 import de.adorsys.psd2.sandbox.tpp.rest.api.domain.AccountAccess;
+import de.adorsys.psd2.sandbox.tpp.rest.api.domain.ConsentStatus;
 import de.adorsys.psd2.sandbox.tpp.rest.api.domain.PiisConsent;
 import de.adorsys.psd2.sandbox.tpp.rest.server.exception.TppException;
 import de.adorsys.psd2.sandbox.tpp.rest.server.mapper.TppPiisConsentMapper;
@@ -176,7 +177,7 @@ public class PiisConsentService {
 
     private List<PiisConsent> toPiisConsent(Collection<CmsPiisConsent> aisAccountConsents) {
         return aisAccountConsents.stream()
-                   .map(a -> new PiisConsent(a.getId(), getAccountAccess(a.getAccount()), a.getTppAuthorisationNumber(), a.getExpireDate()))
+                   .map(a -> new PiisConsent(a.getId(), getAccountAccess(a.getAccount()), a.getTppAuthorisationNumber(), a.getExpireDate(), ConsentStatus.fromValue(a.getConsentStatus().name()).orElse(null)))
                    .collect(Collectors.toList());
     }
 
