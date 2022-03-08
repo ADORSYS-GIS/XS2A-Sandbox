@@ -42,7 +42,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.adorsys.ledgers.consent.aspsp.rest.client.CmsAspspPiisClient;
 import org.adorsys.ledgers.consent.psu.rest.client.CmsPsuPiisClient;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -142,6 +141,19 @@ public class PiisConsentService {
             return responseOptional.orElse(null);
         } catch (FeignException e) {
             throw new TppException(String.format("Error while getting ASPSP PIIS consent with ID: %s from CMS", consentId), 400);
+        }
+    }
+
+    /**
+     * Changes the given consent status to 'TERMINATED_BY_ASPSP'.
+     *
+     * @param consentId the identifier of PIIS consent
+     */
+    public void terminatePiisConsent(String consentId) {
+        try {
+            cmsAspspPiisClient.terminateConsent(consentId, DEFAULT_SERVICE_INSTANCE_ID);
+        } catch (FeignException e) {
+            throw new TppException(String.format("Error while terminating ASPSP PIIS consent with ID: %s in CMS", consentId), 400);
         }
     }
 
