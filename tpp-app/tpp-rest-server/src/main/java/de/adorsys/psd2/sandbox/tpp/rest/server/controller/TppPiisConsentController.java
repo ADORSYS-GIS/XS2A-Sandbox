@@ -50,8 +50,8 @@ public class TppPiisConsentController implements TppPiisConsentRestApi {
     }
 
     @Override
-    public ResponseEntity<PiisConsent> getPiisConsent(String consentId, String userLogin) {
-        PiisConsent consent = piisConsentService.getPiisConsent(consentId, userLogin);
+    public ResponseEntity<PiisConsent> getPiisConsent(String userLogin, String consentId) {
+        PiisConsent consent = piisConsentService.getPiisConsent(userLogin, consentId);
         return ResponseEntity.ok(consent);
     }
 
