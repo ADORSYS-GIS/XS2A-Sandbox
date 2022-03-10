@@ -73,6 +73,14 @@ public class PiisConsentService {
      * @return SCAConsentResponseTO object
      */
     public SCAConsentResponseTO createPiisConsent(String userLogin, String password, PiisConsent piisConsent) {
+
+        BearerTokenTO token;
+        try {
+            token = keycloakTokenService.login(userLogin, password);
+        } catch (FeignException e) {
+            throw new TppException("Error while creating ASPSP PIIS consent in Ledgers, wrong password for user: " + userLogin, 401);
+        }
+
         CreatePiisConsentRequest request = tppPiisConsentMapper.toPiisConsentRequest(piisConsent);
         ResponseEntity<CreatePiisConsentResponse> response;
         try {
@@ -86,8 +94,6 @@ public class PiisConsentService {
         if (responseBody != null) {
             String consentId = responseBody.getConsentId();
             log.info("ASPSP PIIS consent was created in CMS, its ID: " + consentId);
-
-            BearerTokenTO token = keycloakTokenService.login(userLogin, password);
 
             UserTO user = Optional.ofNullable(userMgmtRestClient.getUser().getBody())
                               .orElseThrow(() -> new TppException("User with login: " + userLogin + " not found in Ledgers", 400));
