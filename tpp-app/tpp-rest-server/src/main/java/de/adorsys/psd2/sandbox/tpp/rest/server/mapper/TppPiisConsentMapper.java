@@ -70,7 +70,7 @@ public class TppPiisConsentMapper {
         tppPiisConsent.setConsentId(piisConsent.getId());
         tppPiisConsent.setTppAuthorisationNumber(piisConsent.getTppAuthorisationNumber());
         tppPiisConsent.setValidUntil(piisConsent.getExpireDate());
-        tppPiisConsent.setConsentStatus(ConsentStatus.fromValue(piisConsent.getConsentStatus().name()).orElse(null));
+        tppPiisConsent.setConsentStatus(ConsentStatus.getByName(piisConsent.getConsentStatus().name()).orElse(null));
 
         return tppPiisConsent;
     }

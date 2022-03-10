@@ -18,48 +18,23 @@
 
 package de.adorsys.psd2.sandbox.tpp.rest.api.domain;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public enum ConsentStatus {
-    RECEIVED("received", false),
-    REJECTED("rejected", true),
-    VALID("valid", false),
-    REVOKED_BY_PSU("revokedByPsu", true),
-    EXPIRED("expired", true),
-    TERMINATED_BY_TPP("terminatedByTpp", true),
-    TERMINATED_BY_ASPSP("terminatedByAspsp", true),
-    PARTIALLY_AUTHORISED("partiallyAuthorised", false);
 
-    private static final Map<String, ConsentStatus> CONTAINER = new HashMap<>();
+    RECEIVED,
+    REJECTED,
+    VALID,
+    REVOKED_BY_PSU,
+    EXPIRED,
+    TERMINATED_BY_TPP,
+    TERMINATED_BY_ASPSP,
+    PARTIALLY_AUTHORISED;
 
-    static {
-        for (ConsentStatus status : values()) {
-            CONTAINER.put(status.getValue(), status);
-        }
-    }
-
-    private String value;
-    private boolean finalisedStatus;
-
-    public boolean isFinalisedStatus() {
-        return finalisedStatus;
-    }
-
-    ConsentStatus(String value, boolean finalisedStatus) {
-        this.value = value;
-        this.finalisedStatus = finalisedStatus;
-    }
-
-    public static Optional<ConsentStatus> fromValue(String text) {
-        if (text != null) {
-            return Optional.ofNullable(CONTAINER.get(text.trim()));
-        }
-        return Optional.empty();
-    }
-
-    public String getValue() {
-        return String.valueOf(value);
+    public static Optional<ConsentStatus> getByName(String name) {
+        return Stream.of(values())
+                   .filter(v -> v.name().equalsIgnoreCase(name))
+                   .findFirst();
     }
 }

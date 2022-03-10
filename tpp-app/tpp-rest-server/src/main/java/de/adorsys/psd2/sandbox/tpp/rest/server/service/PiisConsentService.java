@@ -177,7 +177,7 @@ public class PiisConsentService {
 
     private List<PiisConsent> toPiisConsent(Collection<CmsPiisConsent> aisAccountConsents) {
         return aisAccountConsents.stream()
-                   .map(a -> new PiisConsent(a.getId(), getAccountAccess(a.getAccount()), a.getTppAuthorisationNumber(), a.getExpireDate(), ConsentStatus.fromValue(a.getConsentStatus().name()).orElse(null)))
+                   .map(a -> new PiisConsent(a.getId(), getAccountAccess(a.getAccount()), a.getTppAuthorisationNumber(), a.getExpireDate(), ConsentStatus.getByName(a.getConsentStatus().name()).orElse(null)))
                    .collect(Collectors.toList());
     }
 
