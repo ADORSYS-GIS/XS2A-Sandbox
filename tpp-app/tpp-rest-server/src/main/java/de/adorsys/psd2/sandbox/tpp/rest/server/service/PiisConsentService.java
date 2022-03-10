@@ -78,7 +78,7 @@ public class PiisConsentService {
         try {
             token = keycloakTokenService.login(userLogin, password);
         } catch (FeignException e) {
-            throw new TppException("Error while creating ASPSP PIIS consent in Ledgers, wrong password for user: " + userLogin, 401);
+            throw new TppException("Invalid password for user", 401);
         }
 
         CreatePiisConsentRequest request = tppPiisConsentMapper.toPiisConsentRequest(piisConsent);
