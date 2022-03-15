@@ -82,8 +82,13 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {
+  UserCreateFundsConfirmationComponent
+} from './components/users/user-create-funds-confirmation/user-create-funds-confirmation.component';
+
 import {MatDialogModule} from '@angular/material/dialog';
 import {ErrorDialogComponent} from './commons/dialog/error-dialog.component';
+import { UserFundsConfirmationDetailsComponent } from './components/users/user-funds-confirmation-details/user-funds-confirmation-details.component';
 
 export function app_Init(settingsHttpService: SettingsHttpService) {
   return () => settingsHttpService.initializeApp();
@@ -122,7 +127,9 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     PaginationContainerComponent,
     TppsComponent,
     ModalComponent,
+    UserCreateFundsConfirmationComponent,
     ErrorDialogComponent,
+    UserFundsConfirmationDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -151,28 +158,31 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     MatSnackBarModule,
     MatDialogModule,
   ],
-  providers: [
-    AutoLogoutService,
-    BsModalRef,
-    AuthGuard,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: app_Init,
-      deps: [SettingsHttpService],
-      multi: true,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    },
-    {
-      provide: ErrorHandler,
-      useClass: GlobalErrorsHandler,
-    },
-  ],
-  bootstrap: [AppComponent],
-  entryComponents: [ModalComponent],
+  providers:
+    [
+      AutoLogoutService,
+      BsModalRef,
+      AuthGuard,
+      {
+        provide: APP_INITIALIZER,
+        useFactory: app_Init,
+        deps: [SettingsHttpService],
+        multi: true,
+      },
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: AuthInterceptor,
+        multi: true,
+      },
+      {
+        provide: ErrorHandler,
+        useClass: GlobalErrorsHandler,
+      },
+    ],
+  bootstrap:
+    [AppComponent],
+  entryComponents:
+    [ModalComponent],
 })
 export class AppModule {
 }

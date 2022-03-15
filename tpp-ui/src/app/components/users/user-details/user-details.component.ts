@@ -16,16 +16,18 @@
  * contact us at psd2@adorsys.com.
  */
 
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../services/user.service';
-import { User } from '../../../models/user.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AccountService } from '../../../services/account.service';
-import { EmailVerificationService } from '../../../services/email-verification.service';
-import { InfoService } from '../../../commons/info/info.service';
-import { PageNavigationService } from '../../../services/page-navigation.service';
-import { TppUserService } from '../../../services/tpp.user.service';
-import { ScaUserData } from '../../../models/sca-user-data.model';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../../../services/user.service';
+import {ConsentStatus, PiisConsent, User} from '../../../models/user.model';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AccountService} from '../../../services/account.service';
+import {EmailVerificationService} from '../../../services/email-verification.service';
+import {InfoService} from '../../../commons/info/info.service';
+import {PageNavigationService} from '../../../services/page-navigation.service';
+import {TppUserService} from '../../../services/tpp.user.service';
+import {ScaUserData} from '../../../models/sca-user-data.model';
+import {PaginationResponse} from '../../../models/pagination-reponse';
+import {PiisConsentService} from 'src/app/services/piis-consent.service';
 
 @Component({
   selector: 'app-user-details',
@@ -38,6 +40,7 @@ export class UserDetailsComponent implements OnInit {
   userId: string;
   private currentPage = '/users/';
   lastVisitedPage: string;
+  piisConsents: PiisConsent[];
 
   constructor(
     public pageNavigationService: PageNavigationService,
@@ -47,7 +50,8 @@ export class UserDetailsComponent implements OnInit {
     private tppUserService: TppUserService,
     private accService: AccountService,
     private emailVerificationService: EmailVerificationService,
-    private infoService: InfoService
+    private infoService: InfoService,
+    private piisConsentService: PiisConsentService
   ) {
     this.user = new User();
     this.lastVisitedPage = pageNavigationService.getLastVisitedPage();
@@ -66,7 +70,22 @@ export class UserDetailsComponent implements OnInit {
   getUserById() {
     this.userService
       .getUser(this.userId)
-      .subscribe((user: User) => (this.user = user));
+      .subscribe((user: User) => {
+        this.user = user;
+        this.piisConsentService.getPiisConsents(this.user.login).subscribe((paginationResponse: PaginationResponse<PiisConsent[]>) => {
+          this.piisConsents = paginationResponse.content;
+          this.piisConsents = this.piisConsents.filter(consent => consent.consentStatus != ConsentStatus.TERMINATED_BY_ASPSP || consent.validUntil >= new Date() );
+          this.piisConsents.sort((p1, p2) => {
+            if (p1.validUntil > p2.validUntil) {
+              return 1;
+            }
+            if (p1.validUntil < p2.validUntil) {
+              return -1;
+            }
+            return 0;
+          });
+        });
+      });
   }
 
   handleClickOnIBAN(data: string) {
@@ -74,6 +93,13 @@ export class UserDetailsComponent implements OnInit {
       `${this.currentPage}${this.userId}`
     );
     this.router.navigate(['/accounts/', data]);
+  }
+
+  handleClickOnPiisConsent(consentId: string) {
+    this.pageNavigationService.setLastVisitedPage(
+      `${this.currentPage}${this.userId}`
+    );
+    this.router.navigate(['confirmation-consent/' + this.user.login+ '/'+ consentId + '/details']);
   }
 
   handleClickOnBackButton() {
@@ -104,4 +130,5 @@ export class UserDetailsComponent implements OnInit {
     this.pageNavigationService.setLastVisitedPage(`/users/${userId}`);
     return `/profile/${tppId}`;
   }
+
 }

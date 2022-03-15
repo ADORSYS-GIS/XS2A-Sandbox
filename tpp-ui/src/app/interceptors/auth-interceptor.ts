@@ -33,7 +33,7 @@ import { AuthService } from '../services/auth.service';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {}
-
+  private errorText = "Invalid password for user"
   private authTokenStorageKey = 'access_token';
 
   intercept(
@@ -51,7 +51,7 @@ export class AuthInterceptor implements HttpInterceptor {
       }),
       catchError((errors) => {
         if (errors instanceof HttpErrorResponse) {
-          if (errors.status === 401 && this.authService.isLoggedIn()) {
+          if (errors.status === 401 && this.authService.isLoggedIn() && errors.message != this.errorText) {
             this.authService.logout();
           }
         }
