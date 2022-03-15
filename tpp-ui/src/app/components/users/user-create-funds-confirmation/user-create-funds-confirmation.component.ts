@@ -25,12 +25,12 @@ export class UserCreateFundsConfirmationComponent implements OnInit {
   userId: string;
   iban: any;
   createFundsFormGroup: FormGroup;
-  currencyList: any;
-
+  currencyList?: any;
+  ibanList?: String[];
   private unsubscribe$ = new Subject<void>();
   todayString: string;
-  errorDate: string;
   errorMessage: string;
+  private errorText = "Invalid password for user"
 
   constructor(
     public pageNavigationService: PageNavigationService,
@@ -46,7 +46,6 @@ export class UserCreateFundsConfirmationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.errorDate = 'hidden';
     this.createFundsFormGroup = this.formBuilder.group({
       password: ['', Validators.required],
       iban: ['', Validators.required],
@@ -73,7 +72,8 @@ export class UserCreateFundsConfirmationComponent implements OnInit {
       this.user = item;
       console.log(this.user);
       if (this.user.accountAccesses.length >= 1) {
-        this.createFundsFormGroup.get('iban').setValue(this.user.accountAccesses[0].iban);
+        this.ibanList = this.user.accountAccesses.map(access => access.iban);
+        this.createFundsFormGroup.get('iban').setValue(this.ibanList[0]);
       }
     });
   }
@@ -112,25 +112,21 @@ export class UserCreateFundsConfirmationComponent implements OnInit {
     piisConsent.access = new AccountAccess();
     piisConsent.access.iban = this.createFundsFormGroup.get('iban').value;
     piisConsent.access.currency = this.createFundsFormGroup.get('currency').value;
-    console.log(piisConsent);
-    console.log(piisConsent.validUntil)
-    console.log( this.todayString)
 
-    if (new Date(piisConsent.validUntil) >= new Date()){
-      this.errorDate ='hidden'
+    if (new Date(piisConsent.validUntil) >= new Date()) {
       this.piisService.createPiisConsent(piisConsent, this.user.login, password).subscribe(res => {
         this.handleClickOnBackButton();
-        console.log(res);
       }, (error: HttpErrorResponse) => {
-          if (error.status === 401) {
-            this.errorMessage = error.error
-              ? error.error.message
-              : error.message;
-          }
-        });
+        if (error.status === 401 && error.error.message.match(this.errorText)) {
+          this.errorMessage = error.error
+            ? error.error.message
+            : error.message;
+        }
+      });
     } else {
-      this.errorDate ='visible'
+      this.errorMessage = " Please choose a valid date in the future!"
     }
-
   }
+
+
 }

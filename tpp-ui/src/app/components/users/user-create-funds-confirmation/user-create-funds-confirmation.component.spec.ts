@@ -4,20 +4,17 @@ import {UserCreateFundsConfirmationComponent} from './user-create-funds-confirma
 import {ReactiveFormsModule} from '@angular/forms';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientModule} from '@angular/common/http';
-import {AuthService} from '../../../services/auth.service';
 import {Router} from '@angular/router';
 import {PiisConsentService} from '../../../services/piis-consent.service';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
-import {Account, AccountStatus, AccountType, UsageType} from '../../../models/account.model';
 import {EMPTY, Observable, of} from 'rxjs';
 import {PiisConsent, User} from "../../../models/user.model";
 import {UserService} from "../../../services/user.service";
-import {AccountService} from '../../../services/account.service';
 import {CurrencyService} from 'src/app/services/currency.service';
 import {SpinnerVisibilityService} from 'ng-http-loader';
-import { InfoService } from 'src/app/commons/info/info.service';
-import { InfoOptions } from 'src/app/commons/info/info-options';
+import {InfoService} from 'src/app/commons/info/info.service';
+import {InfoOptions} from 'src/app/commons/info/info-options';
 
 describe('UserCreateFundsConfirmationConsentComponent', () => {
   let component: UserCreateFundsConfirmationComponent;
@@ -32,7 +29,8 @@ describe('UserCreateFundsConfirmationConsentComponent', () => {
   let el: HTMLElement;
 
   let mockInfoService = {
-    openFeedback(message: string, options?: Partial<InfoOptions>) {},
+    openFeedback(message: string, options?: Partial<InfoOptions>) {
+    },
   };
 
   let mockPiisConsentService = {
@@ -47,11 +45,11 @@ describe('UserCreateFundsConfirmationConsentComponent', () => {
         ReactiveFormsModule,
         RouterTestingModule,
         HttpClientModule],
-      providers: [ UserService, CurrencyService, SpinnerVisibilityService,
+      providers: [UserService, CurrencyService, SpinnerVisibilityService,
         {provide: InfoService, useValue: mockInfoService},
         {provide: PiisConsentService, useValue: mockPiisConsentService}],
       declarations: [UserCreateFundsConfirmationComponent]
-    }) .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(UserCreateFundsConfirmationComponent);
     component = fixture.componentInstance;

@@ -14,8 +14,7 @@
         <div class="row">
           <div class="col-12 col-md-4">
             <label class="mb-2 mt-4" for="password"
-              >Password for {{ this.user.login }}</label
-            >
+              >Password for {{ this.user.login }}</label>
             <input
               autocomplete="new-password"
               class="form-control"
@@ -29,13 +28,17 @@
         <div class="row">
           <div class="col-12 col-md-4">
             <label class="mb-2 mt-4" for="iban">IBAN</label>
-            <input
+            <select
+              name="iban"
               class="form-control"
               formControlName="iban"
-              id="iban"
-              placeholder="Enter IBAN"
-              type="text"
-            />
+              id="iban">
+              <option
+                *ngFor="let iban of ibanList"
+                [ngValue]="iban">
+                {{ iban }}
+              </option>
+            </select>
           </div>
         </div>
         <div class="row">
@@ -59,8 +62,7 @@
         <div class="row">
           <div class="col-12 col-md-4">
             <label class="mb-2 mt-4" for="tppAuthorisationNumber"
-              >TPP Authorisation Number</label
-            >
+              >TPP Authorisation Number</label>
             <input
               class="form-control"
               formControlName="tppAuthorisationNumber"
@@ -82,13 +84,10 @@
           </div>
         </div>
 
-        <div *ngIf="errorMessage" class="alert alert-danger">
+        <div *ngIf="errorMessage" class="alert alert-danger mt-2">
           {{ errorMessage }}
         </div>
-        <div [style.visibility]="errorDate" class="alert">
-          Please choose a date in the future!
-        </div>
-        <div class="form-group d-flex flex-row pt-2 mt-5">
+        <div class="form-group d-flex flex-row pt-2 mt-3">
           <button
             class="btn btn-primary"
             [disabled]="createFundsFormGroup.invalid"

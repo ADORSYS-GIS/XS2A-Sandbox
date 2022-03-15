@@ -51,7 +51,7 @@ export class AuthInterceptor implements HttpInterceptor {
       }),
       catchError((errors) => {
         if (errors instanceof HttpErrorResponse) {
-          if (errors.status === 401 && this.authService.isLoggedIn() && errors.message != this.errorText) {
+          if (errors.status === 401 && this.authService.isLoggedIn() && !errors.error.message.match(this.errorText)) {
             this.authService.logout();
           }
         }
