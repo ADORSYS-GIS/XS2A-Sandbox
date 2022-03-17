@@ -16,40 +16,34 @@
  * contact us at psd2@adorsys.com.
  */
 
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import {
-  AccountAccessManagementComponent
-} from './components/account-access-management/account-access-management.component';
-import {AccountDetailComponent} from './components/account-detail/account-detail.component';
-import {AccountListComponent} from './components/account-list/account-list.component';
-import {AccountComponent} from './components/account/account.component';
-import {ConfirmNewPasswordComponent} from './components/auth/confirm-new-password/confirm-new-password.component';
-import {LoginComponent} from './components/auth/login/login.component';
-import {RegisterComponent} from './components/auth/register/register.component';
-import {ResetPasswordComponent} from './components/auth/reset-password/reset-password.component';
-import {CashDepositComponent} from './components/cash-deposit/cash-deposit.component';
-import {DashboardComponent} from './components/dashboard/dashboard.component';
-import {NotFoundComponent} from './components/not-found/not-found.component';
-import {TestDataGenerationComponent} from './components/testDataGeneration/test-data-generation.component';
-import {UserProfileUpdateComponent} from './components/user-profile-update/user-profile-update.component';
-import {UserProfileComponent} from './components/user-profile/user-profile.component';
-import {UserCreateComponent} from './components/users/user-create/user-create.component';
-import {UserDetailsComponent} from './components/users/user-details/user-details.component';
-import {UserUpdateComponent} from './components/users/user-update/user-update.component';
-import {UsersComponent} from './components/users/users.component';
-import {AdminsComponent} from './components/admin/admins.component';
-import {AuthGuard} from './guards/auth.guard';
-import {UploadFileComponent} from './uploadFile/uploadFile.component';
-import {TppsComponent} from './components/tpps/tpps.component';
-import {AdminCreateComponent} from './components/admin/admin-create/admin-create.component';
-import {
-  UserCreateFundsConfirmationComponent
-} from './components/users/user-create-funds-confirmation/user-create-funds-confirmation.component';
-import {
-  UserFundsConfirmationDetailsComponent
-} from "./components/users/user-funds-confirmation-details/user-funds-confirmation-details.component";
+import { AccountAccessManagementComponent } from './components/account-access-management/account-access-management.component';
+import { AccountDetailComponent } from './components/account-detail/account-detail.component';
+import { AccountListComponent } from './components/account-list/account-list.component';
+import { AccountComponent } from './components/account/account.component';
+import { ConfirmNewPasswordComponent } from './components/auth/confirm-new-password/confirm-new-password.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { RegisterComponent } from './components/auth/register/register.component';
+import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
+import { CashDepositComponent } from './components/cash-deposit/cash-deposit.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { TestDataGenerationComponent } from './components/testDataGeneration/test-data-generation.component';
+import { UserProfileUpdateComponent } from './components/user-profile-update/user-profile-update.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { UserCreateComponent } from './components/users/user-create/user-create.component';
+import { UserDetailsComponent } from './components/users/user-details/user-details.component';
+import { UserUpdateComponent } from './components/users/user-update/user-update.component';
+import { UsersComponent } from './components/users/users.component';
+import { AdminsComponent } from './components/admin/admins.component';
+import { AuthGuard } from './guards/auth.guard';
+import { UploadFileComponent } from './uploadFile/uploadFile.component';
+import { TppsComponent } from './components/tpps/tpps.component';
+import { AdminCreateComponent } from './components/admin/admin-create/admin-create.component';
+import { UserCreateFundsConfirmationComponent } from './components/users/user-create-funds-confirmation/user-create-funds-confirmation.component';
+import { UserFundsConfirmationDetailsComponent } from './components/users/user-funds-confirmation-details/user-funds-confirmation-details.component';
 const routes: Routes = [
   {
     path: '',
@@ -107,11 +101,11 @@ const routes: Routes = [
       },
       {
         path: 'users/:id/update-create-funds',
-        component: UserCreateFundsConfirmationComponent
+        component: UserCreateFundsConfirmationComponent,
       },
       {
         path: 'confirmation-consent/:userLogin/:id/details',
-        component: UserFundsConfirmationDetailsComponent
+        component: UserFundsConfirmationDetailsComponent,
       },
       {
         path: 'users/:id/create-deposit-account',
@@ -185,5 +179,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

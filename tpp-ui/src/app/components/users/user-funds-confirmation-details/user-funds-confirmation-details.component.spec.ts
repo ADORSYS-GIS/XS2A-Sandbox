@@ -8,9 +8,8 @@ describe('UserFundsConfirmationDetailsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserFundsConfirmationDetailsComponent ]
-    })
-    .compileComponents();
+      declarations: [UserFundsConfirmationDetailsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

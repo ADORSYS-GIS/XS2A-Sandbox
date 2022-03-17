@@ -16,8 +16,8 @@
  * contact us at psd2@adorsys.com.
  */
 
-import {AccountAccess} from './account-access.model';
-import {ScaUserData} from './sca-user-data.model';
+import { AccountAccess } from './account-access.model';
+import { ScaUserData } from './sca-user-data.model';
 
 export class User {
   id: string;
@@ -38,7 +38,7 @@ export class PiisConsent {
   access: AccountAccess;
   tppAuthorisationNumber: string;
   validUntil: Date;
-  consentStatus: ConsentStatus
+  consentStatus: ConsentStatus;
 }
 
 export enum ConsentStatus {
@@ -46,10 +46,10 @@ export enum ConsentStatus {
   REJECTED = 'REJECTED',
   VALID = 'VALID',
   REVOKED_BY_PSU = 'REVOKED_BY_PSU',
-  EXPIRED = "EXPIRED",
+  EXPIRED = 'EXPIRED',
   TERMINATED_BY_TPP = 'TERMINATED_BY_TPP',
   TERMINATED_BY_ASPSP = 'TERMINATED_BY_ASPSP',
-  PARTIALLY_AUTHORISED = 'PARTIALLY_AUTHORISED'
+  PARTIALLY_AUTHORISED = 'PARTIALLY_AUTHORISED',
 }
 
 export interface UserResponse {

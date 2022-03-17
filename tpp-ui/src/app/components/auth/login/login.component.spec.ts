@@ -29,9 +29,7 @@ import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { InfoService } from '../../../commons/info/info.service';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
-
-
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -41,22 +39,14 @@ describe('LoginComponent', () => {
   let de: DebugElement;
   let el: HTMLElement;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [
-          ReactiveFormsModule,
-          RouterTestingModule,
-          HttpClientModule,
-          MatSnackBarModule,
-        ],
-        providers: [AuthService, InfoService,
-          { provide: MatDialog, useValue: {}}],
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [ReactiveFormsModule, RouterTestingModule, HttpClientModule, MatSnackBarModule],
+      providers: [AuthService, InfoService, { provide: MatDialog, useValue: {} }],
 
-        declarations: [LoginComponent],
-      }).compileComponents();
-    })
-  );
+      declarations: [LoginComponent],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);
@@ -123,9 +113,7 @@ describe('LoginComponent', () => {
   it('should throw a error message', () => {
     component.loginForm.get('login').setValue('foo');
     component.loginForm.get('pin').setValue('12345');
-    const logSpy = spyOn(authService, 'login').and.returnValue(
-      throwError({ success: false })
-    );
+    const logSpy = spyOn(authService, 'login').and.returnValue(throwError({ success: false }));
     component.onSubmit();
     expect(logSpy).toHaveBeenCalled();
   });

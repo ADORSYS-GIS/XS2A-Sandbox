@@ -1,66 +1,59 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {UserCreateFundsConfirmationComponent} from './user-create-funds-confirmation.component';
-import {ReactiveFormsModule} from '@angular/forms';
-import {RouterTestingModule} from '@angular/router/testing';
-import {HttpClientModule} from '@angular/common/http';
-import {Router} from '@angular/router';
-import {PiisConsentService} from '../../../services/piis-consent.service';
-import {By} from '@angular/platform-browser';
-import {DebugElement} from '@angular/core';
-import {EMPTY, Observable, of} from 'rxjs';
-import {PiisConsent, User} from "../../../models/user.model";
-import {UserService} from "../../../services/user.service";
-import {CurrencyService} from 'src/app/services/currency.service';
-import {SpinnerVisibilityService} from 'ng-http-loader';
-import {InfoService} from 'src/app/commons/info/info.service';
-import {InfoOptions} from 'src/app/commons/info/info-options';
+import { UserCreateFundsConfirmationComponent } from './user-create-funds-confirmation.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { PiisConsentService } from '../../../services/piis-consent.service';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
+import { EMPTY, Observable, of } from 'rxjs';
+import { PiisConsent, User } from '../../../models/user.model';
+import { UserService } from '../../../services/user.service';
+import { CurrencyService } from 'src/app/services/currency.service';
+import { SpinnerVisibilityService } from 'ng-http-loader';
+import { InfoService } from 'src/app/commons/info/info.service';
+import { InfoOptions } from 'src/app/commons/info/info-options';
 
 describe('UserCreateFundsConfirmationConsentComponent', () => {
   let component: UserCreateFundsConfirmationComponent;
   let fixture: ComponentFixture<UserCreateFundsConfirmationComponent>;
   let piisConsentService: PiisConsentService;
   let userService: UserService;
-  let infoService: InfoService;
-  let currencyService: CurrencyService;
-  let spinnerVisibilityService: SpinnerVisibilityService
+  let spinnerVisibilityService: SpinnerVisibilityService;
   let router: Router;
   let de: DebugElement;
-  let el: HTMLElement;
 
   let mockInfoService = {
-    openFeedback(message: string, options?: Partial<InfoOptions>) {
-    },
+    openFeedback(message: string, options?: Partial<InfoOptions>) {},
   };
 
   let mockPiisConsentService = {
     createPiisConsent(piisConsent: PiisConsent, userLogin: string, password: string): Observable<any> {
       return EMPTY;
-    }
+    },
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        ReactiveFormsModule,
-        RouterTestingModule,
-        HttpClientModule],
-      providers: [UserService, CurrencyService, SpinnerVisibilityService,
-        {provide: InfoService, useValue: mockInfoService},
-        {provide: PiisConsentService, useValue: mockPiisConsentService}],
-      declarations: [UserCreateFundsConfirmationComponent]
+      imports: [ReactiveFormsModule, RouterTestingModule, HttpClientModule],
+      providers: [
+        UserService,
+        CurrencyService,
+        SpinnerVisibilityService,
+        { provide: PiisConsentService, useValue: mockPiisConsentService },
+      ],
+      declarations: [UserCreateFundsConfirmationComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UserCreateFundsConfirmationComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
     userService = TestBed.inject(UserService);
-    infoService = TestBed.inject(InfoService);
     spinnerVisibilityService = TestBed.inject(SpinnerVisibilityService);
-    currencyService = TestBed.inject(CurrencyService);
     piisConsentService = TestBed.inject(PiisConsentService);
 
-    let currencyList = ['GBP', 'EUR', 'CHF', 'USD']
     let mockUser: User = {
       id: 'XXXXXX',
       email: 'tes@adorsys.de',
@@ -71,11 +64,8 @@ describe('UserCreateFundsConfirmationConsentComponent', () => {
       accountAccesses: {},
       branchLogin: 'branchLogin',
     } as User;
-    let getUserSpy = spyOn(userService, 'getUser').and.returnValue(
-      of(mockUser)
-    );
+    let getUserSpy = spyOn(userService, 'getUser').and.returnValue(of(mockUser));
 
-    let currencyListSpy = spyOn(currencyService, 'getSupportedCurrencies').and.returnValue(of(currencyList))
     component.getUserDetails();
     expect(getUserSpy).toHaveBeenCalled();
     expect(component.user).toEqual(mockUser);
@@ -94,8 +84,7 @@ describe('UserCreateFundsConfirmationConsentComponent', () => {
       branchLogin: 'branchLogin',
     } as User;
 
-
-    expect(component.user).toEqual(mockUser)
+    expect(component.user).toEqual(mockUser);
   });
 
   it('should create', () => {
@@ -105,7 +94,6 @@ describe('UserCreateFundsConfirmationConsentComponent', () => {
   it('password field validity', () => {
     de = fixture.debugElement.query(By.css('form'));
     fixture.detectChanges();
-
     let errors = {};
     const password = component.createFundsFormGroup.controls['password'];
     expect(password.valid).toBeFalsy();
@@ -138,8 +126,8 @@ describe('UserCreateFundsConfirmationConsentComponent', () => {
   });
 
   it('button should be disabled', () => {
-    let object = fixture.debugElement.nativeElement
-    let button = object.querySelector('button')
+    let object = fixture.debugElement.nativeElement;
+    let button = object.querySelector('button');
     fixture.detectChanges();
     expect(button.disabled).toBeFalse();
   });
@@ -147,18 +135,16 @@ describe('UserCreateFundsConfirmationConsentComponent', () => {
   it('create confirmation consent should be created', () => {
     de = fixture.debugElement.query(By.css('form'));
     fixture.detectChanges();
-    let button = fixture.nativeElement.querySelector('button')
+    let button = fixture.nativeElement.querySelector('button');
     component.createFundsFormGroup.get('password').setValue('foo');
     component.createFundsFormGroup.get('iban').setValue('234234234');
     component.createFundsFormGroup.get('validUntil').setValue('2022-02-25');
     component.createFundsFormGroup.get('tppAuthorisationNumber').setValue('234523453');
-    component.createFundsFormGroup.get('currency').setValue('EUR');
     fixture.detectChanges();
     expect(button.disabled).toBeFalsy();
-    console.log(button)
+    console.log(button);
     /*const logCreatePiisConsentSpy = spyOn(piisConsentService, 'createPiisConsent');
     component.onSubmit();
     expect(logCreatePiisConsentSpy).toHaveBeenCalled();*/
   });
-
 });

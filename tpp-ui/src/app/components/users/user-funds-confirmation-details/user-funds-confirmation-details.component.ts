@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {PiisConsent} from '../../../models/user.model';
-import {PageNavigationService} from '../../../services/page-navigation.service';
-import {AccountAccess} from '../../../models/account-access.model';
-import {ActivatedRoute, Router} from '@angular/router';
-import {map} from 'rxjs/operators';
-import {PiisConsentService} from '../../../services/piis-consent.service';
+import { Component, OnInit } from '@angular/core';
+import { PiisConsent } from '../../../models/user.model';
+import { PageNavigationService } from '../../../services/page-navigation.service';
+import { AccountAccess } from '../../../models/account-access.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { PiisConsentService } from '../../../services/piis-consent.service';
 
 @Component({
   selector: 'app-user-funds-confirmation-details',
   templateUrl: './user-funds-confirmation-details.component.html',
-  styleUrls: ['./user-funds-confirmation-details.component.scss']
+  styleUrls: ['./user-funds-confirmation-details.component.scss'],
 })
 export class UserFundsConfirmationDetailsComponent implements OnInit {
   piisConsent?: PiisConsent;
@@ -19,8 +19,8 @@ export class UserFundsConfirmationDetailsComponent implements OnInit {
     public pageNavigationService: PageNavigationService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private piisConsentService: PiisConsentService) {
-  }
+    private piisConsentService: PiisConsentService
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.params
@@ -42,8 +42,8 @@ export class UserFundsConfirmationDetailsComponent implements OnInit {
   terminate() {
     /* PIIS consent status should be changed to terminatedByAspsp */
     /* Testing purpose */
-    console.log(this.piisConsent)
-    this.piisConsentService.putPiiSConsent(this.piisConsent).subscribe(res => {
+    console.log(this.piisConsent);
+    this.piisConsentService.putPiiSConsent(this.piisConsent).subscribe((res) => {
       console.log(res);
     });
     this.router.navigate([this.pageNavigationService.getLastVisitedPage()]);

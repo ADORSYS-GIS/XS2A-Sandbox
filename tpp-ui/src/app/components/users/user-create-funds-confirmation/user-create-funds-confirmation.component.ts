@@ -1,36 +1,32 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {PageNavigationService} from '../../../services/page-navigation.service';
-import {PiisConsent, User} from '../../../models/user.model';
-import {ActivatedRoute, Router} from '@angular/router';
-import {UserService} from '../../../services/user.service';
-import {map, takeUntil} from 'rxjs/operators';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AccountAccess} from '../../../models/account-access.model';
-import {PiisConsentService} from '../../../services/piis-consent.service';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {CurrencyService} from '../../../services/currency.service';
-import {SpinnerVisibilityService} from 'ng-http-loader';
-import {Subject} from 'rxjs';
-import {InfoService} from '../../../commons/info/info.service';
-import {moment} from "ngx-bootstrap/chronos/test/chain";
+import { Component, Input, OnInit } from '@angular/core';
+import { PageNavigationService } from '../../../services/page-navigation.service';
+import { PiisConsent, User } from '../../../models/user.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../../../services/user.service';
+import { map, takeUntil } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AccountAccess } from '../../../models/account-access.model';
+import { PiisConsentService } from '../../../services/piis-consent.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-user-create-funds-confirmation',
   templateUrl: './user-create-funds-confirmation.component.html',
-  styleUrls: ['./user-create-funds-confirmation.component.scss']
+  styleUrls: ['./user-create-funds-confirmation.component.scss'],
 })
 export class UserCreateFundsConfirmationComponent implements OnInit {
   user: User;
   userId: string;
   iban: any;
   createFundsFormGroup: FormGroup;
-  currencyList?: any;
   ibanList?: String[];
   private unsubscribe$ = new Subject<void>();
   todayString: string;
   errorMessage: string;
-  private errorText = "Invalid password for user"
+  private errorText = 'Invalid password for user';
+  private errorTextNoDepositAccount = 'Please create an Deposit Account. You are only able to create a consent for the existing account.';
+  showCreateDepositAccountButton: boolean = false;
 
   constructor(
     public pageNavigationService: PageNavigationService,
@@ -38,19 +34,14 @@ export class UserCreateFundsConfirmationComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private userService: UserService,
     private piisService: PiisConsentService,
-    private currencyService: CurrencyService,
-    private formBuilder: FormBuilder,
-    private infoService: InfoService,
-    private spinner: SpinnerVisibilityService
-  ) {
-  }
+    private formBuilder: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.createFundsFormGroup = this.formBuilder.group({
       password: ['', Validators.required],
       iban: ['', Validators.required],
       tppAuthorisationNumber: ['', Validators.required],
-      currency: ['EUR', Validators.required],
       validUntil: ['', Validators.required],
     });
 
@@ -63,7 +54,6 @@ export class UserCreateFundsConfirmationComponent implements OnInit {
       .subscribe((id: string) => {
         this.userId = id;
         this.getUserDetails();
-        this.initializeCurrenciesList();
       });
   }
 
@@ -72,34 +62,17 @@ export class UserCreateFundsConfirmationComponent implements OnInit {
       this.user = item;
       console.log(this.user);
       if (this.user.accountAccesses.length >= 1) {
-        this.ibanList = this.user.accountAccesses.map(access => access.iban);
+        this.ibanList = this.user.accountAccesses.map((access) => access.iban + ' ' + access.currency);
         this.createFundsFormGroup.get('iban').setValue(this.ibanList[0]);
+      } else {
+        this.errorMessage = this.errorTextNoDepositAccount;
+        this.showCreateDepositAccountButton = true;
       }
     });
   }
 
-  initializeCurrenciesList() {
-    this.spinner.show();
-
-    return this.currencyService
-      .getSupportedCurrencies()
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(
-        (data) => {
-          this.currencyList = data;
-          this.spinner.hide();
-        },
-        () => this.infoService.openFeedback(
-          'Currencies list cannot be initialized',
-          {severity: 'error'}
-        )
-      );
-  }
-
   handleClickOnBackButton() {
-    this.pageNavigationService.setLastVisitedPage(
-      `user/${this.user.id}/update-user-details/`
-    );
+    this.pageNavigationService.setLastVisitedPage(`user/${this.user.id}/update-user-details/`);
     this.router.navigate([`users/${this.user.id}`]);
   }
 
@@ -110,23 +83,22 @@ export class UserCreateFundsConfirmationComponent implements OnInit {
     piisConsent.validUntil = this.createFundsFormGroup.get('validUntil').value;
     piisConsent.tppAuthorisationNumber = this.createFundsFormGroup.get('tppAuthorisationNumber').value;
     piisConsent.access = new AccountAccess();
-    piisConsent.access.iban = this.createFundsFormGroup.get('iban').value;
-    piisConsent.access.currency = this.createFundsFormGroup.get('currency').value;
+    piisConsent.access.iban = this.createFundsFormGroup.get('iban').value.split(' ')[0];
+    piisConsent.access.currency = this.createFundsFormGroup.get('iban').value.split(' ')[1];
 
     if (new Date(piisConsent.validUntil) >= new Date()) {
-      this.piisService.createPiisConsent(piisConsent, this.user.login, password).subscribe(res => {
-        this.handleClickOnBackButton();
-      }, (error: HttpErrorResponse) => {
-        if (error.status === 401 && error.error.message.match(this.errorText)) {
-          this.errorMessage = error.error
-            ? error.error.message
-            : error.message;
+      this.piisService.createPiisConsent(piisConsent, this.user.login, password).subscribe(
+        (res) => {
+          this.handleClickOnBackButton();
+        },
+        (error: HttpErrorResponse) => {
+          if (error.status === 401 && error.error.message.match(this.errorText)) {
+            this.errorMessage = error.error ? error.error.message : error.message;
+          }
         }
-      });
+      );
     } else {
-      this.errorMessage = " Please choose a valid date in the future!"
+      this.errorMessage = ' Please choose a valid date in the future!';
     }
   }
-
-
 }

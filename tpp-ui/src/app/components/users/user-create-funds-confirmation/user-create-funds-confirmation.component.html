@@ -4,17 +4,11 @@
       <a href="javascript:void(0);" (click)="handleClickOnBackButton()">
         <button class="btn btn-sm btn-outline-secondary mb-5">&lt; Back</button>
       </a>
-      <form
-        (ngSubmit)="onSubmit()"
-        [formGroup]="createFundsFormGroup"
-        *ngIf="user"
-        novalidate
-      >
+      <form (ngSubmit)="onSubmit()" [formGroup]="createFundsFormGroup" *ngIf="user" novalidate>
         <div class="header__title">Create Funds Confirmation Consent</div>
         <div class="row">
           <div class="col-12 col-md-4">
-            <label class="mb-2 mt-4" for="password"
-              >Password for {{ this.user.login }}</label>
+            <label class="mb-2 mt-4" for="password">Password for {{ this.user.login }}</label>
             <input
               autocomplete="new-password"
               class="form-control"
@@ -28,41 +22,16 @@
         <div class="row">
           <div class="col-12 col-md-4">
             <label class="mb-2 mt-4" for="iban">IBAN</label>
-            <select
-              name="iban"
-              class="form-control"
-              formControlName="iban"
-              id="iban">
-              <option
-                *ngFor="let iban of ibanList"
-                [ngValue]="iban">
+            <select name="iban" class="form-control" formControlName="iban" id="iban">
+              <option *ngFor="let iban of ibanList" [ngValue]="iban">
                 {{ iban }}
               </option>
             </select>
           </div>
         </div>
         <div class="row">
-          <div class="col-12 col-md-4 mt-4">
-            <label for="currency">Desired currency*</label>
-            <select
-              name="currency"
-              class="form-control"
-              formControlName="currency"
-              id="currency"
-            >
-              <option
-                *ngFor="let currency of currencyList"
-                [ngValue]="currency"
-              >
-                {{ currency }}
-              </option>
-            </select>
-          </div>
-        </div>
-        <div class="row">
           <div class="col-12 col-md-4">
-            <label class="mb-2 mt-4" for="tppAuthorisationNumber"
-              >TPP Authorisation Number</label>
+            <label class="mb-2 mt-4" for="tppAuthorisationNumber">TPP Authorisation Number</label>
             <input
               class="form-control"
               formControlName="tppAuthorisationNumber"
@@ -75,26 +44,27 @@
         <div class="row">
           <div class="col-12 col-md-4">
             <label class="mb-2 mt-4" for="validUntil">Valid until</label>
-            <input
-              class="form-control"
-              formControlName="validUntil"
-              id="validUntil"
-              type="date"
-            />
+            <input class="form-control" formControlName="validUntil" id="validUntil" type="date" />
           </div>
         </div>
 
-        <div *ngIf="errorMessage" class="alert alert-danger mt-2">
+        <div *ngIf="errorMessage" class="alert alert-danger mt-3">
           {{ errorMessage }}
         </div>
-        <div class="form-group d-flex flex-row pt-2 mt-3">
-          <button
-            class="btn btn-primary"
-            [disabled]="createFundsFormGroup.invalid"
-            type="submit"
+        <div>
+          <a
+            matTooltip="Create Deposit Account"
+            aria-label="Create Deposit Account"
+            class="btn btn-table-btn mr-2 mb-3"
+            routerLink="/users/{{ user.id }}/create-deposit-account"
+            [queryParams]="{ tppId: user.branch, userId: user.id }"
+            *ngIf="!user.blocked && showCreateDepositAccountButton"
+            >Create Deposit Account</a
           >
-            Create
-          </button>
+        </div>
+
+        <div class="form-group d-flex flex-row pt-2 mt-3">
+          <button class="btn btn-primary" [disabled]="createFundsFormGroup.invalid" type="submit">Create</button>
         </div>
       </form>
     </div>
