@@ -106,6 +106,7 @@ En el caso de un enfoque de REDIRECT SCA, un usuario desea dar su consentimiento
 | Ledgers                   |                                   <a href="#" id="ledgers" >Ledgers</a> |
 | ASPSP-Profile Swagger     |         <a href="#" id="ASPSPProfileSwagger" >ASPSP-Profile Swagger</a> |
 | TPP User Interface        |               <a href="#" id="TPPUserInterface" >TPP User Interface</a> |
+| Admin Interface           |                <a href="#" id="AdminUserInterface" >Admin Interface</a> |
 | Online banking UI         |                 <a href="#" id="onlineBankingUI" >Online banking UI</a> |
 | Online banking backend    |       <a href="#" id="onlineBankingBackend" >Online banking backend</a> |
 | Certificate Generator     |        <a href="#" id="certificateGenerator" >Certificate Generator</a> |

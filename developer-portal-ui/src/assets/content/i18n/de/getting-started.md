@@ -3,7 +3,7 @@
 
 # Einleitung
 
-[Die Payment Service Directive 2](<(https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32015L2366&from=EN)>) (PSD2) schreibt Banken (ASPSPs = Account Servicing Payment Service Providers) vor bis März 2020 eine standardisierte und voll leistungsfähige Account-Schnittstelle für Drittanbieter (TPPs = Third Payment Providers) bereitzustellen. Diese wird Access-to-Account oder kurz "XS2A" genannt. XS2A setzt sich aus folgenden Banking-Funktionalitäten zusammen: Zahlungsinitiierung (PIS = Payment Initiation Service), Kontodatenabfrage (AIS = Account Information Service) und Abfrage von verfügbarem Kapital (PIIS = confirmation of the availability of funds). Um die Einhaltung der Frist zu gewährleisten und sowohl Fehlerbehebungen als auch Anpassungen berücksichtigen zu können, verpflichtet PSD2 die Banken eine Testversion der Schnittstelle bereits im Juni 2019 zur Verfügung zu stellen.
+[Die Payment Service Directive 2](https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32015L2366&from=EN) (PSD2) schreibt Banken (ASPSPs = Account Servicing Payment Service Providers) vor bis März 2020 eine standardisierte und voll leistungsfähige Account-Schnittstelle für Drittanbieter (TPPs = Third Payment Providers) bereitzustellen. Diese wird Access-to-Account oder kurz "XS2A" genannt. XS2A setzt sich aus folgenden Banking-Funktionalitäten zusammen: Zahlungsinitiierung (PIS = Payment Initiation Service), Kontodatenabfrage (AIS = Account Information Service) und Abfrage von verfügbarem Kapital (PIIS = confirmation of the availability of funds). Um die Einhaltung der Frist zu gewährleisten und sowohl Fehlerbehebungen als auch Anpassungen berücksichtigen zu können, verpflichtet PSD2 die Banken eine Testversion der Schnittstelle bereits im Juni 2019 zur Verfügung zu stellen.
 
 Unsere **ModelBank** ist eine dynamische Sandboxumgebung, die vollständig die PSD2-Anforderungen bezüglich API-Bereitstellung für Drittanbieter (TPPs = Third Payment Providers) erfüllt. Zusätzlich erfüllt sie auch alle regulatorischen Anforderungen der NextGen PSD2-Spezifikation der Berlin Group bezüglich Account Schnittstellen (XS2A = Access-to-Account) und ist NISP konform.
 
@@ -100,6 +100,7 @@ Im Falle des REDIRECT SCA-Ansatzes möchte ein Nutzer seine Zustimmung zur Verwe
 | Ledgers                   |                                   <a href="#" id="ledgers" >Ledgers</a> |
 | ASPSP-Profile Swagger     |         <a href="#" id="ASPSPProfileSwagger" >ASPSP-Profile Swagger</a> |
 | TPP User Interface        |               <a href="#" id="TPPUserInterface" >TPP User Interface</a> |
+| Admin Interface           |                <a href="#" id="AdminUserInterface" >Admin Interface</a> |
 | Online banking UI         |                 <a href="#" id="onlineBankingUI" >Online banking UI</a> |
 | Online banking backend    |       <a href="#" id="onlineBankingBackend" >Online banking backend</a> |
 | Certificate Generator     |        <a href="#" id="certificateGenerator" >Certificate Generator</a> |

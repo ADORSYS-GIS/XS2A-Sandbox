@@ -105,6 +105,7 @@
 | Ledgers                   |                                   <a href="#" id="ledgers" >Ledgers</a> |
 | ASPSP-профіль Swagger     |         <a href="#" id="ASPSPProfileSwagger" >ASPSP-профіль Swagger</a> |
 | Інтерфейс TPP             |                    <a href="#" id="TPPUserInterface" >Інтерфейс TPP</a> |
+| Інтерфейс адміністратора  |                <a href="#" id="AdminUserInterface" >Admin Interface</a> |
 | Онлайн-банкінг            |                    <a href="#" id="onlineBankingUI" >Онлайн-банкінг</a> |
 | Сервер онлайн-банкінгу    |       <a href="#" id="onlineBankingBackend" >Сервер онлайн-банкінгу</a> |
 | Генератор сертифікатів    |       <a href="#" id="certificateGenerator" >Генератор сертифікатів</a> |
