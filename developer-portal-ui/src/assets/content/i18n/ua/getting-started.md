@@ -99,7 +99,7 @@
 
 | Сервіс                    |                                                         Демо-середовище |
 | ------------------------- | ----------------------------------------------------------------------: |
-| Інтерфейс XS2A Swagger    |        <a href="#" id="XS2AInterfaceSwagger">Інтерфейс XS2A Swagger</a> |
+| Інтерфейс XS2A Swagger    |       <a href="#" id="XS2AInterfaceSwagger2">Інтерфейс XS2A Swagger</a> |
 | Портал розробника         |                  <a href="#" id="developerPortal">Портал розробника</a> |
 | Consent management system | <a href="#" id="consentManagementSystem" >Consent management system</a> |
 | Ledgers                   |                                   <a href="#" id="ledgers" >Ledgers</a> |

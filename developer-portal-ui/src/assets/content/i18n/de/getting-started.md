@@ -94,7 +94,7 @@ Im Falle des REDIRECT SCA-Ansatzes möchte ein Nutzer seine Zustimmung zur Verwe
 
 | Service                   |                                                        Demo environment |
 | ------------------------- | ----------------------------------------------------------------------: |
-| XS2A Interface Swagger    |        <a href="#" id="XS2AInterfaceSwagger">XS2A Interface Swagger</a> |
+| XS2A Interface Swagger    |       <a href="#" id="XS2AInterfaceSwagger2">XS2A Interface Swagger</a> |
 | Developer portal          |                   <a href="#" id="developerPortal">Developer Portal</a> |
 | Consent management system | <a href="#" id="consentManagementSystem" >Consent management system</a> |
 | Ledgers                   |                                   <a href="#" id="ledgers" >Ledgers</a> |
