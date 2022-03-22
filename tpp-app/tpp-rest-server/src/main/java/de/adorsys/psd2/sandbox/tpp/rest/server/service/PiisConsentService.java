@@ -86,8 +86,7 @@ public class PiisConsentService {
         try {
             response = cmsAspspPiisClient.createConsent(request, userLogin, null, null, null, null);
         } catch (FeignException e) {
-            log.error("Error in creating PIIS consent in CMS, login: " + userLogin);
-            e.printStackTrace();
+            log.error(String.format("Error in creating PIIS consent in CMS, login: %s", userLogin), e);
             throw new TppException("Error while creating ASPSP PIIS consent in CMS", 400);
         }
 
@@ -108,9 +107,7 @@ public class PiisConsentService {
             try {
                 piisConsentCreationResponse = consentRestClient.initiatePiisConsent(ledgersPiisConsent);
             } catch (FeignException e) {
-                log.error("Error in creating PIIS consent in Ledgers, login: " + userLogin);
-                e.printStackTrace();
-
+                log.error(String.format("Error in creating PIIS consent in Ledgers, login: %s", userLogin), e);
                 throw new TppException("Error while creating ASPSP PIIS consent in ledgers", 400);
             } finally {
                 authInterceptor.setAccessToken(null);
@@ -135,8 +132,7 @@ public class PiisConsentService {
             ResponseData<List<CmsPiisConsent>> responseData = cmsAspspPiisClient.getConsentsForPsu(userLogin, null, null, null, DEFAULT_SERVICE_INSTANCE_ID, page, size);
             return toCustomPage(responseData, this::toPiisConsent);
         } catch (FeignException e) {
-            log.error("Error in getting list of PIIS consents from CMS, login: {}, page: {}, size: {}" + userLogin, page, size);
-            e.printStackTrace();
+            log.error(String.format("Error in getting list of PIIS consents from CMS, login: %s, page: %s, size: %s", userLogin, page, size), e);
             throw new TppException("Error while getting list of ASPSP PIIS consents in CMS", 400);
         }
     }
@@ -154,9 +150,7 @@ public class PiisConsentService {
                                                          .map(tppPiisConsentMapper::toPiisConsent);
             return responseOptional.orElse(null);
         } catch (FeignException e) {
-            log.error("Error in getting PIIS consent from CMS, login: " + userLogin);
-            e.printStackTrace();
-
+            log.error(String.format("Error in getting PIIS consent from CMS, login: %s", userLogin), e);
             throw new TppException(String.format("Error while getting ASPSP PIIS consent with ID: %s from CMS", consentId), 400);
         }
     }
