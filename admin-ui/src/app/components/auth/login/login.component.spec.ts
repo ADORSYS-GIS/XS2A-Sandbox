@@ -28,8 +28,9 @@ import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ADMIN_KEY } from '@commons/constant/constant';
 
-fdescribe('LoginComponent', () => {
+describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let authService: AuthService;
@@ -107,11 +108,12 @@ fdescribe('LoginComponent', () => {
   it('should login and go to the next page', () => {
     component.loginForm.get('login').setValue('foo');
     component.loginForm.get('pin').setValue('12345');
+
     const logSpy = spyOn(authService, 'login').and.returnValue(of(true));
     const navigateSpy = spyOn(router, 'navigate');
     component.onSubmit();
     expect(logSpy).toHaveBeenCalled();
-    expect(navigateSpy).toHaveBeenCalledWith(['/']);
+    expect(navigateSpy).toHaveBeenCalledWith(['/management']);
   });
 
   it('should throw a error message', () => {
