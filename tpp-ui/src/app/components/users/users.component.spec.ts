@@ -59,7 +59,7 @@ describe('UsersComponent', () => {
     fixture = TestBed.createComponent(UsersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    usersService = TestBed.get(UserService);
+    usersService = TestBed.inject(UserService);
   });
 
   it('should create', () => {

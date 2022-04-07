@@ -74,7 +74,7 @@ describe('AccountListComponent', () => {
   });
 
   it('should load accounts on NgOnInit', () => {
-    let mockAccounts: Account[] = [
+    const mockAccounts: Account[] = [
       {
         id: 'XXXXXX',
         iban: 'DE35653635635663',
@@ -96,7 +96,7 @@ describe('AccountListComponent', () => {
     ];
 
     sessionStorage.setItem(ADMIN_KEY, 'false');
-    let getAccountsSpy = spyOn(accountService, 'getAccounts').and.returnValue(
+    const getAccountsSpy = spyOn(accountService, 'getAccounts').and.returnValue(
       of({
         accounts: mockAccounts,
         totalElements: mockAccounts.length,
@@ -134,7 +134,7 @@ describe('AccountListComponent', () => {
   });
 
   it('should load accounts', () => {
-    let mockAccounts: Account[] = [
+    const mockAccounts: Account[] = [
       {
         id: 'XXXXXX',
         iban: 'DE35653635635663',
@@ -175,7 +175,7 @@ describe('AccountListComponent', () => {
   });
 
   it('should return false if account is not set', () => {
-    let mockAccount: Account = {
+    const mockAccount: Account = {
       id: '123456',
       iban: 'DE35653635635663',
       bban: 'BBBAN',

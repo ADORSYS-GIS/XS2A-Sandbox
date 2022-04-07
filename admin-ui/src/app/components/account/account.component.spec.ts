@@ -84,7 +84,7 @@ describe('AccountComponent', () => {
   });
 
   it('should call getUserInfo on ngOnInit', () => {
-    let getTppUserServiceSpy = spyOn(
+    const getTppUserServiceSpy = spyOn(
       tppUserService,
       'getUserInfo'
     ).and.callThrough();

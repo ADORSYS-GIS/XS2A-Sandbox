@@ -52,11 +52,11 @@ describe('AccountComponent', () => {
     fixture = TestBed.createComponent(AccountComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    infoService = TestBed.get(InfoService);
-    accountService = TestBed.get(AccountService);
-    router = TestBed.get(Router);
-    tppService = TestBed.get(TppManagementService);
-    modalService = TestBed.get(NgbModal);
+    infoService = TestBed.inject(InfoService);
+    accountService = TestBed.inject(AccountService);
+    router = TestBed.inject(Router);
+    tppService = TestBed.inject(TppManagementService);
+    modalService = TestBed.inject(NgbModal);
   });
 
   it('should create', () => {
@@ -64,7 +64,7 @@ describe('AccountComponent', () => {
   });
 
   it('should call getAccountReport on ngOnInit', () => {
-    let getAccountSpy = spyOn(accountService, 'getAccountReport').and.callThrough();
+    const getAccountSpy = spyOn(accountService, 'getAccountReport').and.callThrough();
 
     component.ngOnInit();
 
@@ -185,7 +185,7 @@ describe('AccountComponent', () => {
   });
 
   it('should assign account-report after server call', () => {
-    let accountReport = {
+    const accountReport = {
       details: {
         branch: 'asdas',
         id: 'XXXXXX',

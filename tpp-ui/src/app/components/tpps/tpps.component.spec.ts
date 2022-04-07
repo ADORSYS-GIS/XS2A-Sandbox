@@ -37,7 +37,7 @@ describe('TppsComponent', () => {
   let fixture: ComponentFixture<TppsComponent>;
   let route: ActivatedRoute;
 
-  let mockRoute = {
+  const mockRoute = {
     params: of({ id: '12345' }),
     queryParams: of({}),
   };

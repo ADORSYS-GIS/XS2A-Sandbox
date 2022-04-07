@@ -31,7 +31,6 @@ import { of, throwError } from 'rxjs';
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
-  let tppUserService: TppUserService;
   let router: Router;
   let authService: AuthService;
   const authServiceSpy = jasmine.createSpyObj('AuthService', ['isLoggedIn', 'logout']);
@@ -49,8 +48,8 @@ describe('NavbarComponent', () => {
     component = fixture.componentInstance;
     authServiceSpy.isLoggedIn.and.returnValue(true);
     fixture.detectChanges();
-    router = TestBed.get(Router);
-    authService = TestBed.get(AuthService);
+    router = TestBed.inject(Router);
+    authService = TestBed.inject(AuthService);
   });
 
   it('should call loggedIn', () => {

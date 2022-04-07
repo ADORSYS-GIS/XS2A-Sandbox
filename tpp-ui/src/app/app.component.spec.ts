@@ -77,7 +77,7 @@ describe('AppComponent', () => {
     })
       .compileComponents()
       .then(() => {
-        customizeService = TestBed.get(CustomizeService);
+        customizeService = TestBed.inject(CustomizeService);
       });
   }));
 

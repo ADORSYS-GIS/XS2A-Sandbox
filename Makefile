@@ -50,17 +50,17 @@ lint-tpp-ui:
 	find tpp-ui -type f -name "*.json" -not -path "tpp-ui/node_modules/*" -exec jsonlint -q {} \; # lint all json
 	find tpp-ui -type f \( -name "*.yml" -o -name "*.yaml" \) -exec yamllint -d "{extends: relaxed, rules: {line-length: {max: 160}}}" {} \;
 	find tpp-ui -type f \( -iname "*.xml" ! -iname pom.xml \) -exec xmllint --noout {} \;
-	#cd tpp-ui && npm ci && npm install
-	#cd tpp-ui && npm run lint
-	#cd tpp-ui && npm run prettier-check
+	cd tpp-ui && npm ci && npm install
+	cd tpp-ui && npm run lint
+	cd tpp-ui && npm run prettier-check
 
 lint-admin-ui:
 	find admin-ui -type f -name "*.json" -not -path "admin-ui/node_modules/*" -exec jsonlint -q {} \; # lint all json
 	find admin-ui -type f \( -name "*.yml" -o -name "*.yaml" \) -exec yamllint -d "{extends: relaxed, rules: {line-length: {max: 160}}}" {} \;
 	find admin-ui -type f \( -iname "*.xml" ! -iname pom.xml \) -exec xmllint --noout {} \;
-	#cd admin-ui && npm ci && npm install
-	#cd admin-ui && npm run lint
-	#cd admin-ui && npm run prettier-check
+	cd admin-ui && npm ci && npm install
+	cd admin-ui && npm run lint
+	cd admin-ui && npm run prettier-check
 
 lint-oba-ui:
 	cd oba-ui
