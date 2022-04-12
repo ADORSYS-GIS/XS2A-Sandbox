@@ -25,7 +25,6 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { IconModule } from '../icon/icon.module';
 
 describe('DocumentUploadComponent', () => {
-  let component: DocumentUploadComponent;
   let fixture: ComponentFixture<DocumentUploadComponent>;
 
   beforeEach(waitForAsync(() => {
@@ -37,7 +36,6 @@ describe('DocumentUploadComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DocumentUploadComponent);
-    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 });

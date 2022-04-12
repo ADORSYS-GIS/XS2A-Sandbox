@@ -36,7 +36,6 @@ describe('UploadFileComponent', () => {
   let fixture: ComponentFixture<UploadFileComponent>;
   let infoService: InfoService;
   let testDataGenerationService: TestDataGenerationService;
-  let spinnerService: SpinnerVisibilityService;
 
   const url = `${environment.tppBackend}`;
   beforeEach(waitForAsync(() => {
@@ -53,7 +52,6 @@ describe('UploadFileComponent', () => {
     fixture.detectChanges();
     infoService = TestBed.inject(InfoService);
     testDataGenerationService = TestBed.inject(TestDataGenerationService);
-    spinnerService = TestBed.inject(SpinnerVisibilityService);
   });
 
   it('should create', () => {
@@ -96,7 +94,7 @@ describe('UploadFileComponent', () => {
       url: url + '/data/upload',
       exampleFileUrl: '/accounts/example',
     };
-    const generateSpy = spyOn(testDataGenerationService, 'generateExampleTestData').and.returnValue(of(mockUploadConfig.exampleFileUrl));
+    spyOn(testDataGenerationService, 'generateExampleTestData').and.returnValue(of(mockUploadConfig.exampleFileUrl));
     const infoSpy = spyOn(infoService, 'openFeedback');
     component.generateFileExample(mockUploadConfig);
     expect(infoSpy).toHaveBeenCalledWith('Test data has been successfully generated.');
