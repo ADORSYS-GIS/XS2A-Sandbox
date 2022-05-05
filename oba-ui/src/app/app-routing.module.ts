@@ -40,7 +40,7 @@ const externalUrlProvider = new InjectionToken('externalUrlRedirectResolver');
 export const routes: Routes = [
   {
     path: 'login',
-    component: TanConfirmationComponent,
+    component: LoginComponent,
   },
   {
     path: 'reset-password',

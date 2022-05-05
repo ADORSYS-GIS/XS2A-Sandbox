@@ -30,6 +30,7 @@ import { PsupisprovidesGetPsuAccsService } from '../../api/services/psupisprovid
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ConsentAuthorizeResponse } from '../../api/models/consent-authorize-response';
 import { PaymentAuthorizeResponse } from '../../api/models/payment-authorize-response';
+import { MatDialog } from '@angular/material/dialog';
 
 const mockRouter = {
   navigate: (url: string) => {},
@@ -84,6 +85,7 @@ describe('TanConfirmationComponent', () => {
         { provide: PisService, useValue: pisServiceSpy },
         { provide: Router, useValue: mockRouter },
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        { provide: MatDialog, useValue: {} },
         {
           provide: PsupisprovidesGetPsuAccsService,
           useValue: pisAccServicesSpy,

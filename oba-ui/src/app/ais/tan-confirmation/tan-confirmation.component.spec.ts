@@ -33,6 +33,7 @@ import { AccountsComponent } from 'src/app/oba/accounts/accounts.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ConsentAuthorizeResponse } from '../../api/models/consent-authorize-response';
 import { PaymentAuthorizeResponse } from '../../api/models/payment-authorize-response';
+import { MatDialog } from '@angular/material/dialog';
 
 const mockRouter = {
   navigate: (url: string) => {},
@@ -84,6 +85,7 @@ describe('TanConfirmationComponent', () => {
         { provide: ShareDataService, useValue: ShareDataServiceStub },
         { provide: AisService, useValue: aisServiceSpy },
         { provide: Router, useValue: mockRouter },
+        { provide: MatDialog, useValue: {} },
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
