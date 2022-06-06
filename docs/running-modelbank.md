@@ -164,7 +164,7 @@ http://localhost:8088/swagger-ui.html
 Identity provider used to handle ModelBank users (admins, TPPs and customers). Ledgers is using Keycloak under the hood, so there is no need to configure the IDP manually, thus its web UI is available at:
 
 ```
-http://localhost:8080/auth
+http://localhost:8080
 ```
 
 ## Links to local User Interfaces

@@ -93,7 +93,6 @@ class AISControllerTest {
     private static final String ENCRYPTED_ID = "ENC_123";
     private static final String AUTH_ID = "AUTH_1";
     private static final String METHOD_ID = "SCA_1";
-    private static final String COOKIE = "COOKIE";
     private static final String TOKEN = "TOKEN";
     private static final String OK_URI = "OK_URI";
     private static final String NOK_URI = "NOK_URI";
@@ -104,6 +103,7 @@ class AISControllerTest {
     private static final Currency EUR = Currency.getInstance("EUR");
     private static final LocalDate DATE = LocalDate.of(2020, 1, 24);
     private static final LocalDate EXPIRE_DATE = LocalDate.of(2050, 1, 1);
+    private static final String DISPLAY_NAME = "display name";
 
     @InjectMocks
     private AISController controller;
@@ -315,7 +315,7 @@ class AISControllerTest {
     }
 
     private List<AccountDetailsTO> getAccounts() {
-        return Collections.singletonList(new AccountDetailsTO(ASPSP_ACC_ID, IBAN, null, null, null, null, EUR, LOGIN, null, AccountTypeTO.CASH, AccountStatusTO.ENABLED, null, null, UsageTypeTO.PRIV, null, Collections.emptyList(), false, false, BigDecimal.ZERO, null));
+        return Collections.singletonList(new AccountDetailsTO(ASPSP_ACC_ID, IBAN, null, null, null, null, EUR, LOGIN, DISPLAY_NAME, null, AccountTypeTO.CASH, AccountStatusTO.ENABLED, null, null, UsageTypeTO.PRIV, null, Collections.emptyList(), false, false, BigDecimal.ZERO, null));
     }
 
     private GlobalScaResponseTO getScaConsentResponse(ScaStatusTO status) {

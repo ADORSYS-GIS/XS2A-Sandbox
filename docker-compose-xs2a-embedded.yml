@@ -21,7 +21,7 @@ services:
       - "8189:8000"
     environment:
       - SPRING_PROFILES_ACTIVE=mock-qwac,debug_mode
-      - KEYCLOAK_AUTH_SERVER_URL=http://ledgers-keycloak:8080/auth
+      - KEYCLOAK_AUTH_SERVER_URL=http://ledgers-keycloak:8080
       - XS2A_CMS_ASPSP-PROFILE_BASEURL=http://xs2a-aspsp-profile:8080/api/v1
       - XS2A_CMS_CONSENT-SERVICE_BASEURL=http://xs2a-consent-management:8080/api/v1
       - XS2A_CMS_URL=http://xs2a-consent-management:8080
@@ -83,7 +83,7 @@ services:
     networks:
       - xs2a-net
     environment:
-      KEYCLOAK_AUTH_SERVER_URL: "http://ledgers-keycloak:8080/auth"
+      KEYCLOAK_AUTH_SERVER_URL: "http://ledgers-keycloak:8080"
       XS2A_URL: "http://xs2a-connector-embedded:8089"
       LEDGERS_URL: "http://ledgers:8088"
       CMS_URL: "http://xs2a-connector-embedded:8089"
@@ -110,7 +110,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=postgres,develop
       - SPRING_JPA_SHOW_SQL=false
-      - KEYCLOAK_AUTH_SERVER_URL=http://ledgers-keycloak:8080/auth
+      - KEYCLOAK_AUTH_SERVER_URL=http://ledgers-keycloak:8080
       - DB_HOST=xs2a-consent-management-db
       - DB_URL=jdbc:postgresql://xs2a-consent-management-db/consent?currentSchema=ledgers
       - DB_DATABASE=consent
@@ -183,7 +183,7 @@ services:
     image: adorsys/xs2a-tpp-rest-server
     restart: on-failure
     environment:
-      KEYCLOAK_AUTH_SERVER_URL: "http://ledgers-keycloak:8080/auth"
+      KEYCLOAK_AUTH_SERVER_URL: "http://ledgers-keycloak:8080"
       LEDGERS_URL: "http://ledgers:8088"
       SPRING_DATASOURCE_HIKARI_JDBCURL: "jdbc:postgresql://xs2a-consent-management-db/consent?currentSchema=consent"
       SPRING_DATASOURCE_HIKARI_USERNAME: "cms"
@@ -229,7 +229,7 @@ services:
     image: adorsys/xs2a-admin-rest-server:${SANDBOX_VERSION}
     restart: on-failure
     environment:
-      KEYCLOAK_AUTH_SERVER_URL: "http://ledgers-keycloak:8080/auth"
+      KEYCLOAK_AUTH_SERVER_URL: "http://ledgers-keycloak:8080"
       LEDGERS_URL: "http://ledgers:8088"
       SPRING_DATASOURCE_HIKARI_JDBCURL: "jdbc:postgresql://xs2a-consent-management-db/consent?currentSchema=consent"
       SPRING_DATASOURCE_HIKARI_USERNAME: "cms"

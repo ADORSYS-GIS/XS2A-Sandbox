@@ -62,8 +62,6 @@ class RestExecutionServiceTest {
     private static final String TPP_ID = "DE_12345678";
     private static final String ACCOUNT_ID = "ACCOUNT_ID";
     private static final String USER_IBAN = "DE89000000115555555555";
-    private static final String USER_ID = "USER_ID";
-    private static final String EMAIL = "EMAIL";
     private static final String LOGIN = "LOGIN";
 
     @InjectMocks
@@ -155,15 +153,10 @@ class RestExecutionServiceTest {
         target.setCreditorAgent("AAAADEBBXXX");
         target.setCreditorAddress(new AddressTO("WBG Straße", "56", "Nürnberg", "90543", "DE", null, null));
         target.setCreditorName("WBG");
-        target.setRemittanceInformationUnstructured("Ref. Number WBG-1222");
+        target.setRemittanceInformationUnstructuredArray(Collections.singletonList("Ref. Number WBG-1222"));
         ArrayList<PaymentTargetTO> targets = new ArrayList<>();
         targets.add(target);
         return targets;
-    }
-
-    private UserTO getUserTO() {
-        return new UserTO(USER_ID, LOGIN, EMAIL, "pin", Collections.singletonList(new ScaUserDataTO()), Collections.singletonList(new AccountAccessTO()),
-                          Collections.singletonList(UserRoleTO.CUSTOMER), "branch", false, false);
     }
 
     private RevertRequestTO getRevertRequest() {
