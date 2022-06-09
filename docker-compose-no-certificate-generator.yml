@@ -168,6 +168,8 @@ services:
     environment:
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=admin
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
 
   # Xs2a online banking frontend
   xs2a-online-banking-ui:
@@ -212,6 +214,7 @@ services:
     environment:
       KEYCLOAK_AUTH_SERVER_URL: "http://ledgers-keycloak:8080"
       LEDGERS_URL: "http://ledgers:8088"
+      CMS_URL: "http://xs2a-consent-management:8080"
       SPRING_DATASOURCE_HIKARI_JDBCURL: "jdbc:postgresql://xs2a-consent-management-db/consent?currentSchema=consent"
       SPRING_DATASOURCE_HIKARI_USERNAME: "cms"
       SPRING_DATASOURCE_HIKARI_PASSWORD: "cms"
