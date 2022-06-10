@@ -639,16 +639,16 @@ change_dependepcies_versions_develop:
    - CONNECTOR_VERSION=$(cat $CI_PROJECT_DIR/pom.xml | grep "<connector.version>" | awk -F"[<>]" '//{print $3}')
    - LEDGERS_VERSION=$(cat $CI_PROJECT_DIR/pom.xml | grep "<ledgers.version>" | awk -F"[<>]" '//{print $3}')
    - >
-     if [ "$XS2A_VERSION" =~ "\d{1,2}\.\d{1,2}-SNAPSHOT" ];
-      then $XS2A_VERSION=develop;
+     if [[ "$XS2A_VERSION" =~ "\d{1,2}\.\d{1,2}-SNAPSHOT" ]]; then 
+     XS2A_VERSION=develop;
      fi
    - >
-     if [ "$CONNECTOR_VERSION" =~ "\d{1,2}\.\d{1,2}-SNAPSHOT" ];
-      then $CONNECTOR_VERSION=develop;
+     if [[ "$CONNECTOR_VERSION" =~ "\d{1,2}\.\d{1,2}-SNAPSHOT" ]]; then 
+     CONNECTOR_VERSION=develop;
      fi
    - >
-     if [ "$LEDGERS_VERSION" =~ "\d{1,2}\.\d{1,2}-SNAPSHOT" ];
-      then $LEDGERS_VERSION=develop;
+     if [[ "$LEDGERS_VERSION" =~ "\d{1,2}\.\d{1,2}-SNAPSHOT" ]]; then 
+     LEDGERS_VERSION=develop;
      fi
    - |
      sed -i "s/tag: .*$/tag: \"$XS2A_VERSION\"/" env/adorsys-modelbank-dev/certificate-generator/env.yaml
@@ -689,16 +689,16 @@ change_dependepcies_versions_e2e:
    - CONNECTOR_VERSION=$(cat $CI_PROJECT_DIR/pom.xml | grep "<connector.version>" | awk -F"[<>]" '//{print $3}')
    - LEDGERS_VERSION=$(cat $CI_PROJECT_DIR/pom.xml | grep "<ledgers.version>" | awk -F"[<>]" '//{print $3}')
    - >
-     if [ "$XS2A_VERSION" =~ "\d{1,2}\.\d{1,2}-SNAPSHOT" ];
-      then $XS2A_VERSION=develop;
+     if [[ "$XS2A_VERSION" =~ "\d{1,2}\.\d{1,2}-SNAPSHOT" ]]; then 
+     XS2A_VERSION=develop;
      fi
    - >
-     if [ "$CONNECTOR_VERSION" =~ "\d{1,2}\.\d{1,2}-SNAPSHOT" ];
-      then $CONNECTOR_VERSION=develop;
+     if [[ "$CONNECTOR_VERSION" =~ "\d{1,2}\.\d{1,2}-SNAPSHOT" ]]; then 
+     CONNECTOR_VERSION=develop;
      fi
    - >
-     if [ "$LEDGERS_VERSION" =~ "\d{1,2}\.\d{1,2}-SNAPSHOT" ];
-      then $LEDGERS_VERSION=develop;
+     if [[ "$LEDGERS_VERSION" =~ "\d{1,2}\.\d{1,2}-SNAPSHOT" ]]; then 
+     LEDGERS_VERSION=develop;
      fi
    - |
      sed -i "s/tag: .*$/tag: \"$XS2A_VERSION\"/" env/adorsys-modelbank-e2e/certificate-generator/env.yaml
