@@ -23,7 +23,7 @@
 	<parent>
 		<groupId>de.adorsys.psd2.sandbox</groupId>
 		<artifactId>psd2-dynamic-sandbox</artifactId>
-		<version>7.4-SNAPSHOT</version>
+		<version>7.4</version>
 		<relativePath>..</relativePath>
 	</parent>
 
