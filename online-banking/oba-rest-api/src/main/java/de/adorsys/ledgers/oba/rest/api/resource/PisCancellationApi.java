@@ -19,28 +19,31 @@
 package de.adorsys.ledgers.oba.rest.api.resource;
 
 import de.adorsys.ledgers.oba.service.api.domain.PaymentAuthorizeResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.Authorization;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@Api(value = PisCancellationApi.BASE_PATH, tags = "PSU PIS. Provides access to online banking payment functionality")
+@Tag(name = "PSU PIS cancellation. Provides access to online banking payment cancellation functionality")
 public interface PisCancellationApi {
+
     String BASE_PATH = "/pis-cancellation";
 
-
     /**
-     * Identifies the user by login an pin. Return sca methods information
+     * Identifies the user by login and pin. Return sca methods information
      *
-     * @param encryptedPaymentId  the encryptedPaymentId
-     * @param authorisationId     the auth id
-     * @param login               the login
-     * @param pin                 the password
+     * @param encryptedPaymentId the encryptedPaymentId
+     * @param authorisationId    the auth id
+     * @param login              the login
+     * @param pin                the password
      * @return PaymentAuthorizeResponse
      */
     @PostMapping(path = "/{encryptedPaymentId}/authorisation/{authorisationId}/login")
-    @ApiOperation(value = "Identifies the user by login an pin. Return sca methods information")
+    @Operation(summary = "Identifies the user by login and pin. Return SCA methods information")
     ResponseEntity<PaymentAuthorizeResponse> login(
         @PathVariable("encryptedPaymentId") String encryptedPaymentId,
         @PathVariable("authorisationId") String authorisationId,
@@ -50,13 +53,14 @@ public interface PisCancellationApi {
     /**
      * Selects the SCA Method for use.
      *
-     * @param encryptedPaymentId                the sca id
-     * @param authorisationId                   the auth id
-     * @param scaMethodId                       sca
+     * @param encryptedPaymentId the sca id
+     * @param authorisationId    the auth id
+     * @param scaMethodId        sca
      * @return PaymentAuthorizeResponse
      */
     @PostMapping("/{encryptedPaymentId}/authorisation/{authorisationId}/methods/{scaMethodId}")
-    @ApiOperation(value = "Selects the SCA Method for use.", authorizations = @Authorization(value = "apiKey"))
+    @Operation(summary = "Selects the SCA Method for user.")
+    @SecurityRequirement(name = "apiKey")
     ResponseEntity<PaymentAuthorizeResponse> selectMethod(
         @PathVariable("encryptedPaymentId") String encryptedPaymentId,
         @PathVariable("authorisationId") String authorisationId,
@@ -65,13 +69,14 @@ public interface PisCancellationApi {
     /**
      * Provides a TAN for the validation of an authorization
      *
-     * @param encryptedPaymentId                the sca id
-     * @param authorisationId                   the auth id
-     * @param authCode                          the auth code
+     * @param encryptedPaymentId the sca id
+     * @param authorisationId    the auth id
+     * @param authCode           the auth code
      * @return PaymentAuthorizeResponse
      */
     @PostMapping(path = "/{encryptedPaymentId}/authorisation/{authorisationId}/authCode", params = {"authCode"})
-    @ApiOperation(value = "Provides a TAN for the validation of an authorization", authorizations = @Authorization(value = "apiKey"))
+    @Operation(summary = "Provides a TAN for the validation of an authorization")
+    @SecurityRequirement(name = "apiKey")
     ResponseEntity<PaymentAuthorizeResponse> authorisePayment(
         @PathVariable("encryptedPaymentId") String encryptedPaymentId,
         @PathVariable("authorisationId") String authorisationId,
@@ -88,9 +93,10 @@ public interface PisCancellationApi {
      * @return redirect location header with TPP url
      */
     @GetMapping(path = "/{encryptedPaymentId}/authorisation/{authorisationId}/done")
-    @ApiOperation(value = "Close consent session", authorizations = @Authorization(value = "apiKey"),
-        notes = "This call provides the server with the opportunity to close this session and "
-                    + "redirect the PSU to the TPP or close the application window.")
+    @Operation(summary = "Close consent session",
+        description = "This call provides the server with the opportunity to close this session and "
+                          + "redirect the PSU to the TPP or close the application window.")
+    @SecurityRequirement(name = "apiKey")
     ResponseEntity<PaymentAuthorizeResponse> pisDone(
         @PathVariable("encryptedPaymentId") String encryptedPaymentId,
         @PathVariable("authorisationId") String authorisationId,

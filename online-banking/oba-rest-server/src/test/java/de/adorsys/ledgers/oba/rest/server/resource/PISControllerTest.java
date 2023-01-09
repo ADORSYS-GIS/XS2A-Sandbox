@@ -19,18 +19,12 @@
 package de.adorsys.ledgers.oba.rest.server.resource;
 
 import de.adorsys.ledgers.middleware.api.domain.account.AccountReferenceTO;
-import de.adorsys.ledgers.middleware.api.domain.payment.AmountTO;
-import de.adorsys.ledgers.middleware.api.domain.payment.PaymentTO;
-import de.adorsys.ledgers.middleware.api.domain.payment.PaymentTargetTO;
-import de.adorsys.ledgers.middleware.api.domain.payment.PaymentTypeTO;
-import de.adorsys.ledgers.middleware.api.domain.payment.TransactionStatusTO;
+import de.adorsys.ledgers.middleware.api.domain.payment.*;
 import de.adorsys.ledgers.middleware.api.domain.sca.GlobalScaResponseTO;
 import de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO;
 import de.adorsys.ledgers.middleware.api.domain.um.AccessTokenTO;
 import de.adorsys.ledgers.middleware.api.domain.um.BearerTokenTO;
 import de.adorsys.ledgers.middleware.client.rest.AuthRequestInterceptor;
-import de.adorsys.psd2.sandbox.auth.MiddlewareAuthentication;
-import de.adorsys.ledgers.oba.service.api.domain.AuthorizeResponse;
 import de.adorsys.ledgers.oba.service.api.domain.ConsentReference;
 import de.adorsys.ledgers.oba.service.api.domain.ConsentType;
 import de.adorsys.ledgers.oba.service.api.domain.PaymentAuthorizeResponse;
@@ -39,13 +33,14 @@ import de.adorsys.ledgers.oba.service.api.service.CommonPaymentService;
 import de.adorsys.ledgers.oba.service.api.service.TokenAuthenticationService;
 import de.adorsys.psd2.consent.api.pis.CmsCommonPayment;
 import de.adorsys.psd2.consent.api.pis.CmsPaymentResponse;
+import de.adorsys.psd2.sandbox.auth.MiddlewareAuthentication;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.internal.util.reflection.FieldSetter;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -53,13 +48,9 @@ import java.util.Collections;
 import java.util.Currency;
 import java.util.HashSet;
 
-import static de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO.FAILED;
-import static de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO.FINALISED;
-import static de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO.PSUIDENTIFIED;
+import static de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyBoolean;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -95,7 +86,6 @@ class PISControllerTest {
     @Mock
     private TokenAuthenticationService authenticationService;
 
-
     @Test
     void login() {
         // Given
@@ -110,25 +100,10 @@ class PISControllerTest {
         assertEquals(ResponseEntity.ok(getPaymentAuthorizeResponse(true, true, PSUIDENTIFIED)), result);
     }
 
-    /*@Test
-    void initiatePayment() throws NoSuchFieldException {
-        // Given
-        FieldSetter.setField(controller, controller.getClass().getDeclaredField("middlewareAuth"), new MiddlewareAuthentication(null, new BearerTokenTO(TOKEN, null, 999, null, getAccessTokenTO())));
-        when(responseUtils.consentCookie(any())).thenReturn(COOKIE);
-        when(paymentService.identifyPayment(anyString(), anyString(), anyBoolean(), anyString(), anyString(), any())).thenReturn(getPaymentWorkflow(PSUIDENTIFIED));
-        when(paymentService.initiatePayment(any(), anyString())).thenReturn(getPaymentWorkflow(PSUIDENTIFIED));
-
-        // When
-        ResponseEntity<PaymentAuthorizeResponse> result = controller.initiatePayment(ENCRYPTED_ID, AUTH_ID);
-
-        // Then
-        assertEquals(ResponseEntity.ok(getPaymentAuthorizeResponse(true, true, PSUIDENTIFIED)), result);
-    }*/ //TODO Useless as seems method unused by FE
-
     @Test
-    void authrizedPayment() throws NoSuchFieldException {
+    void authrizedPayment() {
         // Given
-        FieldSetter.setField(controller, controller.getClass().getDeclaredField("middlewareAuth"), new MiddlewareAuthentication(null, getBearerToken()));
+        ReflectionTestUtils.setField(controller, "middlewareAuth", new MiddlewareAuthentication(null, getBearerToken()));
         when(paymentService.identifyPayment(anyString(), anyString(), any())).thenReturn(getPaymentWorkflow(PSUIDENTIFIED));
         when(paymentService.authorizePaymentOpr(any(), anyString(), anyString(), any())).thenReturn(getPaymentWorkflow(FINALISED));
 
@@ -140,9 +115,9 @@ class PISControllerTest {
     }
 
     @Test
-    void failPaymentAuthorisation() throws NoSuchFieldException {
+    void failPaymentAuthorisation() {
         // Given
-        FieldSetter.setField(controller, controller.getClass().getDeclaredField("middlewareAuth"), new MiddlewareAuthentication(null, getBearerToken()));
+        ReflectionTestUtils.setField(controller, "middlewareAuth", new MiddlewareAuthentication(null, getBearerToken()));
         when(paymentService.identifyPayment(anyString(), anyString(), any())).thenReturn(getPaymentWorkflow(FAILED));
 
         // When
@@ -153,10 +128,10 @@ class PISControllerTest {
     }
 
     @Test
-    void pisDone() throws NoSuchFieldException {
+    void pisDone() {
         // Given
         when(paymentService.identifyPayment(anyString(), anyString(), any())).thenReturn(getPaymentWorkflow(ScaStatusTO.FINALISED));
-        FieldSetter.setField(controller, controller.getClass().getDeclaredField("middlewareAuth"), new MiddlewareAuthentication(null, getBearerToken()));
+        ReflectionTestUtils.setField(controller, "middlewareAuth", new MiddlewareAuthentication(null, getBearerToken()));
         when(paymentService.resolveRedirectUrl(anyString(), anyString(), anyBoolean(), anyString(), any(), anyString())).thenReturn(NOK_URI);
 
         // When
@@ -218,15 +193,6 @@ class PISControllerTest {
         target.setEndToEndIdentification("END_TO_END");
         to.setTargets(Collections.singletonList(target));
         return to;
-    }
-
-    private ResponseEntity<AuthorizeResponse> getAuthResponse() {
-        AuthorizeResponse resp = new AuthorizeResponse();
-        resp.setAuthorisationId(AUTH_ID);
-        resp.setEncryptedConsentId(ENCRYPTED_ID);
-        resp.setScaStatus(PSUIDENTIFIED);
-        resp.setScaMethods(Collections.emptyList());
-        return ResponseEntity.ok(resp);
     }
 
     private GlobalScaResponseTO getScaLoginResponse() {

@@ -107,27 +107,25 @@ public class WebSecurityConfig {
             http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
             http.headers().frameOptions().disable();
             http.addFilterBefore(new JWTAuthenticationFilter(tokenAuthenticationService, authInterceptor), BasicAuthenticationFilter.class);
-
-
         }
     }
 
     @Bean
     @RequestScope
     public Principal getPrincipal() {
-        return auth().orElse(null);
+        return authorize().orElse(null);
     }
 
     @Bean
     @RequestScope
     public MiddlewareAuthentication getMiddlewareAuthentication() {
-        return auth().orElse(null);
+        return authorize().orElse(null);
     }
 
     @Bean
     @RequestScope
     public AccessTokenTO getAccessToken() {
-        return auth().map(this::extractToken).orElse(null);
+        return authorize().map(this::extractToken).orElse(null);
     }
 
     /**
@@ -135,7 +133,7 @@ public class WebSecurityConfig {
      *
      * @return
      */
-    private static Optional<MiddlewareAuthentication> auth() {
+    private static Optional<MiddlewareAuthentication> authorize() {
         return SecurityContextHolder.getContext() == null ||
             !(SecurityContextHolder.getContext().getAuthentication() instanceof MiddlewareAuthentication)
             ? Optional.empty()

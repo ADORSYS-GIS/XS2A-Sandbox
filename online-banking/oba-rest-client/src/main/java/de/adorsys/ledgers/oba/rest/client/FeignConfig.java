@@ -33,6 +33,7 @@ import org.springframework.cloud.openfeign.support.SpringDecoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
 import java.io.IOException;
@@ -43,10 +44,10 @@ public class FeignConfig {
 
     @Bean
     public Decoder feignDecoder() {
-        var objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.UNWRAP_ROOT_VALUE, false);
         objectMapper.registerModule(new JavaTimeModule());
-        var jacksonConverter = new MappingJackson2HttpMessageConverter(objectMapper);
+        HttpMessageConverter jacksonConverter = new MappingJackson2HttpMessageConverter(objectMapper);
         ObjectFactory<HttpMessageConverters> objectFactory = () -> new HttpMessageConverters(jacksonConverter);
         return new ResponseEntityDecoder(new SpringDecoder(objectFactory));
     }

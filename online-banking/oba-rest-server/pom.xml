@@ -58,6 +58,7 @@
             <artifactId>auth-commons</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <dependency>
             <groupId>de.adorsys.psd2.sandbox</groupId>
             <artifactId>consent-psu-rest-client</artifactId>
@@ -74,10 +75,22 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.nimbusds</groupId>
             <artifactId>nimbus-jose-jwt</artifactId>
         </dependency>
+
         <!-- test dependencies -->
 
         <dependency>

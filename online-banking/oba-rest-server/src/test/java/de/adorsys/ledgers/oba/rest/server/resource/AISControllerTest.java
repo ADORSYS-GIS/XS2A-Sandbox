@@ -18,10 +18,6 @@
 
 package de.adorsys.ledgers.oba.rest.server.resource;
 
-import de.adorsys.ledgers.middleware.api.domain.account.AccountDetailsTO;
-import de.adorsys.ledgers.middleware.api.domain.account.AccountStatusTO;
-import de.adorsys.ledgers.middleware.api.domain.account.AccountTypeTO;
-import de.adorsys.ledgers.middleware.api.domain.account.UsageTypeTO;
 import de.adorsys.ledgers.middleware.api.domain.oauth.OauthCodeResponseTO;
 import de.adorsys.ledgers.middleware.api.domain.sca.GlobalScaResponseTO;
 import de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO;
@@ -32,8 +28,6 @@ import de.adorsys.ledgers.middleware.api.domain.um.BearerTokenTO;
 import de.adorsys.ledgers.middleware.client.rest.AccountRestClient;
 import de.adorsys.ledgers.middleware.client.rest.AuthRequestInterceptor;
 import de.adorsys.ledgers.middleware.client.rest.OauthRestClient;
-import de.adorsys.psd2.sandbox.auth.MiddlewareAuthentication;
-import de.adorsys.ledgers.oba.service.api.domain.AuthorizeResponse;
 import de.adorsys.ledgers.oba.service.api.domain.ConsentAuthorizeResponse;
 import de.adorsys.ledgers.oba.service.api.domain.ConsentReference;
 import de.adorsys.ledgers.oba.service.api.domain.ConsentType;
@@ -46,6 +40,7 @@ import de.adorsys.psd2.consent.api.ais.AisAccountAccess;
 import de.adorsys.psd2.consent.api.ais.AisAccountConsentAuthorisation;
 import de.adorsys.psd2.consent.api.ais.CmsAisAccountConsent;
 import de.adorsys.psd2.consent.api.ais.CmsAisConsentResponse;
+import de.adorsys.psd2.sandbox.auth.MiddlewareAuthentication;
 import de.adorsys.psd2.xs2a.core.consent.AisConsentRequestType;
 import de.adorsys.psd2.xs2a.core.consent.ConsentStatus;
 import de.adorsys.psd2.xs2a.core.sca.ScaStatus;
@@ -57,34 +52,23 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.internal.util.reflection.FieldSetter;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import javax.servlet.http.HttpServletResponse;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Currency;
 import java.util.HashSet;
-import java.util.List;
 
-import static de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO.EXEMPTED;
-import static de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO.FINALISED;
-import static de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO.PSUIDENTIFIED;
-import static de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO.RECEIVED;
-import static de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO.SCAMETHODSELECTED;
+import static de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class AISControllerTest {
@@ -98,12 +82,8 @@ class AISControllerTest {
     private static final String NOK_URI = "NOK_URI";
     private static final String CONSENT_ID = "12345";
     private static final String CODE = "xyz132";
-    private static final String ASPSP_ACC_ID = "ASPSP_ACC_ID";
-    private static final String IBAN = "DE123456789";
-    private static final Currency EUR = Currency.getInstance("EUR");
     private static final LocalDate DATE = LocalDate.of(2020, 1, 24);
     private static final LocalDate EXPIRE_DATE = LocalDate.of(2050, 1, 1);
-    private static final String DISPLAY_NAME = "display name";
 
     @InjectMocks
     private AISController controller;
@@ -129,7 +109,6 @@ class AISControllerTest {
     private AuthRequestInterceptor authInterceptor;
     @Mock
     private TokenAuthenticationService authenticationService;
-
 
     @Test
     void login() {
@@ -180,7 +159,7 @@ class AISControllerTest {
     @Test
     void startConsentAuth() throws NoSuchFieldException {
         // Given
-        FieldSetter.setField(controller, controller.getClass().getDeclaredField("middlewareAuth"), new MiddlewareAuthentication(null, getBearer(TOKEN)));
+        ReflectionTestUtils.setField(controller, "middlewareAuth", new MiddlewareAuthentication(null, getBearer(TOKEN)));
 
         when(redirectConsentService.identifyConsent(anyString(), anyString(), any())).thenReturn(getConsentWorkflow(PSUIDENTIFIED, ConsentStatus.RECEIVED));
         when(accountRestClient.getListOfAccounts()).thenReturn(ResponseEntity.ok(new ArrayList<>()));
@@ -195,7 +174,7 @@ class AISControllerTest {
     @Test
     void startConsentAuth_exempted() throws NoSuchFieldException {
         // Given
-        FieldSetter.setField(controller, controller.getClass().getDeclaredField("middlewareAuth"), new MiddlewareAuthentication(null, getBearer(TOKEN)));
+        ReflectionTestUtils.setField(controller, "middlewareAuth", new MiddlewareAuthentication(null, getBearer(TOKEN)));
         when(redirectConsentService.identifyConsent(anyString(), anyString(), any())).thenReturn(getConsentWorkflow(EXEMPTED, ConsentStatus.RECEIVED));
         when(accountRestClient.getListOfAccounts()).thenReturn(ResponseEntity.ok(new ArrayList<>()));
 
@@ -207,9 +186,9 @@ class AISControllerTest {
     }
 
     @Test
-    void startConsentAuth_received() throws NoSuchFieldException {
+    void startConsentAuth_received() {
         // Given
-        FieldSetter.setField(controller, controller.getClass().getDeclaredField("middlewareAuth"), new MiddlewareAuthentication(null, getBearer(TOKEN)));
+        ReflectionTestUtils.setField(controller, "middlewareAuth", new MiddlewareAuthentication(null, getBearer(TOKEN)));
         when(redirectConsentService.identifyConsent(anyString(), anyString(), any())).thenReturn(getConsentWorkflow(RECEIVED, ConsentStatus.RECEIVED));
         when(accountRestClient.getListOfAccounts()).thenReturn(ResponseEntity.ok(new ArrayList<>()));
 
@@ -226,9 +205,9 @@ class AISControllerTest {
     }
 
     @Test
-    void authrizedConsent() throws NoSuchFieldException {
+    void authorizedConsent() {
         // Given
-        FieldSetter.setField(controller, controller.getClass().getDeclaredField("middlewareAuth"), new MiddlewareAuthentication(null, getBearerToken()));
+        ReflectionTestUtils.setField(controller, "middlewareAuth", new MiddlewareAuthentication(null, getBearerToken()));
         when(redirectConsentService.identifyConsent(anyString(), anyString(), any())).thenReturn(getConsentWorkflow(FINALISED, ConsentStatus.RECEIVED));
         when(redirectConsentService.authorizeConsent(any(), any())).thenReturn(getConsentWorkflow(FINALISED, ConsentStatus.VALID));
         when(cmsPsuAisClient.confirmConsent(any(), any())).thenReturn(ResponseEntity.ok(true));
@@ -240,9 +219,9 @@ class AISControllerTest {
     }
 
     @Test
-    void selectMethod() throws NoSuchFieldException {
+    void selectMethod() {
         // Given
-        FieldSetter.setField(controller, controller.getClass().getDeclaredField("middlewareAuth"), new MiddlewareAuthentication(null, getBearerToken()));
+        ReflectionTestUtils.setField(controller, "middlewareAuth", new MiddlewareAuthentication(null, getBearerToken()));
         when(redirectConsentService.identifyConsent(anyString(), anyString(), any())).thenReturn(getConsentWorkflow(SCAMETHODSELECTED, ConsentStatus.RECEIVED));
 
         // When
@@ -299,11 +278,11 @@ class AISControllerTest {
     }
 
     @Test
-    void revokeConsent() throws NoSuchFieldException {
+    void revokeConsent() {
         // Given
         when(redirectConsentService.identifyConsent(anyString(), anyString(), any())).thenReturn(getConsentWorkflow(FINALISED, ConsentStatus.RECEIVED));
 
-        FieldSetter.setField(controller, controller.getClass().getDeclaredField("middlewareAuth"), new MiddlewareAuthentication(null, getBearerToken()));
+        ReflectionTestUtils.setField(controller, "middlewareAuth", new MiddlewareAuthentication(null, getBearerToken()));
 
         when(cmsPsuAisClient.updateAuthorisationStatus(anyString(), anyString(), anyString(), anyString(), ArgumentMatchers.nullable(String.class), ArgumentMatchers.nullable(String.class), ArgumentMatchers.nullable(String.class), anyString(), any())).thenReturn(ResponseEntity.ok(null));
 
@@ -312,10 +291,6 @@ class AISControllerTest {
 
         // Then
         assertEquals(ResponseEntity.ok(getConsentAuthorizeResponse(false, false, true, ScaStatusTO.EXEMPTED)), result);
-    }
-
-    private List<AccountDetailsTO> getAccounts() {
-        return Collections.singletonList(new AccountDetailsTO(ASPSP_ACC_ID, IBAN, null, null, null, null, EUR, LOGIN, DISPLAY_NAME, null, AccountTypeTO.CASH, AccountStatusTO.ENABLED, null, null, UsageTypeTO.PRIV, null, Collections.emptyList(), false, false, BigDecimal.ZERO, null));
     }
 
     private GlobalScaResponseTO getScaConsentResponse(ScaStatusTO status) {
@@ -345,15 +320,6 @@ class AISControllerTest {
         cons.setConsent(getAisConsentTO(isEmptyConsent));
         cons.setEncryptedConsentId(hasEncrConsId ? ENCRYPTED_ID : null);
         return cons;
-    }
-
-    private ResponseEntity<AuthorizeResponse> getAuthResponse() {
-        AuthorizeResponse resp = new AuthorizeResponse();
-        resp.setAuthorisationId(AUTH_ID);
-        resp.setEncryptedConsentId(ENCRYPTED_ID);
-        resp.setScaStatus(PSUIDENTIFIED);
-        resp.setScaMethods(Collections.emptyList());
-        return ResponseEntity.ok(resp);
     }
 
     private ConsentWorkflow getConsentWorkflow(ScaStatusTO status, ConsentStatus consentStatus) {

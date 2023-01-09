@@ -28,7 +28,6 @@ import de.adorsys.ledgers.middleware.client.rest.AccountRestClient;
 import de.adorsys.ledgers.middleware.client.rest.AuthRequestInterceptor;
 import de.adorsys.ledgers.middleware.client.rest.OauthRestClient;
 import de.adorsys.ledgers.oba.rest.api.resource.AISApi;
-import de.adorsys.psd2.sandbox.auth.MiddlewareAuthentication;
 import de.adorsys.ledgers.oba.service.api.domain.ConsentAuthorizeResponse;
 import de.adorsys.ledgers.oba.service.api.domain.ConsentWorkflow;
 import de.adorsys.ledgers.oba.service.api.domain.exception.ObaErrorCode;
@@ -38,12 +37,12 @@ import de.adorsys.ledgers.oba.service.api.service.RedirectConsentService;
 import de.adorsys.ledgers.oba.service.api.service.TokenAuthenticationService;
 import de.adorsys.psd2.consent.api.ais.AisAccountConsentAuthorisation;
 import de.adorsys.psd2.consent.api.ais.CmsAisConsentResponse;
+import de.adorsys.psd2.sandbox.auth.MiddlewareAuthentication;
 import de.adorsys.psd2.xs2a.core.consent.ConsentStatus;
 import de.adorsys.psd2.xs2a.core.psu.PsuIdData;
 import de.adorsys.psd2.xs2a.core.sca.AuthenticationDataHolder;
 import de.adorsys.psd2.xs2a.core.sca.ScaStatus;
 import feign.FeignException;
-import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.adorsys.ledgers.consent.psu.rest.client.CmsPsuAisClient;
@@ -61,11 +60,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 
-import static de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO.EXEMPTED;
-import static de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO.FINALISED;
-import static de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO.PSUAUTHENTICATED;
-import static de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO.PSUIDENTIFIED;
-import static de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO.SCAMETHODSELECTED;
+import static de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO.*;
 import static de.adorsys.psd2.consent.aspsp.api.config.CmsPsuApiDefaultValue.DEFAULT_SERVICE_INSTANCE_ID;
 import static de.adorsys.psd2.xs2a.core.consent.ConsentStatus.PARTIALLY_AUTHORISED;
 import static de.adorsys.psd2.xs2a.core.consent.ConsentStatus.VALID;
@@ -74,7 +69,6 @@ import static java.util.Objects.requireNonNull;
 @Slf4j
 @RestController
 @RequestMapping(AISApi.BASE_PATH)
-@Api(value = AISApi.BASE_PATH, tags = "PSU AIS. Provides access to online banking account functionality")
 @SuppressWarnings({"PMD.TooManyMethods", "PMD.TooManyStaticImports"})
 @RequiredArgsConstructor
 public class AISController implements AISApi {
@@ -162,15 +156,15 @@ public class AISController implements AISApi {
         CmsAisConsentResponse consentResponse = workflow.getConsentResponse();
         authInterceptor.setAccessToken(workflow.getScaResponse().getBearerToken().getAccess_token());
         String tppOkRedirectUri = isOauth2Integrated
-            ? requireNonNull(oauthRestClient.oauthCode(consentResponse.getTppOkRedirectUri()).getBody()).getRedirectUri()
-            : authService.resolveAuthConfirmationCodeRedirectUri(consentResponse.getTppOkRedirectUri(), authConfirmationCode);
+                                      ? requireNonNull(oauthRestClient.oauthCode(consentResponse.getTppOkRedirectUri()).getBody()).getRedirectUri()
+                                      : authService.resolveAuthConfirmationCodeRedirectUri(consentResponse.getTppOkRedirectUri(), authConfirmationCode);
         String tppNokRedirectUri = Optional.ofNullable(consentResponse.getTppNokRedirectUri())
-            .filter(StringUtils::isNotBlank)
-            .orElse(consentResponse.getTppOkRedirectUri());
+                                       .filter(StringUtils::isNotBlank)
+                                       .orElse(consentResponse.getTppOkRedirectUri());
 
         String redirectURL = EnumSet.of(VALID, ConsentStatus.RECEIVED, PARTIALLY_AUTHORISED).contains(consentStatus) && isNotFailedAuthorizationList(consentResponse)
-            ? tppOkRedirectUri
-            : tppNokRedirectUri;
+                                 ? tppOkRedirectUri
+                                 : tppNokRedirectUri;
         ConsentAuthorizeResponse consentAuthorizeResponse = workflow.getAuthResponse();
         consentAuthorizeResponse.setRedirectUrl(redirectURL);
         return ResponseEntity.ok(consentAuthorizeResponse);
@@ -240,22 +234,20 @@ public class AISController implements AISApi {
         return consentAuthorisationResponse;
     }
 
-
     private void updatePSUIdentification(ConsentWorkflow workflow, String psuId) {
         PsuIdData psuIdData = new PsuIdData(psuId, null, null, null, null);
-      try {
-        cmsPsuAisClient.updatePsuDataInConsent(workflow.consentId(), workflow.authId(), DEFAULT_SERVICE_INSTANCE_ID, psuIdData);
-      }catch (FeignException e){
-          if (e.status() == HttpStatus.REQUEST_TIMEOUT.value()) {
-              throw ObaException.builder()
-                  .obaErrorCode(ObaErrorCode.RESOURCE_EXPIRED)
-                  .devMessage("Authorisation is expired")
-                  .build();
-
-          } else {
-              throw e;
-          }
-      }
+        try {
+            cmsPsuAisClient.updatePsuDataInConsent(workflow.consentId(), workflow.authId(), DEFAULT_SERVICE_INSTANCE_ID, psuIdData);
+        } catch (FeignException e) {
+            if (e.status() == HttpStatus.REQUEST_TIMEOUT.value()) {
+                throw ObaException.builder()
+                          .obaErrorCode(ObaErrorCode.RESOURCE_EXPIRED)
+                          .devMessage("Authorisation is expired")
+                          .build();
+            } else {
+                throw e;
+            }
+        }
     }
 
     /*
@@ -272,6 +264,4 @@ public class AISController implements AISApi {
             authInterceptor.setAccessToken(null);
         }
     }
-
-
 }

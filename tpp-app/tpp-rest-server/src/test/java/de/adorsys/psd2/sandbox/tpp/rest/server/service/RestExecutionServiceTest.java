@@ -29,9 +29,6 @@ import de.adorsys.ledgers.middleware.api.domain.general.RevertRequestTO;
 import de.adorsys.ledgers.middleware.api.domain.payment.AmountTO;
 import de.adorsys.ledgers.middleware.api.domain.payment.PaymentTO;
 import de.adorsys.ledgers.middleware.api.domain.payment.PaymentTargetTO;
-import de.adorsys.ledgers.middleware.api.domain.um.AccountAccessTO;
-import de.adorsys.ledgers.middleware.api.domain.um.ScaUserDataTO;
-import de.adorsys.ledgers.middleware.api.domain.um.UserRoleTO;
 import de.adorsys.ledgers.middleware.api.domain.um.UserTO;
 import de.adorsys.ledgers.middleware.client.mappers.PaymentMapperTO;
 import de.adorsys.ledgers.middleware.client.rest.DataRestClient;
@@ -54,7 +51,6 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 import static de.adorsys.ledgers.middleware.api.domain.payment.PaymentTypeTO.SINGLE;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
