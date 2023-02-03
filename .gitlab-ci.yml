@@ -41,13 +41,6 @@ variables:
 
   DOCKERHUB_NAMESPACE: "adorsys/xs2a/psd2-dynamic-sandbox"
 
-  ############################
-  # Private Openshift Images #
-  ############################
-
-  OPENSHIFT_NAMESPACE_ADORSYS_MODELBANK_DEV: "adorsys-modelbank-dev"
-  OPENSHIFT_NAMESPACE_ADORSYS_MODELBANK_E2E: "adorsys-modelbank-e2e"
-
   ###########################
   # Build variables         #
   ###########################
@@ -115,7 +108,7 @@ Lint (Dockerfiles):
   image: docker
   stage: "Lint"
   services:
-    - name: docker:dind
+    - docker:dind
   except:
     - schedules
     - develop
@@ -465,7 +458,7 @@ Build and push to private repo (develop):
   only:
     - develop
   services:
-    - name: docker:dind
+    - docker:dind
   variables:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
@@ -480,7 +473,7 @@ Build and push to private repo (master):
   only:
     - master
   services:
-    - name: docker:dind
+    - docker:dind
   variables:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
@@ -495,7 +488,7 @@ Build and push to private repo (tags):
   only:
     - tags
   services:
-    - name: docker:dind
+    - docker:dind
   variables:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
