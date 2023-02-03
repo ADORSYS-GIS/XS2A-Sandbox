@@ -63,7 +63,6 @@ variables:
 .build_java: &build_java
   script:
     - jabba use $BUILD_JAVA_VERSION
-    - cat /sys/fs/cgroup/memory/memory.limit_in_bytes
     - java -XX:+PrintFlagsFinal -version | grep -Ei "maxheapsize|maxram"
     - make build-java-services
   cache:
@@ -74,7 +73,6 @@ variables:
 .release_java_private: &release_java_private
   script:
     - jabba use $BUILD_JAVA_VERSION
-    - cat /sys/fs/cgroup/memory/memory.limit_in_bytes
     - java -XX:+PrintFlagsFinal -version | grep -Ei "maxheapsize|maxram"
     - mvn -ntp --settings scripts/mvn-release-settings.xml -Pgitlab-maven -DskipTests -U deploy
   cache:
@@ -370,7 +368,6 @@ Test (Javadoc):
     JAVA_VERSION: "system@1.11"
   script:
     - jabba use ${JAVA_VERSION}
-    - cat /sys/fs/cgroup/memory/memory.limit_in_bytes
     - java -XX:+PrintFlagsFinal -version | grep -Ei "maxheapsize|maxram"
     - mvn -ntp --settings scripts/mvn-release-settings.xml -Dmaven.test.skip=true -Pjavadoc verify javadoc:javadoc
 
