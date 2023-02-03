@@ -114,14 +114,18 @@ variables:
 #-------------------------------------------------------------------
 
 Lint (Dockerfiles):
-  image: docker:20.10
+  image: docker
   stage: "Lint"
   services:
-    - docker:20.10-dind
+    - name: docker:dind
   except:
     - schedules
     - develop
     - master
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+    DOCKER_DRIVER: overlay2
   script:
     - apk add make
     - echo "Run Dockerfiles lint"
@@ -465,7 +469,12 @@ Build and push to private repo (develop):
     - schedules
   only:
     - develop
+  services:
+    - name: docker:dind
   variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+    DOCKER_DRIVER: overlay2
     DOCKER_TAG: develop
     DOCKERHUB_REGISTRY: gitlab-registry.adorsys.de
     DOCKERHUB_NAMESPACE: "adorsys/xs2a/psd2-dynamic-sandbox"
@@ -475,7 +484,12 @@ Build and push to private repo (master):
   stage: "Package"
   only:
     - master
+  services:
+    - name: docker:dind
   variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+    DOCKER_DRIVER: overlay2
     DOCKER_TAG: latest
     DOCKERHUB_REGISTRY: gitlab-registry.adorsys.de
     DOCKERHUB_NAMESPACE: "adorsys/xs2a/psd2-dynamic-sandbox"
@@ -485,7 +499,12 @@ Build and push to private repo (tags):
   stage: "Package"
   only:
     - tags
+  services:
+    - name: docker:dind
   variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+    DOCKER_DRIVER: overlay2
     DOCKER_TAG: ${CI_COMMIT_TAG}
     DOCKERHUB_REGISTRY: gitlab-registry.adorsys.de
     DOCKERHUB_NAMESPACE: "adorsys/xs2a/psd2-dynamic-sandbox"
