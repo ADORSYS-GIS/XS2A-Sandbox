@@ -361,7 +361,6 @@ Test (Javadoc):
   stage: "Test"
   except:
     - schedules
-    - develop
   needs: ["Build (Modelbank)"]
   variables:
     JAVA_TOOL_OPTIONS: "-Djavax.net.ssl.trustStorePassword=changeit -XX:MaxRAM=3G"
@@ -376,7 +375,6 @@ Test (Unit Tests):
   stage: "Test"
   except:
     - schedules
-    - develop
   needs: ["Build (Modelbank)"]
   variables:
     JAVA_VERSION: "system@1.11"
