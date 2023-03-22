@@ -126,6 +126,7 @@
         <xs2a.version>15.5</xs2a.version>
         <connector.version>15.5</connector.version>
 
+        <!-- Ledgers version -->
         <ledgers.version>4.20</ledgers.version>
 
         <!-- Spring-related versions -->
