@@ -94,15 +94,6 @@ feign:
       default:
         loggerLevel: full
 
-logging.level.de.adorsys.ledgers.middleware: DEBUG
-logging.level.org.adorsys.ledgers.consent: DEBUG
-logging.level.de.adorsys.ledgers.xs2a.api: DEBUG
-logging.level.de.adorsys.ledgers.rest: DEBUG
-logging.level.de.adorsys.psd2.consent: DEBUG
-logging.level.org.hibernate: INFO
-logging.level.com.netflix.config: INFO
-logging.level.com.zaxxer.hikari: INFO
-
 # Cors configuration
 management:
   endpoints:

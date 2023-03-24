@@ -48,14 +48,6 @@ spring:
   devtools:
     remote:
       secret: fractal
-      #DBs Properties
-spring.datasource.hikari.jdbc-url: jdbc:postgresql://localhost:5432/consent?currentSchema=consent
-spring.datasource.hikari.username: cms
-spring.datasource.hikari.password: cms
-
-spring.tpp.datasource.hikari.jdbc-url: jdbc:postgresql://localhost:5432/consent?currentSchema=tpp
-spring.tpp.datasource.hikari.username: cms
-spring.tpp.datasource.hikari.password: cms
 
 ledgers.url: http://localhost:8088
 cms.url: http://localhost:38080
@@ -69,10 +61,6 @@ feign:
     config:
       default:
         loggerLevel: full
-
-logging.level.de.adorsys.psd2.sandbox.tpp: INFO
-
-logging.level.de.adorsys.ledgers.middleware.client.rest.AdminRestClient: DEBUG
 
 # Cors configuration
 management:
