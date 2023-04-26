@@ -127,7 +127,7 @@
         <connector.version>15.5</connector.version>
 
         <!-- Ledgers version -->
-        <ledgers.version>4.21</ledgers.version>
+        <ledgers.version>4.22-SNAPSHOT</ledgers.version>
 
         <!-- Spring-related versions -->
         <spring-boot-dependencies.version>2.7.10</spring-boot-dependencies.version>
