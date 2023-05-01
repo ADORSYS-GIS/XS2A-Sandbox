@@ -125,7 +125,7 @@ Lint (Dockerfiles):
     - make lint-dockerfiles
 
 Lint (OBA UI):
-  image: node:12.22.12-buster-slim
+  image: node:16.13.2-buster-slim
   stage: "Lint"
   except:
     - schedules
@@ -245,7 +245,7 @@ Lint (PMD CPD):
 #-------------------------------------------------------------------
 
 Build (OBA UI):
-  image: node:12.22.12-buster-slim
+  image: node:16.13.2-buster-slim
   stage: "Compile"
   except:
     - schedules
@@ -419,7 +419,7 @@ Test (Admin UI Tests):
     - make unit-tests-admin-ui
 
 Test (OBA UI Tests):
-  image: node:12.22.12-buster-slim
+  image: node:16.13.2-buster-slim
   stage: "Test"
   except:
     - schedules
