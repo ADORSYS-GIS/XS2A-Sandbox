@@ -161,7 +161,7 @@ describe('CustomizeService', () => {
     expect(typeof service.getLogo()).toBe('string');
   });
 
-  it('should change font', async (done) => {
+  it('should change font', (done) => {
     service.setUserTheme({
       ...defTheme,
       globalSettings: {
@@ -180,7 +180,7 @@ describe('CustomizeService', () => {
     }, 100);
   });
 
-  it('should left default', async (done) => {
+  it('should left default', (done) => {
     document.documentElement.removeAttribute('style');
     service.setUserTheme(defTheme);
     setTimeout(() => {

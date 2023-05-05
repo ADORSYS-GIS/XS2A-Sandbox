@@ -16,10 +16,10 @@
  * contact us at psd2@adorsys.com.
  */
 
-@import "src/assets/themes/variables";
-@import "~bootstrap/scss/bootstrap";
-@import "~font-awesome/css/font-awesome.css";
-@import "~material-icons/iconfont/material-icons.css";
+@import "variables";
+@import "bootstrap/scss/bootstrap";
+@import "font-awesome/css/font-awesome.css";
+@import "material-icons/iconfont/material-icons.css";
 
 * {
   margin: 0;
@@ -400,8 +400,8 @@ a {
 
   &__close-icon {
     position: absolute;
-    top: $grid-gutter-width / 2;
-    right: $grid-gutter-width / 2;
+    top: calc($grid-gutter-width / 2);
+    right: calc($grid-gutter-width / 2);
   }
 }
 
@@ -508,11 +508,11 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.mat-fab.mat-accent:hover {
+.mat-mdc-fab.mat-accent:hover {
   background-color: red;
 }
 
-.mat-fab.mat-accent {
+.mat-mdc-fab.mat-accent {
   background-color: #ff4081;
   color: white;
 }

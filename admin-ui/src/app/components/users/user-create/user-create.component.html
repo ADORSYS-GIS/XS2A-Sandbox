@@ -214,7 +214,7 @@
                     >
                       <option
                         *ngFor="let httpMethod of httpMethods"
-                        [selected]="httpMethod == 'POST'"
+                        [selected]="httpMethod === 'POST'"
                       >
                         {{ httpMethod }}
                       </option>

@@ -16,7 +16,7 @@ Ziel des Developer-Portals ist es TPP-Entwicklern bei der Arbeit mit unserer Mod
 
 Die ModelBank setzt sich aus ihren Komponenten wie in Abbildung 1.1 zusammen.
 
-![Abbildung 1.1](../../../../assets/images/Graphic_XS2A_Sandbox.png)
+![Abbildung 1.1](src/assets/images/Graphic_XS2A_Sandbox.png)
 
 Abbildung 1.1: Komponenten der ModelBank
 
@@ -253,7 +253,7 @@ Sollte Ihre NodeJs Version höher als 11.x sein, ändern Sie diese zu einer frü
 4. Laden Sie Ihre Testdaten hoch und starten Sie Ihren Testlauf.
    In Abbildung 1.2 ist der vollständige Ablauf wie man als TPP die Arbeit mit der ModelBank beginnt veranschaulicht:
 
-![Abbildung 1.2](../../../../assets/images/Flow.png)
+![Abbildung 1.2](src/assets/images/Flow.png)
 
 Abbildung 1.2: TPP Ablauf Schritt für Schritt
 

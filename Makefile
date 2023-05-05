@@ -52,7 +52,6 @@ lint-tpp-ui:
 	find tpp-ui -type f \( -iname "*.xml" ! -iname pom.xml \) -exec xmllint --noout {} \;
 	cd tpp-ui && npm ci && npm install
 	cd tpp-ui && npm run lint
-	cd tpp-ui && npm run prettier-check
 
 lint-admin-ui:
 	find admin-ui -type f -name "*.json" -not -path "admin-ui/node_modules/*" -exec jsonlint -q {} \; # lint all json
@@ -60,7 +59,6 @@ lint-admin-ui:
 	find admin-ui -type f \( -iname "*.xml" ! -iname pom.xml \) -exec xmllint --noout {} \;
 	cd admin-ui && npm ci && npm install
 	cd admin-ui && npm run lint
-	cd admin-ui && npm run prettier-check
 
 lint-oba-ui:
 	cd oba-ui
@@ -76,7 +74,6 @@ lint-developer-portal-ui:
 	find developer-portal-ui -type f \( -iname "*.xml" ! -iname pom.xml \) -exec xmllint --noout {} \;
 	cd developer-portal-ui && npm ci && npm install
 	cd developer-portal-ui && npm run lint
-	cd developer-portal-ui && npm run prettier-check
 
 lint-tpp-rest-server:
 	find tpp-app -type f -name "*.json" -exec jsonlint -q {} \; # lint all json

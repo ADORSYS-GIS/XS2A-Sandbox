@@ -26,7 +26,7 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.scss"],
             "stylePreprocessorOptions": {
-              "includePaths": ["src/assets/styles/mixins"]
+              "includePaths": ["src/assets/styles/mixins", "node_modules", "src/assets/themes"]
             },
             "scripts": []
           },
@@ -86,14 +86,17 @@
             "karmaConfig": "karma.conf.js",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/assets/styles/mixins", "node_modules", "src/assets/themes"]
+            }
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "eslintConfig": ".eslintrc.json",
+            "lintFilePatterns": ["**/*.spec.ts", "**/*.ts"]
           }
         },
         "e2e": {
@@ -111,7 +114,6 @@
       }
     }
   },
-  "defaultProject": "admin-ui",
   "cli": {
     "analytics": false
   }

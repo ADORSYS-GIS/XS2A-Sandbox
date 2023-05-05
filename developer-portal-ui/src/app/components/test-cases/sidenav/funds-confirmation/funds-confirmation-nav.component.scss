@@ -29,7 +29,7 @@ md-sidenav.md-closed.md-locked-open-add-active {
   max-width: 400px !important;
 }
 
-.mat-list-item:hover {
+.mat-mdc-list-item:hover {
   background: none;
 }
 
@@ -157,7 +157,7 @@ main {
   border: #1ab394;
 }
 
-.mat-list-base .mat-list-item,
+.mat-mdc-list-base .mat-mdc-list-item,
 .mat-list-base .mat-list-option {
   width: 400px;
   &:hover {

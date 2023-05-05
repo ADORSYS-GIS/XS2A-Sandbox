@@ -170,7 +170,7 @@
                         <option
                           *ngFor="let httpMethod of httpMethods"
                           [selected]="
-                            httpMethod == scaDataItem.get('pushMethod').value
+                            httpMethod === scaDataItem.get('pushMethod').value
                           "
                         >
                           {{ httpMethod }}
@@ -220,7 +220,7 @@
                       <option
                         *ngFor="let method of methods"
                         [selected]="
-                          method == scaDataItem.get('scaMethod').value
+                          method === scaDataItem.get('scaMethod').value
                         "
                       >
                         {{ method }}

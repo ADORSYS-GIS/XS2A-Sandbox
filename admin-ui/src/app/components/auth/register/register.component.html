@@ -209,7 +209,7 @@
                       !generateCertificate ? 'Register' : 'Register & Generate'
                     "
                     class="btn btn-primary btn-block mb-3"
-                    [disabled]="selectedCountry == undefined || !userForm.valid"
+                    [disabled]="selectedCountry === undefined || !userForm.valid"
                   ></button>
                 </div>
               </form>
