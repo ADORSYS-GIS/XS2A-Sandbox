@@ -237,27 +237,27 @@ tr:hover {
   height: var(--button-heigh) !important;
 
   &-primary {
-    color: var(--buttonTextColor);
-    background: var(--buttonBG);
-    border: none;
+    color: var(--buttonTextColor) !important;
+    background: var(--buttonBG) !important;
+    border: none !important;
 
     &:hover {
-      background: var(--buttonHovered);
+      background: var(--buttonHovered) !important;
     }
 
     &:disabled {
-      opacity: var(--button-opacity);
-      background: var(--buttonBGDisabled);
-      color: var(--buttonColorTextDisabled);
+      opacity: var(--button-opacity) !important;
+      background: var(--buttonBGDisabled) !important;
+      color: var(--buttonColorTextDisabled) !important;
     }
 
     &:focus {
-      outline: none;
-      background: var(--buttonClicked);
+      outline: none !important;
+      background: var(--buttonClicked) !important;
     }
 
     &:active {
-      background-color: inherit;
+      background-color: inherit !important;
     }
   }
 
@@ -515,4 +515,8 @@ body {
 .mat-mdc-fab.mat-accent {
   background-color: #ff4081;
   color: white;
+}
+
+.cdk-overlay-container {
+  display: none;
 }
