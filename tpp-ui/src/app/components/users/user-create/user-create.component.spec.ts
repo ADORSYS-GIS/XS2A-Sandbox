@@ -18,7 +18,7 @@
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormArray, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormArray, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -154,15 +154,15 @@ describe('UserCreateComponent', () => {
   });
 
   it('validate addScaData method', () => {
-    const length = (<FormArray>component.userForm.controls['scaUserData']).length;
+    const length = (<UntypedFormArray>component.userForm.controls['scaUserData']).length;
     component.addScaDataItem();
-    const newLength = (<FormArray>component.userForm.controls['scaUserData']).length;
+    const newLength = (<UntypedFormArray>component.userForm.controls['scaUserData']).length;
     expect(newLength).toEqual(length + 1);
   });
 
   it('validate removeScaDataItem method', () => {
     component.removeScaDataItem(0);
-    const length = (<FormArray>component.userForm.controls['scaUserData']).length;
+    const length = (<UntypedFormArray>component.userForm.controls['scaUserData']).length;
     expect(length).toEqual(0);
   });
 

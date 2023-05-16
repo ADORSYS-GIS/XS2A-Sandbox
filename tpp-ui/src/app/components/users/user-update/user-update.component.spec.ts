@@ -21,7 +21,7 @@ import { UserUpdateComponent } from './user-update.component';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
 import { InfoModule } from '../../../commons/info/info.module';
-import { FormArray, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormArray, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { InfoService } from '../../../commons/info/info.service';
@@ -99,15 +99,15 @@ describe('UserUpdateComponent', () => {
   });
 
   it('validate addScaData method', () => {
-    const length = (<FormArray>component.updateUserForm.controls['scaUserData']).length;
+    const length = (<UntypedFormArray>component.updateUserForm.controls['scaUserData']).length;
     component.addScaDataItem();
-    const newLength = (<FormArray>component.updateUserForm.controls['scaUserData']).length;
+    const newLength = (<UntypedFormArray>component.updateUserForm.controls['scaUserData']).length;
     expect(newLength).toEqual(length + 1);
   });
 
   it('validate removeScaDataItem method', () => {
     component.removeScaDataItem(0);
-    const length = (<FormArray>component.updateUserForm.controls['scaUserData']).length;
+    const length = (<UntypedFormArray>component.updateUserForm.controls['scaUserData']).length;
     expect(length).toEqual(0);
   });
 
@@ -175,7 +175,7 @@ describe('UserUpdateComponent', () => {
     } as User;
     spyOn(userService, 'getUser').and.returnValue(of(mockUser));
     component.getUserDetails();
-    const scaUserDataGroups = <FormArray>component.updateUserForm.get('scaUserData');
+    const scaUserDataGroups = <UntypedFormArray>component.updateUserForm.get('scaUserData');
     const length = scaUserDataGroups.length;
     expect(length).toBe(2);
   });
