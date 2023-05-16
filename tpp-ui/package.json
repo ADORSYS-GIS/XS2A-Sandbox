@@ -40,7 +40,7 @@
     "@angular/platform-browser-dynamic": "^14.3.0",
     "@angular/router": "^14.3.0",
     "@auth0/angular-jwt": "^5.0.2",
-    "@ng-bootstrap/ng-bootstrap": "^12.1.2",
+    "@ng-bootstrap/ng-bootstrap": "^13.1.1",
     "@ngxs/devtools-plugin": "^3.8.0",
     "@ngxs/logger-plugin": "^3.8.0",
     "@ngxs/store": "3.8.0",
