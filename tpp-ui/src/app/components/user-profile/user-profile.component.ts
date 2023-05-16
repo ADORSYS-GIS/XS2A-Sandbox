@@ -38,7 +38,7 @@ import { DeleteRecoveryPoint, GetRecoveryPoint } from '../actions/revertpoints.a
 import { Observable } from 'rxjs';
 import { RecoveryPointState } from '../../state/recoverypoints.state';
 import { AuthService } from '../../services/auth.service';
-import { LegacyTooltipPosition as TooltipPosition } from '@angular/material/legacy-tooltip';
+import { TooltipPosition } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-user-profile',

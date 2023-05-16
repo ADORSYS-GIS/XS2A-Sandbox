@@ -29,7 +29,7 @@ import { ADMIN_KEY } from '../../commons/constant/constant';
 import { InfoService } from '../../commons/info/info.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TppUserService } from '../../services/tpp.user.service';
-import { LegacyTooltipPosition as TooltipPosition } from '@angular/material/legacy-tooltip';
+import { TooltipPosition } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-admins',

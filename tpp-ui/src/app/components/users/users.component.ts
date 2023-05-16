@@ -31,7 +31,7 @@ import { CountryService } from '../../services/country.service';
 import { ADMIN_KEY } from '../../commons/constant/constant';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InfoService } from '../../commons/info/info.service';
-import { LegacyTooltipPosition as TooltipPosition } from '@angular/material/legacy-tooltip';
+import { TooltipPosition } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-users',
