@@ -56,7 +56,7 @@
     "material-icons": "^0.5.3",
     "ng-http-loader": "10.1.0",
     "ng2-file-upload": "1.4.0",
-    "ngx-bootstrap": "8.0.0",
+    "ngx-bootstrap": "9.0.0",
     "ngx-filter-pipe": "^2.1.2",
     "rxjs": "^6.6.3",
     "rxjs-compat": "^6.5.5",
