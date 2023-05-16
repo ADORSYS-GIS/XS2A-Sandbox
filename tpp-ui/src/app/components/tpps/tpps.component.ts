@@ -31,7 +31,7 @@ import { TppQueryParams } from '../../models/tpp-management.model';
 import { InfoService } from '../../commons/info/info.service';
 import { TppUserService } from '../../services/tpp.user.service';
 import { ADMIN_KEY } from '../../commons/constant/constant';
-import { TooltipPosition } from '@angular/material/tooltip';
+import { LegacyTooltipPosition as TooltipPosition } from '@angular/material/legacy-tooltip';
 
 @Component({
   selector: 'app-tpps',

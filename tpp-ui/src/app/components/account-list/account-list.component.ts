@@ -33,7 +33,7 @@ import { TppQueryParams } from '../../models/tpp-management.model';
 import { ADMIN_KEY } from '../../commons/constant/constant';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InfoService } from '../../commons/info/info.service';
-import { TooltipPosition } from '@angular/material/tooltip';
+import { LegacyTooltipPosition as TooltipPosition } from '@angular/material/legacy-tooltip';
 
 @Component({
   selector: 'app-account-list',

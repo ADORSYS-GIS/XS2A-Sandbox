@@ -24,9 +24,9 @@ import { AuthService } from '../../../services/auth.service';
 import { CustomizeService } from '../../../services/customize.service';
 import { ADMIN_KEY, ERROR_MESSAGE } from 'src/app/commons/constant/constant';
 import browser from 'browser-detect';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarHorizontalPosition as MatSnackBarHorizontalPosition, MatLegacySnackBarVerticalPosition as MatSnackBarVerticalPosition } from '@angular/material/legacy-snack-bar';
 import { InfoService } from '../../../commons/info/info.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { ErrorDialogComponent } from '../../../commons/dialog/error-dialog.component';
 
 @Component({

@@ -25,9 +25,9 @@ import { LoginComponent } from './login.component';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
 import { InfoService } from '../../../commons/info/info.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { ERROR_MESSAGE } from '../../../commons/constant/constant';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
