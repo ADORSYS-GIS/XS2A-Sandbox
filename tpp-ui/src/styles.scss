@@ -18,10 +18,10 @@
 
 /* You can add global styles to this file, and also import other style files */
 // Base Variables
-@import './assets/themes/variables';
-@import '~bootstrap/scss/bootstrap';
-@import '~font-awesome/css/font-awesome.css';
-@import '~material-icons/iconfont/material-icons.css';
+@import 'variables';
+@import 'bootstrap/scss/bootstrap';
+@import 'font-awesome/css/font-awesome.css';
+@import 'material-icons/iconfont/material-icons.css';
 
 * {
   margin: 0;
@@ -401,8 +401,8 @@ a {
 
   &__close-icon {
     position: absolute;
-    top: $grid-gutter-width / 2;
-    right: $grid-gutter-width / 2;
+    top: calc($grid-gutter-width / 2);
+    right: calc($grid-gutter-width / 2);
   }
 }
 
