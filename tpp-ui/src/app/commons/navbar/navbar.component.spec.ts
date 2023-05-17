@@ -33,7 +33,7 @@ describe('NavbarComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, HttpClientTestingModule, ReactiveFormsModule, IconModule],
-      providers: [TestBed.overrideProvider(AuthService, { useValue: authServiceSpy }), CustomizeService, TppUserService, AuthService],
+      providers: [{ provide: AuthService, useValue: authServiceSpy }, CustomizeService, TppUserService, AuthService],
       declarations: [NavbarComponent],
     }).compileComponents();
   }));

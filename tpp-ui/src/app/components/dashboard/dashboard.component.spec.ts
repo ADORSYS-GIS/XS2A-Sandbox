@@ -41,7 +41,7 @@ describe('DashboardComponent', () => {
         ReactiveFormsModule,
         IconModule,
       ],
-      providers: [TestBed.overrideProvider(AuthService, { useValue: authServiceSpy })],
+      providers: [{ provide: AuthService, useValue: authServiceSpy }],
       declarations: [DashboardComponent, NavbarComponent, SidebarComponent, LoginComponent],
     }).compileComponents();
   }));
