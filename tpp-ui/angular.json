@@ -84,7 +84,7 @@
               "src/app/app.component.ts"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["src/assets/themes", "./node_modules"]
+              "includePaths": ["src/assets/styles/mixins", "node_modules", "src/assets/themes"]
             },
             "styles": ["node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "src/styles.scss"],
             "scripts": [],
