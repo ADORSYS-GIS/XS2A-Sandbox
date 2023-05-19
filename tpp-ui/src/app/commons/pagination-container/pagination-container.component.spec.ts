@@ -21,6 +21,7 @@ import { PaginationConfigModel } from '../../models/pagination-config.model';
 import { PaginationContainerComponent } from './pagination-container.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('PaginationContainerComponent', () => {
   let component: PaginationContainerComponent;
@@ -29,6 +30,7 @@ describe('PaginationContainerComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [PaginationContainerComponent],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA],
       imports: [NgbPaginationModule, FormsModule],
     }).compileComponents();
   }));

@@ -29,6 +29,7 @@ import { UserService } from '../../../services/user.service';
 import { UserCreateComponent } from './user-create.component';
 import { ScaMethods } from '../../../models/scaMethods';
 import { of } from 'rxjs';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('UserCreateComponent', () => {
   let component: UserCreateComponent;
@@ -41,6 +42,7 @@ describe('UserCreateComponent', () => {
       imports: [ReactiveFormsModule, InfoModule, RouterTestingModule.withRoutes([]), HttpClientTestingModule, IconModule],
       providers: [UserService, InfoService],
       declarations: [UserCreateComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
 

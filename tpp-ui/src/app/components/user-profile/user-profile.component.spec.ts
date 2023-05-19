@@ -31,6 +31,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Store } from '@ngxs/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {  NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('UserProfileComponent', () => {
   let component: UserProfileComponent;
@@ -80,6 +81,9 @@ describe('UserProfileComponent', () => {
         { provide: TppUserService, useValue: mockTppUserService },
       ],
       declarations: [UserProfileComponent],
+      schemas: [
+        NO_ERRORS_SCHEMA
+      ],
     }).compileComponents();
   }));
 

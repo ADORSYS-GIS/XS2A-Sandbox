@@ -28,6 +28,7 @@ import { InfoService } from '../../../commons/info/info.service';
 import { User } from '../../../models/user.model';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IconModule } from '../../../commons/icon/icon.module';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('UserUpdateComponent', () => {
   let component: UserUpdateComponent;
@@ -40,6 +41,7 @@ describe('UserUpdateComponent', () => {
       imports: [ReactiveFormsModule, InfoModule, RouterTestingModule.withRoutes([]), HttpClientTestingModule, IconModule],
       providers: [UserService, InfoService],
       declarations: [UserUpdateComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
 

@@ -32,6 +32,7 @@ import { PaginationConfigModel } from '../../models/pagination-config.model';
 import { InfoService } from '../../commons/info/info.service';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ADMIN_KEY } from '../../commons/constant/constant';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('UsersComponent', () => {
   let component: UsersComponent;
@@ -52,6 +53,7 @@ describe('UsersComponent', () => {
       ],
       declarations: [UsersComponent, PaginationContainerComponent],
       providers: [UserService, InfoService],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
 

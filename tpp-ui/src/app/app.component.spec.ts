@@ -28,23 +28,12 @@ import { AccountComponent } from './components/account/account.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { InfoModule } from './commons/info/info.module';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
   let customizeService: CustomizeService;
-
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule.withRoutes([{ path: 'accounts', component: AccountComponent }]),
-        ReactiveFormsModule,
-        HttpClientTestingModule,
-        InfoModule,
-        FormsModule,
-      ],
-    }).compileComponents();
-  }));
 
   const CustomizeServiceStub = {
     isCustom: () => false,
@@ -64,6 +53,19 @@ describe('AppComponent', () => {
     },
     getLogo: () => '../assets/UI/Logo_XS2ASandbox.png',
   };
+
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule.withRoutes([{ path: 'accounts', component: AccountComponent }]),
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        InfoModule,
+        FormsModule,
+      ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA],
+    }).compileComponents();
+  }));
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

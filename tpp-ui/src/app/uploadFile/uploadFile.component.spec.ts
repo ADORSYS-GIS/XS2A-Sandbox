@@ -30,6 +30,7 @@ import { SpinnerVisibilityService } from 'ng-http-loader';
 import { InfoModule } from '../commons/info/info.module';
 import { environment } from '../../environments/environment';
 import { of } from 'rxjs';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('UploadFileComponent', () => {
   let component: UploadFileComponent;
@@ -43,6 +44,7 @@ describe('UploadFileComponent', () => {
       imports: [FileUploadModule, RouterTestingModule, HttpClientModule, InfoModule, IconModule],
       declarations: [UploadFileComponent, DocumentUploadComponent],
       providers: [InfoService, SpinnerVisibilityService, TestDataGenerationService],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 

@@ -20,9 +20,11 @@ module.exports = function (config) {
       clearContext: false, // leave Jasmine Spec Runner output visible in browser
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, '../coverage'),
-      reporters: ['html', 'lcovonly'],
-      fixWebpackSourcePaths: true,
+      dir: 'build/reports/coverage',
+      reporters: [
+        { type: 'html', subdir: 'report-html' },
+        { type: 'lcov', subdir: 'report-lcov' },
+      ],
     },
     reporters: ['progress', 'kjhtml'],
     port: 9876,
