@@ -72,6 +72,7 @@ describe('AppComponent', () => {
       imports: [NgHttpLoaderModule, RouterTestingModule],
       declarations: [AppComponent],
       providers: [{ provide: CustomizeService, useValue: CustomizeServiceStub }],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA],
     })
       .compileComponents()
       .then(() => {
