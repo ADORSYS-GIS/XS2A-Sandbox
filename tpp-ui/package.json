@@ -54,7 +54,7 @@
     "jasmine": "5.0.0",
     "jszip": "^3.6.0",
     "material-icons": "^1.13.6",
-    "ng-http-loader": "10.1.0",
+    "ng-http-loader": "13.0.0",
     "ng2-file-upload": "4.0.0",
     "ngx-bootstrap": "10.3.0",
     "ngx-filter-pipe": "^2.1.2",
