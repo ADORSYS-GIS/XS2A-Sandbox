@@ -177,7 +177,7 @@ describe('CustomizeService', () => {
     service.setUserTheme(defTheme);
     tick(100);
   
-    const tmp = getComputedStyle(document.body).getPropertyValue('--fontFamily');
+    const tmp = getComputedStyle(document.body).getPropertyValue('--fontFamily').trim();
     expect(tmp).toEqual('"Verdana", sans-serif');
   }));
 
