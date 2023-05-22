@@ -54,7 +54,7 @@
         <div class="col-12 col-md-3">List of valid ASPSP funds confirmation consents</div>
         <div class="col-12 col-md-9 text-muted">
           <div *ngFor="let piisConsent of piisConsents">
-            {{ piisConsent.validUntil | date: 'dd.MM.yyyy' }} <br />
+            {{ piisConsent.validUntil | date : 'dd.MM.yyyy' }} <br />
             <a class="link" (click)="handleClickOnPiisConsent(piisConsent.consentId)">{{ piisConsent.access.iban }}</a>
             {{ piisConsent.access.currency }}
             <br />
@@ -110,9 +110,7 @@
 <ng-template #deleteConfirmationModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Delete User</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">Are you sure you want to delete this User with Login: {{ user.login }}?</div>
   <div class="modal-footer">

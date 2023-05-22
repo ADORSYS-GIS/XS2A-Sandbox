@@ -97,9 +97,7 @@
 <ng-template #deleteConfirmationModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Transactions deletion</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">Are you sure you want to delete all transactions of "{{ account?.iban }}"?</div>
   <div class="modal-footer">
@@ -111,9 +109,7 @@
 <ng-template #setCreditLimitModal let-modal let-limit>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title1">Set Credit Limit</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
     Please input Dispo Credit Limit for account "{{ account?.iban }}" "{{ account?.currency }}"
@@ -136,9 +132,7 @@
 <ng-template #deleteAccountConfirmationModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Delete Account</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">Are you sure you want to delete this Account with IBAN: {{ account.iban }}?</div>
   <div class="modal-footer">
