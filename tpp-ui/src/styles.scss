@@ -32,6 +32,7 @@ body {
   font-family: var(--fontFamily);
   color: var(--bodyFontColor);
   background: var(--bodyBG);
+  height: 100%;
 
   @media screen and (max-width: 768px) {
     font-size: var(--textFontSize768px);
@@ -499,11 +500,3 @@ input {
   }
 }
 
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
-}

@@ -85,7 +85,7 @@
                 </div>
               </div>
               <div class="row">
-                <button class="btn btn-primary mr-4 ml-3" (click)="resetPasswordViaEmail(user.login)" type="button">
+                <button class="btn btn-primary me-4 ms-3" (click)="resetPasswordViaEmail(user.login)" type="button">
                   Send password update link
                 </button>
               </div>
@@ -202,7 +202,7 @@
                 <div class="col-12 col-md-4 my-auto">
                   <div [formGroupName]="i">
                     <div class="d-flex">
-                      <div class="form-check mr-4">
+                      <div class="form-check me-4">
                         <input
                           class="form-check-input"
                           formControlName="usesStaticTan"
@@ -221,7 +221,7 @@
         </div>
 
         <div class="form-group2 d-flex flex-row justify-content-lg-between">
-          <button class="btn mr-sm-2 mr-md-3 btn-outline-danger" (click)="onCancel()">Cancel</button>
+          <button class="btn me-sm-2 me-md-3 btn-outline-danger" (click)="onCancel()">Cancel</button>
           <button [disabled]="updateUserForm.invalid" class="btn btn-primary" type="submit">Update</button>
         </div>
       </div>
