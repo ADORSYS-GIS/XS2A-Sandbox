@@ -21,3 +21,5 @@ Current version consists of following components:
 -   Fixed rollback mechanism for TPP application.
 
 -   SMTP configuration properties for Ledgers were extended in docker-compose file.
+
+-   Fixed bug during account creation with 'DISABLED' or 'BLOCKED' statuses from TPP-UI. 
