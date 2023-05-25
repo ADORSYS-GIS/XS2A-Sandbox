@@ -21,6 +21,10 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
+            "allowedCommonJsDependencies": [
+              "jszip",
+              "rxjs-compat/add/observable/of"
+           ],
             "assets": ["src/favicon.ico", "src/assets"],
             "stylePreprocessorOptions": {
               "includePaths": ["src/assets/themes", "./node_modules"]
