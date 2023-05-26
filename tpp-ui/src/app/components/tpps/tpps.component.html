@@ -46,7 +46,7 @@
     <div class="card-body">
       <div class="table-responsive">
         <div class="container-fluid configs-container">
-          <div class="row d-flex justify-content-between confgs fixed-width">
+          <div class="d-flex justify-content-between confgs fixed-width">
             <div class="paginator">
               <app-pagination-container [paginationConfig]="config" (pageDataConfig)="pageChange($event)"></app-pagination-container>
             </div>
@@ -207,7 +207,7 @@
         </table>
 
         <div class="container-fluid">
-          <div class="row d-flex justify-content-start">
+          <div class="d-flex justify-content-start">
             <app-pagination-container [paginationConfig]="config" (pageDataConfig)="pageChange($event)"></app-pagination-container>
           </div>
         </div>
