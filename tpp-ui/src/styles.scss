@@ -20,6 +20,7 @@
 // Base Variables
 @import 'variables';
 @import 'bootstrap/scss/bootstrap';
+@import "ngx-bootstrap/datepicker/bs-datepicker";
 @import 'font-awesome/css/font-awesome.css';
 @import 'material-icons/iconfont/material-icons.css';
 
@@ -185,11 +186,11 @@ select {
   }
 }
 
-.page-item {
-  .page-link {
-    color: var(--colorSecondary);
-  }
-}
+// .page-item {
+//   .page-link {
+//     color: var(--colorSecondary);
+//   }
+// }
 
 .link-color {
   color: #a0a0a0;
@@ -201,7 +202,7 @@ select {
 
 tr {
   color: var(--tr-color);
-  border-bottom: var(--border-bottom);
+  // border-bottom: var(--border-bottom) !important;
 }
 
 .disabled-text {
@@ -478,7 +479,9 @@ a {
 .table th,
 .table td {
   vertical-align: baseline !important;
+
 }
+
 
 .table thead th {
   border-bottom: none;
@@ -500,3 +503,9 @@ input {
   }
 }
 
+
+
+/* Importing Datepicker SCSS file. */
+
+/* Importing Bootstrap SCSS file. */
+// @import 'bootstrap/scss/bootstrap';
