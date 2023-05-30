@@ -121,7 +121,7 @@
   </div>
 
   <div class="row">
-    <div *ngFor="let role of checkboxArray.controls; let i = index" class="form-check mx-3 my-1">
+    <div *ngFor="let role of checkboxArray.controls; let i = index" class="form-check mx-3 my-1 col">
       <input
         (change)="getSelectedCheckboxValue()"
         [checked]="role.value"
