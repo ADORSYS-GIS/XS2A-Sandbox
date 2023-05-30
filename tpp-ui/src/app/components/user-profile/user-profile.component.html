@@ -64,7 +64,7 @@
           </a>
         </div>
       </div>
-      <div class="d-flex justify-content-between" *ngIf="tppUser?.login !== 'admin'">
+      <div class="d-flex mb-4 justify-content-between" *ngIf="tppUser?.login !== 'admin'">
         <div class="me-3">
           <button
             mat-raised-button
@@ -86,7 +86,7 @@
 
           <button
             mat-raised-button
-            class="btn btn-outline-danger me-2 ms-1"
+            class="btn btn-outline-danger me-2"
             (click)="openConfirmation(blockConfirmation, 'block')"
             *ngIf="admin"
             type="button"
