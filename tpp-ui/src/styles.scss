@@ -200,9 +200,17 @@ select {
   }
 }
 
-tr {
-  color: var(--tr-color);
-  // border-bottom: var(--border-bottom) !important;
+thead {
+  tr {
+    border-bottom: 1px solid #dee2e6 !important;
+  }
+}
+
+tbody {
+  tr:not(:last-child) {
+    color: var(--tr-color);
+    border-bottom: 1px solid #dee2e6 !important;
+  }
 }
 
 .disabled-text {
@@ -210,7 +218,8 @@ tr {
 }
 
 td {
-  padding: 0.5rem 1.25rem;
+  padding: 0.5rem 1.25rem !important;
+  border: none;
 }
 
 .nowrap {
@@ -225,6 +234,8 @@ th {
   font-size: 1.125rem !important;
   color: #545b68 !important;
   font-weight: 700 !important;
+  border: none;
+
 }
 
 tr:hover {
