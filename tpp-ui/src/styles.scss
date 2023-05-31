@@ -218,7 +218,7 @@ tbody {
 }
 
 td {
-  padding: 0.5rem 1.25rem !important;
+  // padding: 0.5rem 1.25rem !important;
   border: none;
 }
 
@@ -249,6 +249,8 @@ tr:hover {
   font-size: 1.1rem;
   font-weight: 500;
   height: var(--button-heigh) !important;
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif !important;
+  letter-spacing: normal !important;
 
   &-primary {
     color: var(--buttonTextColor) !important;
@@ -395,6 +397,10 @@ a {
   margin-bottom: 0;
 }
 
+.modal-header {
+  align-items: baseline;
+}
+
 .nav-item {
   &:not(:last-of-type) {
     margin-bottom: 10px;
@@ -490,7 +496,7 @@ a {
 .table th,
 .table td {
   vertical-align: baseline !important;
-
+  padding: 0.75rem;
 }
 
 
