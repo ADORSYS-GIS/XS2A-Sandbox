@@ -207,7 +207,7 @@
                     <button mat-raised-button type="button" class="btn btn-outline-secondary me-2" (click)="modal.dismiss('cancel click')">
                       Cancel
                     </button>
-                    <button mat-raised-button type="button" class="btn btn-danger" (click)="modal.close('Ok click')">Delete</button>
+                    <button mat.mdc-button-theme type="button" class="btn btn-danger" (click)="modal.close('Ok click')">Delete</button>
                   </div>
                 </ng-template>
                 <ng-template #blockConfirmation let-modal>
@@ -223,7 +223,7 @@
                     <button mat-raised-button type="button" class="btn btn-outline-secondary me-2" (click)="modal.dismiss('cancel click')">
                       Cancel
                     </button>
-                    <button mat-raised-button type="button" class="btn btn-danger" (click)="modal.close('Ok click')">
+                    <button mat.mdc-button-theme type="button" class="btn btn-danger" (click)="modal.close('Ok click')">
                       {{ user.blocked ? 'Unblock' : 'Block' }}
                     </button>
                   </div>
