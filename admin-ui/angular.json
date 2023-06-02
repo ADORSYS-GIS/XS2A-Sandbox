@@ -23,12 +23,15 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
+            "allowedCommonJsDependencies": [
+              "jszip"
+            ],
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css","src/styles.scss"],
             "stylePreprocessorOptions": {
               "includePaths": ["src/assets/styles/mixins", "node_modules", "src/assets/themes"]
             },
-            "scripts": []
+            "scripts": ["./node_modules/bootstrap/dist/js/bootstrap.js", "./node_modules/@popperjs/core/dist/umd/popper.min.js"]
           },
           "configurations": {
             "production": {
@@ -86,7 +89,7 @@
             "karmaConfig": "karma.conf.js",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.scss"],
-            "scripts": [],
+            "scripts": ["./node_modules/bootstrap/dist/js/bootstrap.js", "./node_modules/@popperjs/core/dist/umd/popper.min.js"],
             "stylePreprocessorOptions": {
               "includePaths": ["src/assets/styles/mixins", "node_modules", "src/assets/themes"]
             }

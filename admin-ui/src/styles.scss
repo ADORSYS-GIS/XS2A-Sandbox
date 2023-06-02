@@ -184,7 +184,7 @@ select {
 
 .page-item {
   .page-link {
-    color: var(--colorSecondary);
+    background-color: var(--selectBG);
   }
 }
 
@@ -196,9 +196,17 @@ select {
   }
 }
 
-tr {
-  color: var(--tr-color);
-  border-bottom: var(--border-bottom);
+thead {
+  tr {
+    border-bottom: 1px solid #dee2e6 !important;
+  }
+}
+
+tbody {
+  tr:not(:last-child) {
+    color: var(--tr-color);
+    border-bottom: 1px solid #dee2e6 !important;
+  }
 }
 
 .disabled-text {
@@ -207,6 +215,7 @@ tr {
 
 td {
   padding: 0.5rem 1.25rem;
+  border: none;
 }
 
 .nowrap {
@@ -221,6 +230,8 @@ th {
   font-size: 1.125rem !important;
   color: #545b68 !important;
   font-weight: 700 !important;
+  border: none;
+
 }
 
 tr:hover {
@@ -235,6 +246,8 @@ tr:hover {
   font-weight: 500;
   padding: var(--btn-padding);
   height: var(--button-heigh) !important;
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif !important;
+  letter-spacing: normal !important;
 
   &-primary {
     color: var(--buttonTextColor) !important;
@@ -508,15 +521,11 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.mat-mdc-fab.mat-accent:hover {
-  background-color: red;
-}
+// .mat-mdc-fab.mat-accent:hover {
+//   background-color: red;
+// }
 
-.mat-mdc-fab.mat-accent {
-  background-color: #ff4081;
-  color: white;
-}
-
-.cdk-overlay-container {
-  display: none;
-}
+// .mat-mdc-fab.mat-accent {
+//   background-color: #ff4081;
+//   color: white;
+// }
