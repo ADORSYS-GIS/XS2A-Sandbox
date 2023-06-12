@@ -80,6 +80,7 @@ export class UserProfileComponent implements OnInit {
     }
     this.setUpCountries();
     this.setUpCurrentUser();
+    this.getRecoveryPoints()
     const tppId = this.route.snapshot.params['id'];
     if (tppId) {
       this.getUserInfo(tppId);
