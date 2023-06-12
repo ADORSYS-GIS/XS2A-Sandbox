@@ -254,7 +254,7 @@ export class AccountListComponent implements OnInit, OnDestroy {
       });
     } else if (this.admin === 'false') {
       this.accountService.deleteAccount(accountId).subscribe(() => {
-        this.infoService.openFeedback('Account was successfully blocked!', {
+        this.infoService.openFeedback('Account was successfully deleted!', {
           severity: 'info',
         });
         this.getAccounts(this.config.currentPageNumber, this.config.itemsPerPage, {});
