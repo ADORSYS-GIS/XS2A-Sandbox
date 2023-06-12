@@ -230,12 +230,22 @@ export class UsersComponent implements OnInit {
         });
       }
     } else if (this.admin === 'false') {
+      
       this.userService.blockTpp(userId).subscribe(() => {
-        this.infoService.openFeedback('User was successfully blocked!', {
+        if (this.statusBlock === 'block') {
+          this.infoService.openFeedback('User was successfully unblocked!', {
+            severity: 'info',
+          });
+        }
+        this.listUsers(this.config.currentPageNumber, this.config.itemsPerPage, {});
+
+      });
+      if (this.statusBlock === 'unblock') {
+        this.infoService.openFeedback('Account was successfully blocked!', {
           severity: 'info',
         });
         this.listUsers(this.config.currentPageNumber, this.config.itemsPerPage, {});
-      });
+      }
     }
   }
 
