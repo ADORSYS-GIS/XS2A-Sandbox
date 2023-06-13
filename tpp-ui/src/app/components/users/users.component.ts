@@ -230,7 +230,7 @@ export class UsersComponent implements OnInit {
         });
       }
     } else if (this.admin === 'false') {
-      
+
       this.userService.blockTpp(userId).subscribe(() => {
         if (this.statusBlock === 'block') {
           this.infoService.openFeedback('User was successfully unblocked!', {
@@ -241,7 +241,7 @@ export class UsersComponent implements OnInit {
 
       });
       if (this.statusBlock === 'unblock') {
-        this.infoService.openFeedback('Account was successfully blocked!', {
+        this.infoService.openFeedback('User was successfully blocked!', {
           severity: 'info',
         });
         this.listUsers(this.config.currentPageNumber, this.config.itemsPerPage, {});
