@@ -17,7 +17,6 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-
 import { User } from '../../models/user.model';
 import { TppUserService } from '../../services/tpp.user.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -75,12 +74,11 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.admin = sessionStorage.getItem(ADMIN_KEY);
-    if (this.admin === false) {
+    if (this.admin === 'false') {
       this.store.dispatch(new GetRecoveryPoint());
     }
     this.setUpCountries();
     this.setUpCurrentUser();
-    this.getRecoveryPoints()
     const tppId = this.route.snapshot.params['id'];
     if (tppId) {
       this.getUserInfo(tppId);
