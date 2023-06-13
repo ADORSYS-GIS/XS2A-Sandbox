@@ -6,7 +6,7 @@
 </mat-list-item>
 
 <mat-nav-list *ngIf="consentMenu">
-  <mat-list-item (click)="openConsentRdctApproach()">
+  <mat-list-item (click)="openConsentRdctApproach()" *ngIf="redirectSupported">
     <span class="btn-toggle d-inline-flex align-items-center border-0 collapsed rounded">
       <mat-icon [ngClass]="{ rotated: consentRdctMenu }" class="menu-button">expand_more</mat-icon>
       {{ 'TEST_CASES.SIDE_NAV.CONSENT.REDIRECT.REDIRECT_SCA' | translate }}</span
