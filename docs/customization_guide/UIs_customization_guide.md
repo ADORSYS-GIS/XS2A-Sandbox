@@ -75,7 +75,7 @@ All three user interfaces provided inside of ModelBank support customization. De
 
 For **Developer Portal** you can customize logo, CSS styles, content of all the pages, `xml` and `json` examples in _Play with Data_ section, currency of the examples, available SCA approaches and supported languages.
 
-For Online Banking UI and TPP UI you can customize logo and CSS styles.
+For Online Banking UI, Admin UI and TPP UI you can customize logo and CSS styles.
 
 ### Step-by-step guide
 
