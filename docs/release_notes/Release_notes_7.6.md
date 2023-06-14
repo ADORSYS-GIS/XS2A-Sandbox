@@ -2,7 +2,7 @@
 
 Current version consists of following components:
 
-1. **Ledgers v.4.21**
+1. **Ledgers v.4.22**
 2. **XS2A v.15.xx**
 3. **ASPSP-Profile v.15.xx**
 4. **Consent-Management v.15.xx**
@@ -23,3 +23,5 @@ Current version consists of following components:
 -   SMTP configuration properties for Ledgers were extended in docker-compose file.
 
 -   Fixed bug during account creation with 'DISABLED' or 'BLOCKED' statuses from TPP-UI. 
+
+  - Fixed bug for new account creation with the same IBAN and currency in TPP-UI and admin UI.

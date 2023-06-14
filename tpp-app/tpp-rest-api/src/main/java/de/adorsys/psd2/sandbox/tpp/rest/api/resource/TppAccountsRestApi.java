@@ -48,7 +48,7 @@ public interface TppAccountsRestApi {
         description = "Endpoint to a deposit account for a user with given ID")
     @SecurityRequirement(name = "apiKey")
     @PostMapping
-    ResponseEntity<Void> createAccount(@RequestParam(value = "userId") String userId, @RequestBody DepositAccount account);
+    ResponseEntity<Boolean> createAccount(@RequestParam(value = "userId") String userId, @RequestBody DepositAccount account);
 
     @Operation(summary = "Update Account access for a given user",
         description = "Endpoint to update account access with given iban for a user with given ID")
