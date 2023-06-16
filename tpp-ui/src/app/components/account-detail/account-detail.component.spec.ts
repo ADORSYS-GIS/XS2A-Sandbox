@@ -30,6 +30,7 @@ import { AccountComponent } from '../account/account.component';
 import { AccountDetailComponent } from './account-detail.component';
 import { ConvertBalancePipe } from 'src/app/pipes/convertBalance.pipe';
 import { TestDataGenerationService } from '../../services/test.data.generation.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AccountDetailComponent', () => {
   let component: AccountDetailComponent;
@@ -45,6 +46,7 @@ describe('AccountDetailComponent', () => {
         HttpClientTestingModule,
         InfoModule,
         FormsModule,
+        BrowserAnimationsModule
       ],
       declarations: [AccountDetailComponent, AccountComponent, ConvertBalancePipe],
       providers: [AccountService, InfoService, TestDataGenerationService],

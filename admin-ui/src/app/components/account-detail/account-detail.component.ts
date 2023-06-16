@@ -17,7 +17,11 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import {
   AccountStatus,
   AccountType,
@@ -39,7 +43,10 @@ export class AccountDetailComponent implements OnInit {
     usageType: new UntypedFormControl(UsageType.PRIV, Validators.required),
     currency: new UntypedFormControl('EUR', Validators.required),
     iban: new UntypedFormControl(null, Validators.required),
-    accountStatus: new UntypedFormControl(AccountStatus.ENABLED, Validators.required),
+    accountStatus: new UntypedFormControl(
+      AccountStatus.ENABLED,
+      Validators.required
+    ),
   });
   accountTypes = Object.keys(AccountType);
   accountStatuses = Object.keys(AccountStatus);
@@ -105,7 +112,16 @@ export class AccountDetailComponent implements OnInit {
     }
     this.accountService
       .createAccount(this.userId, this.accountForm.getRawValue())
-      .subscribe(() => this.router.navigate(['/accounts']));
+      .subscribe((data) => {
+        if (data) {
+          this.infoService.openFeedback(
+            'Account has been successfully created'
+          );
+          this.router.navigate(['/accounts']);
+        } else {
+          this.infoService.openFeedback('Account creation has failed!');
+        }
+      });
   }
 
   generateIban() {

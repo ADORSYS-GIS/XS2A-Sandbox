@@ -99,7 +99,14 @@ export class AccountDetailComponent implements OnInit {
     if (this.accountForm.invalid) {
       return;
     }
-    this.accountService.createAccount(this.userId, this.accountForm.getRawValue()).subscribe(() => this.router.navigate(['/accounts']));
+    this.accountService.createAccount(this.userId, this.accountForm.getRawValue()).subscribe((data) => {
+      if (data) {
+      this.infoService.openFeedback('Account has been successfully created');
+      this.router.navigate(['/accounts']);
+      } else {
+      this.infoService.openFeedback('Account creation has failed!');
+      }
+    });
   }
 
   generateIban() {
