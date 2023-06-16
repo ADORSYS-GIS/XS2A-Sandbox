@@ -38,6 +38,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Currency;
 import java.util.List;
@@ -105,7 +106,7 @@ class PiisConsentServiceImplTest {
     }
 
     private CmsPiisConsent getCmsPiisConsent() {
-        return new CmsPiisConsent(CONSENT_ID, false, java.time.OffsetDateTime.now(), LocalDate.now().minusDays(1), LocalDate.now().plusMonths(1), new PsuIdData(), de.adorsys.psd2.xs2a.core.consent.ConsentStatus.VALID, getReference(), java.time.OffsetDateTime.now(), "", "cardNumber", LocalDate.now().plusMonths(9), "cardInformation", "registrationInformation", java.time.OffsetDateTime.now().minusDays(1), "tppAutthNumber");
+        return new CmsPiisConsent(CONSENT_ID, false, java.time.OffsetDateTime.now(), LocalDateTime.now().minusDays(1), LocalDate.now().plusMonths(1), new PsuIdData(), de.adorsys.psd2.xs2a.core.consent.ConsentStatus.VALID, getReference(), java.time.OffsetDateTime.now(), "", "cardNumber", LocalDate.now().plusMonths(9), "cardInformation", "registrationInformation", java.time.OffsetDateTime.now().minusDays(1), "tppAutthNumber");
     }
 
     private AccountReference getReference() {

@@ -164,10 +164,10 @@ _make check_
 If something is missing, install it to your local machine, otherwise the build will fail. List of dependencies that are required to use ModelBank: Java 11, NodeJs, Angular CLI, Asciidoctor, jq, Docker, Docker Compose, Maven, PlantUML. Here are links where you can install needed dependencies:
 
 | Dependency          |                  Link                   |
-| ------------------- | :-------------------------------------: |
+|---------------------| :-------------------------------------: |
 | Java 11             |    https://openjdk.java.net/install/    |
-| Node.js 12.x        |     https://nodejs.org/en/download      |
-| Angular CLI 9.x     |   https://angular.io/guide/quickstart   |
+| Node.js 18.x        |     https://nodejs.org/en/download      |
+| Angular CLI 15.x    |   https://angular.io/guide/quickstart   |
 | Asciidoctor 2.0     |         https://asciidoctor.org         |
 | jq 1.6              | https://stedolan.github.io/jq/download  |
 | Docker 1.17         |   https://www.docker.com/get-started    |
@@ -318,7 +318,7 @@ Figure 1.2: TPP flow step-by-step
 
 # How to customize UI of developer portal
 
-It is possible to customize texts, navigation, amount and content of pages and styling of all the elements of Developer Portal. To find out how to do it, please, read [Customization Guide](src/assets/files/UIs_customization_guide.pdf).
+It is possible to customize texts, navigation, amount and content of pages and styling of all the elements of Developer Portal. To find out how to do it, please, read [Customization Guide](../../../../assets/files/UIs_customization_guide.pdf).
 
 <div class="divider">
 </div>

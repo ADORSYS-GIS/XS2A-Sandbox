@@ -16,7 +16,7 @@ Ziel des Developer-Portals ist es TPP-Entwicklern bei der Arbeit mit unserer Mod
 
 Die ModelBank setzt sich aus ihren Komponenten wie in Abbildung 1.1 zusammen.
 
-![Abbildung 1.1](src/assets/images/Graphic_XS2A_Sandbox.png)
+![Abbildung 1.1](../../../../assets/images/Graphic_XS2A_Sandbox.png)
 
 Abbildung 1.1: Komponenten der ModelBank
 
@@ -119,10 +119,10 @@ _make check_
 Ob Sie alle notwendigen Programme installiert haben. Die fehlenden müssen Sie lokal auf Ihren Rechner installieren, da die ModelBank ansonsten nicht erfolgreich gebaut werden kann. Hier ist eine Liste aller Programme und derer Links die Sie installiert haben müssen:
 
 | Dependency          |                  Link                   |
-| ------------------- | :-------------------------------------: |
+|---------------------| :-------------------------------------: |
 | Java 11             |    https://openjdk.java.net/install/    |
-| Node.js 12.x        |     https://nodejs.org/en/download      |
-| Angular CLI 9.x     |   https://angular.io/guide/quickstart   |
+| Node.js 18.x        |     https://nodejs.org/en/download      |
+| Angular CLI 15.x    |   https://angular.io/guide/quickstart   |
 | Asciidoctor 2.0     |         https://asciidoctor.org         |
 | jq 1.6              | https://stedolan.github.io/jq/download  |
 | Docker 1.17         |   https://www.docker.com/get-started    |
@@ -253,7 +253,7 @@ Sollte Ihre NodeJs Version höher als 11.x sein, ändern Sie diese zu einer frü
 4. Laden Sie Ihre Testdaten hoch und starten Sie Ihren Testlauf.
    In Abbildung 1.2 ist der vollständige Ablauf wie man als TPP die Arbeit mit der ModelBank beginnt veranschaulicht:
 
-![Abbildung 1.2](src/assets/images/Flow.png)
+![Abbildung 1.2](../../../../assets/images/Flow.png)
 
 Abbildung 1.2: TPP Ablauf Schritt für Schritt
 

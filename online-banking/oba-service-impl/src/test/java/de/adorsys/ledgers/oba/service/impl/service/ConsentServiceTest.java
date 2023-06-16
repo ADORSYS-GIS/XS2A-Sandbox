@@ -66,6 +66,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -86,6 +87,7 @@ class ConsentServiceTest {
     private static final String IBAN = "DE1234567890";
     private static final Currency EUR = Currency.getInstance("EUR");
     private static final String USER_LOGIN = "login";
+    private static final LocalDateTime LOCAL_DATE_TIME_NOW = LocalDateTime.now();
 
     @InjectMocks
     private ConsentServiceImpl consentService;
@@ -354,7 +356,7 @@ class ConsentServiceTest {
     }
 
     private CmsAisAccountConsent getCmsAisAccountConsent() {
-        return new CmsAisAccountConsent(CONSENT_ID, getAisAccountAccess(), false, LocalDate.now().plusMonths(1), LocalDate.now().plusMonths(1), 3, LocalDate.now(), ConsentStatus.VALID, false, false,
+        return new CmsAisAccountConsent(CONSENT_ID, getAisAccountAccess(), false, LocalDate.now().plusMonths(1), LocalDate.now().plusMonths(1), 3, LOCAL_DATE_TIME_NOW, ConsentStatus.VALID, false, false,
                                         AisConsentRequestType.BANK_OFFERED, Collections.emptyList(), new TppInfo(), new AuthorisationTemplate(), false, Collections.emptyList(),
                                         Collections.emptyMap(), OffsetDateTime.MIN, OffsetDateTime.MIN, null, null);
     }

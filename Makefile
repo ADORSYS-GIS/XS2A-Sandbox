@@ -102,10 +102,10 @@ run:  ## Run services from Docker Hub without building:
 	docker-compose pull && docker-compose up
 
 start: ## Run everything with docker-compose build dockerimages without building applications
-	docker-compose -f docker-compose.yml -f docker-compose-build-template.yml up
+	docker-compose -f docker-compose.yml up
 
 all: lint-all build-ui-services build-java-services unit-tests-all-frontend unit-tests-backend ## Run everything with docker-compose after building
-	docker-compose -f docker-compose.yml -f docker-compose-build-template.yml up
+	docker-compose -f docker-compose.yml up
 
 ## Build section ##
 build-java-services: ## Build java services
@@ -141,8 +141,8 @@ unit-tests-backend:
 	mvn -ntp --settings scripts/mvn-release-settings.xml -DskipITs --fail-at-end clean install
 
 ## Build arc42
-build-arc-42: arc42/images/generated $(ARC42_SRC) docs/arc42/xs2a-sandbox-arc42.adoc developer-portal-ui/package.json ## Generate arc42 html documentation
-	cd docs/arc42 && asciidoctor -a acc-version=$(VERSION) xs2a-sandbox-arc42.adoc
+build-arc-42: arc42/images/generated $(ARC42_SRC) docs/arc42/modelbank-arc42.adoc developer-portal-ui/package.json ## Generate arc42 html documentation
+	cd docs/arc42 && asciidoctor -a acc-version=$(VERSION) modelbank-arc42.adoc
 
 arc42/images/generated: $(PLANTUML_SRC) ## Generate images from .puml files
 # Note: Because plantuml doesnt update the images/generated timestamp we need to touch it afterwards
