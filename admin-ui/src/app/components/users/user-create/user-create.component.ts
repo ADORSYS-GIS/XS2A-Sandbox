@@ -52,6 +52,7 @@ export class UserCreateComponent implements OnInit {
   submitted: boolean;
   asyncSelected: string;
   typeaheadLoading: boolean;
+  tppIds: string[] = [];
 
   constructor(
     private userService: UserService,
@@ -75,6 +76,7 @@ export class UserCreateComponent implements OnInit {
     this.listUsers();
     this.setupUserFormControl();
     this.getMethodsValues();
+    this.getTppIds();
   }
 
   public getStatesAsObservable(token: string): Observable<User[]> {
@@ -210,7 +212,6 @@ export class UserCreateComponent implements OnInit {
     this.submitted = true;
 
     if (this.userForm.invalid) {
-      // Display an error message or perform any desired action
       console.log('Invalid form!');
       return;
     }
@@ -224,7 +225,7 @@ export class UserCreateComponent implements OnInit {
             e.error.message ? e.error.message : 'User creation failed!',
             {
               severity: 'info',
-            } 
+            }
           );
         },
         complete: () => {
@@ -239,6 +240,14 @@ export class UserCreateComponent implements OnInit {
   getMethodsValues() {
     this.methods = Object.keys(ScaMethods);
     this.httpMethods = Object.keys(HttpMethod);
+  }
+
+  getTppIds() {
+    this.tppManagementService.getTpps(0, 500).subscribe((resp: any) => {
+      resp.tpps?.map((tpp: any) => {
+        this.tppIds.push(tpp.id)
+      });
+    });
   }
 
   onCancel() {
