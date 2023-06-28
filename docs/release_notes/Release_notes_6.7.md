@@ -9,3 +9,5 @@ Current version consists of following components:
 5. **XS2A Connector-Examples v.14.xx**
 
 -   Fixed payments' currency displaying in Online Banking UI (PASD-236).
+
+-   Fixed minor bugs in Admin UI and TPP UI.
