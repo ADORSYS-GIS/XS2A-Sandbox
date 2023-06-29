@@ -11,3 +11,5 @@ Current version consists of following components:
 -   Fixed payments' currency displaying in Online Banking UI (PASD-236).
 
 -   Fixed minor bugs in Admin UI and TPP UI.
+
+-   Updated UIs customisation guide. 
