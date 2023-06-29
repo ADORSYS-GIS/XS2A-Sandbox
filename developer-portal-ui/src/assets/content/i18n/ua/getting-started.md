@@ -24,7 +24,7 @@
 
 # Інтерфейс XS2A
 
-Центральним компонентом **ModelBank** є інтерфейс XS2A, який відповідає вимогам специфікації [NextGenPSD2](https://www.berlin-group.org/psd2-access-to-bank-accounts) (версія 1.3.9) від Berlin Group і базується на тестових даних. Ви можете відвідати наш <a href="#" id="XS2AInterfaceSwagger">XS2A Swagger UI</a> або ознайомитись з [імплементацією інтерфейсу XS2A від adorsys на GitLab](https://git.adorsys.de/adorsys/xs2a/aspsp-xs2a).
+Центральним компонентом **ModelBank** є інтерфейс XS2A, який відповідає вимогам специфікації [NextGenPSD2](https://www.berlin-group.org/psd2-access-to-bank-accounts) (версія 1.3.12) від Berlin Group і базується на тестових даних. Ви можете відвідати наш <a href="#" id="XS2AInterfaceSwagger">XS2A Swagger UI</a> або ознайомитись з [імплементацією інтерфейсу XS2A від adorsys на GitLab](https://git.adorsys.de/adorsys/xs2a/aspsp-xs2a).
 
 <div class="divider">
 </div>
