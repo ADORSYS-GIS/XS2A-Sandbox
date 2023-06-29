@@ -13,3 +13,7 @@ Current version consists of following components:
 -   Fixed minor bugs in Admin UI and TPP UI.
 
 -   Updated UIs customisation guide. 
+
+-   Updated nginx version in dockerfiles for UI projects to 1.22.1.
+
+-   Added security headers for nginx in dockerfiles for UI projects (PASD-237).
