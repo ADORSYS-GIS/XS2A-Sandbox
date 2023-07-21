@@ -67,10 +67,11 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.setUpCountries();
-    this.setUpCurrentUser();
     const tppId = this.route.snapshot.params['id'];
     if (tppId) {
       this.getUserInfo(tppId);
+    } else {
+    this.setUpCurrentUser();
     }
   }
 
