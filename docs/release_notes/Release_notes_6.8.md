@@ -22,3 +22,5 @@ Current version consists of following components:
     -   opencsv - to 5.7.1
 
 -   Fixed bugs in Admin-UI
+
+-   UI/UX improvements in Developer Portal
