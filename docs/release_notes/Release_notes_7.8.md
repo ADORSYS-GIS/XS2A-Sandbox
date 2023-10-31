@@ -23,4 +23,6 @@ Current version consists of following components:
     
 -   Fixed bugs in Admin-UI
 
+-   Fixed bugs in OBA-UI
+
 -   UI/UX improvements in Developer Portal

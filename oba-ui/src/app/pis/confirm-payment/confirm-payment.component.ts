@@ -42,6 +42,8 @@ export class ConfirmPaymentComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject();
   private oauth2Param: boolean;
   isDisabled = true;
+  isSubmitted = false;
+  routerParams = null;
 
   constructor(
     private router: Router,
@@ -77,7 +79,8 @@ export class ConfirmPaymentComponent implements OnInit, OnDestroy {
         if (data) {
           console.log('78 string confirm payment');
           this.payAuthResponse = data;
-          this.transactionStatus = this.payAuthResponse.payment.transactionStatus;
+          this.transactionStatus =
+            this.payAuthResponse.payment.transactionStatus;
         }
       });
     // fetch oauth param value
@@ -86,25 +89,54 @@ export class ConfirmPaymentComponent implements OnInit, OnDestroy {
       .subscribe((oauth2: boolean) => {
         this.oauth2Param = oauth2;
       });
+    this.getPsuAccsService
+      .getIsSubmitted()
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((res) => {
+        this.isSubmitted = res;
+      });
+    this.activatedRoute.queryParams
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((route) => {
+        this.routerParams = route;
+      });
   }
 
   public onConfirm() {
-    if (this.transactionStatus === 'ACSP') {
-      this.router.navigate(
-        [`${RoutingPath.PAYMENT_INITIATION}/${RoutingPath.RESULT}`],
-        {
-          queryParams: {
-            encryptedConsentId: this.payAuthResponse.encryptedConsentId,
-            authorisationId: this.payAuthResponse.authorisationId,
-            oauth2: this.oauth2Param,
-          },
-        }
-      );
-    } else {
-      this.router.navigate([
-        `${RoutingPath.PAYMENT_INITIATION}/${RoutingPath.SELECT_SCA}`,
-      ]);
-    }
+    this.shareService.currentData
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe({
+        next: () => {
+          if (
+            this.payAuthResponse.payment &&
+            this.payAuthResponse.payment.debtorAccount
+          ) {
+            this.getPsuAccsService.choseIbanAndCurrency = {
+              currency: this.payAuthResponse.payment.debtorAccount.currency,
+              iban: this.payAuthResponse.payment.debtorAccount.iban,
+            };
+
+            if (!this.isSubmitted) {
+              this.sendPisInitiate([
+                this.payAuthResponse.payment.debtorAccount.iban,
+                this.payAuthResponse.payment.debtorAccount.currency,
+              ]);
+            }
+          } else if (this.getPsuAccsService.choseIbanAndCurrency !== null) {
+            this.payAuthResponse.payment.debtorAccount =
+              this.getPsuAccsService.choseIbanAndCurrency;
+            this.sendPisInitiate([
+              this.payAuthResponse.payment.debtorAccount.iban,
+              this.payAuthResponse.payment.debtorAccount.currency,
+            ]);
+          } else {
+            console.log('both iban and authResponse are null');
+          }
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 
   public onCancel(): void {
@@ -122,5 +154,37 @@ export class ConfirmPaymentComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.ngUnsubscribe.next(true);
     this.ngUnsubscribe.complete();
+  }
+
+  sendPisInitiate(data) {
+    const debtorAccInfo = { currency: data[1], iban: data[0] };
+    this.getPsuAccsService
+      .sendPisInitiate(debtorAccInfo, this.routerParams)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((res) => {
+        this.getPsuAccsService.choseIbanAndCurrency = debtorAccInfo;
+        this.getPsuAccsService.setIsSubmitted = true;
+        this.shareService.changePaymentData(res);
+        this.redirectOnConfirm(res);
+      });
+  }
+
+  redirectOnConfirm(data) {
+    if (this.transactionStatus === 'ACSP' || data.scaStatus === 'exempted') {
+      this.router.navigate(
+        [`${RoutingPath.PAYMENT_INITIATION}/${RoutingPath.RESULT}`],
+        {
+          queryParams: {
+            encryptedConsentId: this.payAuthResponse.encryptedConsentId,
+            authorisationId: this.payAuthResponse.authorisationId,
+            oauth2: this.oauth2Param,
+          },
+        }
+      );
+    } else {
+      this.router.navigate([
+        `${RoutingPath.PAYMENT_INITIATION}/${RoutingPath.SELECT_SCA}`,
+      ]);
+    }
   }
 }

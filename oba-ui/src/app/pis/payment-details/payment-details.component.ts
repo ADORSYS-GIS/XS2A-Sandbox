@@ -74,15 +74,10 @@ export class PaymentDetailsComponent implements OnInit, OnDestroy {
             currency: this.authResponse.payment.debtorAccount.currency,
             iban: this.authResponse.payment.debtorAccount.iban,
           };
-
-          if (!this.isSubmitted) {
-            this.sendPisInitiate([
-              authResponse.payment.debtorAccount.iban,
-              authResponse.payment.debtorAccount.currency,
-            ]);
-          }
-        } else if (this.pisAccServices.choseIbanAndCurrency !== null) {
-          this.authResponse.payment.debtorAccount = this.pisAccServices.choseIbanAndCurrency;
+        }
+        if (this.pisAccServices.choseIbanAndCurrency !== null) {
+          this.authResponse.payment.debtorAccount =
+            this.pisAccServices.choseIbanAndCurrency;
         } else {
           console.log('both iban and authResponse are null');
         }
