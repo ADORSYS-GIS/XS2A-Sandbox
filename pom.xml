@@ -25,7 +25,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.adorsys.psd2.sandbox</groupId>
     <artifactId>psd2-dynamic-sandbox</artifactId>
-    <version>7.8-SNAPSHOT</version>
+    <version>8.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>PSD2 Dynamic Sandbox</name>
@@ -135,8 +135,8 @@
         <pmd.plugin.version>3.13.0</pmd.plugin.version>
 
         <!-- XS2A versions -->
-        <xs2a.version>15.9</xs2a.version>
-        <connector.version>15.9</connector.version>
+        <xs2a.version>16.1-SNAPSHOT</xs2a.version>
+        <connector.version>16.1-SNAPSHOT</connector.version>
 
         <!-- Ledgers version -->
         <ledgers.version>4.22</ledgers.version>
