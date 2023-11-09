@@ -23,6 +23,7 @@ import de.adorsys.ledgers.middleware.api.domain.um.AccessTokenTO;
 import de.adorsys.ledgers.middleware.api.domain.um.BearerTokenTO;
 import de.adorsys.ledgers.middleware.api.domain.um.UserRoleTO;
 import de.adorsys.psd2.sandbox.auth.filter.RefreshTokenFilter;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -35,15 +36,15 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import javax.servlet.FilterChain;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.HashSet;
 
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class RefreshTokenFilterTest {
+class RefreshTokenFilterTest {
     public static final String TOKEN_ID = "token_id";
     @Spy
     @InjectMocks
@@ -61,7 +62,8 @@ public class RefreshTokenFilterTest {
 
 
     @Test
-    public void doFilterInternal() throws Exception {
+    @SneakyThrows
+    public void doFilterInternal() {
         // Given
         SecurityContextHolder.clearContext();
         BearerTokenTO bearer = getBearer();

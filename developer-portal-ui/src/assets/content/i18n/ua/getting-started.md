@@ -121,11 +121,11 @@ ModelBank запускається за допомогою Docker Compose фай
 
 _make check_
 
-Якщо чогось не вистачає, встановіть програму на локальну машину, інакше зібрати проект не вдасться. Список залежностей, які потрібні для використання ModelBank: Java 11, NodeJs, Angular CLI, Asciidoctor, jq, Docker, Docker Compose, Maven, PlantUML. Ось посилання, де можна знайти необхідні залежності:
+Якщо чогось не вистачає, встановіть програму на локальну машину, інакше зібрати проект не вдасться. Список залежностей, які потрібні для використання ModelBank: Java 17, NodeJs, Angular CLI, Asciidoctor, jq, Docker, Docker Compose, Maven, PlantUML. Ось посилання, де можна знайти необхідні залежності:
 
 | Залежності          |                Посилання                |
 |---------------------| :-------------------------------------: |
-| Java 11             |    https://openjdk.java.net/install/    |
+| Java 17             |    https://openjdk.java.net/install/    |
 | Node.js 18.x        |     https://nodejs.org/en/download      |
 | Angular CLI 15.x    |   https://angular.io/guide/quickstart   |
 | Asciidoctor 2.0     |         https://asciidoctor.org         |

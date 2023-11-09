@@ -18,14 +18,21 @@
 
 package de.adorsys.ledgers.oba.rest.server.auth;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.adorsys.ledgers.middleware.api.domain.um.AccessTokenTO;
 import de.adorsys.ledgers.middleware.api.domain.um.BearerTokenTO;
 import de.adorsys.ledgers.middleware.client.rest.AuthRequestInterceptor;
 import de.adorsys.ledgers.oba.service.api.domain.UserAuthentication;
 import de.adorsys.ledgers.oba.service.api.service.TokenAuthenticationService;
+import de.adorsys.psd2.sandbox.auth.ErrorResponse;
 import de.adorsys.psd2.sandbox.auth.MiddlewareAuthentication;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -33,15 +40,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -51,28 +51,32 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
     private final TokenAuthenticationService tokenAuthenticationService;
     private final AuthRequestInterceptor authInterceptor;
+    private final ObjectMapper objectMapper;
 
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (log.isTraceEnabled()) {
-            log.trace("doFilter start");
-        }
+
         authInterceptor.setAccessToken(null);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null) {
-            UserAuthentication userAuthentication = tokenAuthenticationService.getAuthentication(readAccessTokenHeader(request));
+            UserAuthentication userAuthentication;
+            try {
+                userAuthentication = tokenAuthenticationService.getAuthentication(readAccessTokenHeader(request));
+            } catch (AccessDeniedException e) {
+                Map<String, String> errorMap = new ErrorResponse()
+                                                   .buildContent(401, e.getMessage());
+                response.setStatus(401);
+                response.getWriter().write(objectMapper.writeValueAsString(errorMap));
+                return;
+            }
             if (userAuthentication != null) {
                 BearerTokenTO bearerToken = userAuthentication.getBearerToken();
                 AccessTokenTO token = bearerToken.getAccessTokenObject();
-                SecurityContextHolder.getContext().setAuthentication(new MiddlewareAuthentication(token.getSub(), bearerToken, buildAuthorities(token)));
+                SecurityContextHolder.getContext().setAuthentication(new MiddlewareAuthentication(token, bearerToken, buildAuthorities(token)));
             }
         }
 
         filterChain.doFilter(request, response);
-
-        if (log.isTraceEnabled()) {
-            log.trace("doFilter end");
-        }
     }
 
     @Override

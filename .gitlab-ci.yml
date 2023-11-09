@@ -46,7 +46,7 @@ variables:
   # Build variables         #
   ###########################
 
-  # Defaults for Java 11
+  # Defaults for Java 17
   JAVA_TOOL_OPTIONS: "-XX:+UnlockExperimentalVMOptions -XX:MaxRAM=3G -XX:MaxRAMFraction=3"
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
 
@@ -221,7 +221,7 @@ Lint (Admin Backend):
     - make lint-admin-rest-server
 
 Lint (Docker Compose):
-  image: maven:3.6-jdk-11-slim
+  image: maven:3.6.3-openjdk-17-slim
   stage: "Lint"
   except:
     - schedules
@@ -233,7 +233,7 @@ Lint (Docker Compose):
     - make lint-docker-compose
 
 Lint (PMD CPD):
-  image: maven:3.6-jdk-11-slim
+  image: maven:3.6.3-openjdk-17-slim
   stage: "Lint"
   except:
     - schedules
@@ -349,7 +349,7 @@ Build (Modelbank):
     - schedules
   cache: {}
   variables:
-    BUILD_JAVA_VERSION: system@1.11
+    BUILD_JAVA_VERSION: system@1.17
     JAVA_TOOL_OPTIONS: "-Djavax.net.ssl.trustStorePassword=changeit -XX:MaxRAM=3G"
   artifacts:
     paths:
@@ -371,20 +371,20 @@ Test (Javadoc):
   needs: ["Build (Modelbank)"]
   variables:
     JAVA_TOOL_OPTIONS: "-Djavax.net.ssl.trustStorePassword=changeit -XX:MaxRAM=3G"
-    JAVA_VERSION: "system@1.11"
+    JAVA_VERSION: "system@1.17"
   script:
     - jabba use ${JAVA_VERSION}
     - java -XX:+PrintFlagsFinal -version | grep -Ei "maxheapsize|maxram"
     - mvn -ntp --settings scripts/mvn-release-settings.xml -Dmaven.test.skip=true -Pjavadoc verify javadoc:javadoc
 
 Test (Unit Tests):
-  image: maven:3.6-jdk-11-slim
+  image: maven:3.6.3-openjdk-17-slim
   stage: "Test"
   except:
     - schedules
   needs: ["Build (Modelbank)"]
   variables:
-    JAVA_VERSION: "system@1.11"
+    JAVA_VERSION: "system@1.17"
     JAVA_TOOL_OPTIONS: "-Djavax.net.ssl.trustStorePassword=changeit -XX:MaxRAM=3G"
   script:
     - apt update && apt install make -yq
@@ -530,7 +530,7 @@ Release snapshot artifacts (develop):
     - schedules
   cache: {}
   variables:
-    BUILD_JAVA_VERSION: system@1.11
+    BUILD_JAVA_VERSION: system@1.17
     JAVA_TOOL_OPTIONS: "-Djavax.net.ssl.trustStorePassword=changeit -XX:MaxRAM=3G"
   <<: *release_java_private
 
@@ -542,7 +542,7 @@ Release snapshot artifacts (tags):
     - schedules
   cache: {}
   variables:
-    BUILD_JAVA_VERSION: system@1.11
+    BUILD_JAVA_VERSION: system@1.17
     JAVA_TOOL_OPTIONS: "-Djavax.net.ssl.trustStorePassword=changeit -XX:MaxRAM=3G"
   <<: *release_java_private
 
@@ -656,7 +656,7 @@ Change dependencies versions (INTEG):
   image: alpine
   rules:
     - if:
-        $CI_COMMIT_TAG =~ /7\..*/
+        $CI_COMMIT_TAG =~ /9\..*/
         # changes:
       # - "pom.xml"
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -693,17 +693,17 @@ Change dependencies versions (INTEG):
     - git commit -m "changed dependencies versions"
     - git push origin master
 
-Clone to github:
-  stage: "Clone to github"
-  <<: *sync_changes_github
-  image: alpine/git:latest
-  needs: []
-  only:
-    - /^.*release-${GITHUB_PROJECT_CLONE_VERSION}.*$/
-    - support-${GITHUB_PROJECT_CLONE_VERSION}.x
-  except:
-    - schedules
-  variables:
-    GITHUB_USERNAME: adorsys
-    GITHUB_REPOSITORY: adorsys/XS2A-Sandbox
-    GITHUB_PROJECT_CLONE_VERSION: "6"
+#Clone to github:
+#  stage: "Clone to github"
+#  <<: *sync_changes_github
+#  image: alpine/git:latest
+#  needs: []
+#  only:
+#    - /^.*release-${GITHUB_PROJECT_CLONE_VERSION}.*$/
+#    - support-${GITHUB_PROJECT_CLONE_VERSION}.x
+#  except:
+#    - schedules
+#  variables:
+#    GITHUB_USERNAME: adorsys
+#    GITHUB_REPOSITORY: adorsys/XS2A-Sandbox
+#    GITHUB_PROJECT_CLONE_VERSION: "6"

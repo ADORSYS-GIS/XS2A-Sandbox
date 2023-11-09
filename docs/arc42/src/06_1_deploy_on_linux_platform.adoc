@@ -10,7 +10,7 @@ This is description of services, dependencies and steps to run ModelBank on any 
 |===
 |Service | Dependencies | Environment variables | Ports
 
-|xs2a-connector-examples | Java 11 | SPRING_PROFILES_ACTIVE | 8089,8189
+|xs2a-connector-examples | Java 17 | SPRING_PROFILES_ACTIVE | 8089,8189
 | | |ASPSP-PROFILE_BASEURL |
 | | |CMS_URL |
 | | |LEDGERS_URL |
@@ -21,9 +21,9 @@ This is description of services, dependencies and steps to run ModelBank on any 
 | | |DB_USER |
 | | |DB_DATABASE |
 | | |DB_HOST |
-|xs2a-asps--profile |Java 11 | SPRING_PROFILES_ACTIVE | 48080
+|xs2a-aspsp--profile |Java 17 | SPRING_PROFILES_ACTIVE | 48080
 | | | XS2A_BANK_PROFILE_PATH |
-|xs2a-consent-management |Java 11 | ASPSP-PROFILE_BASEURL | 38080
+|xs2a-consent-management |Java 17 | ASPSP-PROFILE_BASEURL | 38080
 | | |SPRING_DATASOURCE_URL  |
 | | |SPRING_DATASOURCE_USERNAME  |
 | | |SPRING_DATASOURCE_PASSWORD  |
@@ -68,7 +68,7 @@ This is description of services, dependencies and steps to run ModelBank on any 
 |xs2a-tpp-ui | NGINX 1.15.5 | LEDGERS_URL | 4205
 | | | TPP_REST_SERVER_URL |
 | | | CERT_GEN_URL |
-| xs2a-tpp-rest-server | Java 11 | LEDGERS_URL | 8093
+| xs2a-tpp-rest-server | Java 17 | LEDGERS_URL | 8093
 | | | SPRING_DATASOURCE_URL  |
 | | | SPRING_DATASOURCE_USERNAME  |
 | | | SPRING_DATASOURCE_PASSWORD  |
@@ -87,7 +87,7 @@ This is description of services, dependencies and steps to run ModelBank on any 
 | | | POSTGRESQL_DATABASE  |
 | | | POSTGRESQL_USER  |
 | | | POSTGRESQL_PASSWORD |
-|certificate-generator | Java 11 | - | 8092
+|certificate-generator | Java 17 | - | 8092
 | smtp server | any mail server to accept and send smtp messages | |
 |===
 
@@ -101,9 +101,9 @@ Select your linux distribution in the provided manual links.
 Manual to install PostgreSQL on linux server:
 https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-centos-7
 
-=== 1.2 Java 11
+=== 1.2 Java 17
 
-Manual to install Java 11 on linux server:
+Manual to install Java 17 on linux server:
 https://www.digitalocean.com/community/tutorials/how-to-install-java-on-centos-and-fedora
 
 === 1.3 NGINX

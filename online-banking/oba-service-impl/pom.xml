@@ -50,6 +50,12 @@
             <groupId>de.adorsys.ledgers</groupId>
             <artifactId>keycloak-client</artifactId>
             <version>${ledgers.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss</groupId>
+                    <artifactId>jandex</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>

@@ -120,7 +120,7 @@ Ob Sie alle notwendigen Programme installiert haben. Die fehlenden müssen Sie l
 
 | Dependency          |                  Link                   |
 |---------------------| :-------------------------------------: |
-| Java 11             |    https://openjdk.java.net/install/    |
+| Java 17             |    https://openjdk.java.net/install/    |
 | Node.js 18.x        |     https://nodejs.org/en/download      |
 | Angular CLI 15.x    |   https://angular.io/guide/quickstart   |
 | Asciidoctor 2.0     |         https://asciidoctor.org         |

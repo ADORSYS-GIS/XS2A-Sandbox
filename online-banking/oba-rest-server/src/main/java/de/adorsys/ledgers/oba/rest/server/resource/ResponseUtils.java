@@ -27,7 +27,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.util.UrlUtils;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Service
 @RequiredArgsConstructor

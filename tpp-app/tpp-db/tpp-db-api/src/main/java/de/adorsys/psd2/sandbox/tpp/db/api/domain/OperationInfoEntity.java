@@ -18,10 +18,10 @@
 
 package de.adorsys.psd2.sandbox.tpp.db.api.domain;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data

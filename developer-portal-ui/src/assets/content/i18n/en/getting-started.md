@@ -161,11 +161,11 @@ This ModelBank runs with the docker-compose that can be found at docker-compose.
 
 _make check_
 
-If something is missing, install it to your local machine, otherwise the build will fail. List of dependencies that are required to use ModelBank: Java 11, NodeJs, Angular CLI, Asciidoctor, jq, Docker, Docker Compose, Maven, PlantUML. Here are links where you can install needed dependencies:
+If something is missing, install it to your local machine, otherwise the build will fail. List of dependencies that are required to use ModelBank: Java 17, NodeJs, Angular CLI, Asciidoctor, jq, Docker, Docker Compose, Maven, PlantUML. Here are links where you can install needed dependencies:
 
 | Dependency          |                  Link                   |
 |---------------------| :-------------------------------------: |
-| Java 11             |    https://openjdk.java.net/install/    |
+| Java 17             |    https://openjdk.java.net/install/    |
 | Node.js 18.x        |     https://nodejs.org/en/download      |
 | Angular CLI 15.x    |   https://angular.io/guide/quickstart   |
 | Asciidoctor 2.0     |         https://asciidoctor.org         |

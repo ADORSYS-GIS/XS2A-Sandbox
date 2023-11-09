@@ -92,10 +92,10 @@
             <artifactId>spring-security-messaging</artifactId>
         </dependency>
 
-        <!-- Sprinfox and swagger UI -->
+        <!-- Sprindoc and swagger UI -->
         <dependency>
             <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
         </dependency>
 
         <dependency>
