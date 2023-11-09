@@ -8,4 +8,10 @@ Current version consists of following components:
 4. **Consent-Management v.17.1**
 5. **XS2A Connector-Examples v.17.1**
 
-From now on, Modelbank uses Java 17.
+-   From now on, Modelbank uses Java 17.
+
+-   Dependencies versions were bumped up:
+
+    -   Spring Boot - to 3.1.2
+    -   Spring Cloud - to 2022.0.4
+    -   Spring Security - to 6.0.5

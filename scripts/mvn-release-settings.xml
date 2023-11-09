@@ -32,6 +32,7 @@
                 </httpHeaders>
             </configuration>
         </server>
+
         <server>
             <!-- XS2A impl private repository-->
             <id>gitlab-xs2a-impl</id>
@@ -44,6 +45,7 @@
                 </httpHeaders>
             </configuration>
         </server>
+
         <server>
             <!-- Ledgers private repository-->
             <id>gitlab-ledgers</id>
@@ -56,6 +58,7 @@
                 </httpHeaders>
             </configuration>
         </server>
+
         <server>
             <!-- XS2A connector private repository-->
             <id>gitlab-xs2a-connector</id>

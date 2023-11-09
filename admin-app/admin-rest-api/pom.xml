@@ -69,13 +69,10 @@
             <artifactId>opencsv</artifactId>
         </dependency>
 
-        <!-- Quickfix Iban4j -->
         <dependency>
             <groupId>org.iban4j</groupId>
             <artifactId>iban4j</artifactId>
-            <version>3.2.2-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/iban4j-3.2.2-SNAPSHOT.jar</systemPath>
+            <version>${iban4j.version}</version>
         </dependency>
     </dependencies>
 

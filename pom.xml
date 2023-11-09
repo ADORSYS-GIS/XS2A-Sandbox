@@ -123,20 +123,21 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Maven plugins-->
-        <maven-enforcer-plugin.version>3.0.0-M2</maven-enforcer-plugin.version>
+        <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
         <maven.surefire.plugin.version>3.0.0-M6</maven.surefire.plugin.version>
-        <jacoco-maven-plugin.version>0.8.3</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
         <sonar-maven-plugin.version>3.7.0.1746</sonar-maven-plugin.version>
-        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
-        <maven-failsafe-plugin.version>3.0.0-M3</maven-failsafe-plugin.version>
-        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+        <maven-failsafe-plugin.version>3.0.0-M6</maven-failsafe-plugin.version>
+        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
         <liquibase-maven-plugin.version>4.9.0</liquibase-maven-plugin.version>
-        <pmd.plugin.version>3.13.0</pmd.plugin.version>
+        <maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
+        <maven-javadoc-plugin.version>3.6.0</maven-javadoc-plugin.version>
 
         <!-- XS2A versions -->
-        <xs2a.version>16.1-SNAPSHOT</xs2a.version>
-        <connector.version>16.1-SNAPSHOT</connector.version>
+        <xs2a.version>16.1</xs2a.version>
+        <connector.version>16.1</connector.version>
 
         <!-- Ledgers version -->
         <ledgers.version>4.22</ledgers.version>
@@ -163,6 +164,7 @@
         <feign-okhttp.version>10.10.1</feign-okhttp.version>
         <commons-validator.version>1.7</commons-validator.version>
         <snakeyaml.version>2.0</snakeyaml.version>
+        <iban4j.version>3.2.4-RELEASE</iban4j.version>
 
         <!-- Sonar -->
         <sonar.core.coveragePlugin>jacoco</sonar.core.coveragePlugin>
@@ -429,14 +431,31 @@
                     <version>${maven.surefire.plugin.version}</version>
                 </plugin>
 
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven-source-plugin.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>${maven-gpg-plugin.version}</version>
+                </plugin>
+
             </plugins>
         </pluginManagement>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>${pmd.plugin.version}</version>
+                <version>${maven-pmd-plugin.version}</version>
                 <configuration>
                     <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
                     <minimumTokens>100</minimumTokens>
@@ -476,6 +495,7 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -488,7 +508,6 @@
                         <exclude>**/generated-sources/**</exclude>
                         <exclude>**/*Config*.*</exclude>
                     </excludes>
-
                 </configuration>
                 <executions>
                     <execution>
@@ -506,6 +525,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
@@ -546,7 +566,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>${maven-source-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
@@ -560,9 +579,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>${maven-gpg-plugin.version}</version>
-                        <configuration>
-                        </configuration>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -607,7 +623,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>${maven-source-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
@@ -636,11 +651,13 @@
                     </plugin>
                 </plugins>
             </build>
+
             <distributionManagement>
                 <repository>
                     <id>gitlab-maven</id>
                     <url>https://git.adorsys.de/api/v4/projects/1705/packages/maven</url>
                 </repository>
+
                 <snapshotRepository>
                     <id>gitlab-maven</id>
                     <url>https://git.adorsys.de/api/v4/projects/1705/packages/maven</url>
@@ -648,6 +665,4 @@
             </distributionManagement>
         </profile>
     </profiles>
-
 </project>
-
