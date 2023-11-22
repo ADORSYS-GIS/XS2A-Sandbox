@@ -6,10 +6,12 @@ For upcoming versions see our xref:Roadmap.adoc[Roadmap].
 
 === Mainline 9.x (Development)
 
+* xref:release_notes/Release_notes_9.1.md[Version 9.1 (release date: xx.xx.2023)]
 * xref:release_notes/Release_notes_9.0.md[Version 9.0 (release date: 09.11.2023)]
 
 === Mainline 8.x (Stable)
 
+* xref:release_notes/Release_notes_8.1.md[Version 8.1 (release date: xx.xx.2023)]
 * xref:release_notes/Release_notes_8.0.md[Version 8.0 (release date: 09.11.2023)]
 
 === Mainline 7.x (Development)
