@@ -36,6 +36,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Collections;
@@ -153,6 +154,12 @@ class TppUsersControllerTest {
         when(userMgmtStaffRestClient.changeStatus(anyString())).thenReturn(ResponseEntity.ok(true));
         ResponseEntity<Boolean> result = tppUsersController.changeStatus(USER_ID);
         assertEquals(ResponseEntity.ok(true), result);
+    }
+
+    @Test
+    void resetPasswordViaEmail() {
+        ResponseEntity<Void> result = tppUsersController.resetPasswordViaEmail(LOGIN);
+        assertEquals(HttpStatusCode.valueOf(204), result.getStatusCode());
     }
 
     private UserTO getUserTO(String branch) {

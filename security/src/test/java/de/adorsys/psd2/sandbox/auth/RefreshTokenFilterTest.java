@@ -45,7 +45,9 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class RefreshTokenFilterTest {
-    public static final String TOKEN_ID = "token_id";
+
+    private static final String TOKEN_ID = "token_id";
+
     @Spy
     @InjectMocks
     RefreshTokenFilter filter;
@@ -63,7 +65,7 @@ class RefreshTokenFilterTest {
 
     @Test
     @SneakyThrows
-    public void doFilterInternal() {
+    void doFilterInternal() {
         // Given
         SecurityContextHolder.clearContext();
         BearerTokenTO bearer = getBearer();
@@ -73,11 +75,13 @@ class RefreshTokenFilterTest {
         doReturn(bearer.getRefresh_token()).when(filter).getCookieValue(request, SecurityConstant.REFRESH_TOKEN_COOKIE_PREFIX + TOKEN_ID);
         doReturn(true, false).when(filter).isExpiredToken(anyString());
         when(tokenService.refreshToken(anyString())).thenReturn(bearer);
+
+        // When
         filter.doFilterInternal(request, response, chain);
+
+        // Then
         verify(tokenService, times(1)).refreshToken(anyString());
-
     }
-
 
     private BearerTokenTO getBearer() {
         AccessTokenTO token = new AccessTokenTO();

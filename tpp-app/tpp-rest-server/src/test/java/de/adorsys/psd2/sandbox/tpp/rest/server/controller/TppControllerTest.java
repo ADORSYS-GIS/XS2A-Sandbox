@@ -191,6 +191,13 @@ class TppControllerTest {
     }
 
     @Test
+    void consumeTan() {
+        // When
+        ResponseEntity<Void> result = tppController.consumeTan("123456");
+        assertEquals(HttpStatus.ACCEPTED, result.getStatusCode());
+    }
+
+    @Test
     void account() {
         when(dataRestClient.depositAccount(anyString())).thenReturn(ResponseEntity.ok().build());
         ResponseEntity<Void> result = tppController.account(ACCOUNT_ID);
@@ -230,5 +237,4 @@ class TppControllerTest {
 
         return revertRequestTO;
     }
-
 }

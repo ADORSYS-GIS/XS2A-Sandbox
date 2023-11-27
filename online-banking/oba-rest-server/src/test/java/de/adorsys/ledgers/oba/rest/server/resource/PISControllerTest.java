@@ -18,12 +18,14 @@
 
 package de.adorsys.ledgers.oba.rest.server.resource;
 
+import de.adorsys.ledgers.middleware.api.domain.account.AccountDetailsTO;
 import de.adorsys.ledgers.middleware.api.domain.account.AccountReferenceTO;
 import de.adorsys.ledgers.middleware.api.domain.payment.*;
 import de.adorsys.ledgers.middleware.api.domain.sca.GlobalScaResponseTO;
 import de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO;
 import de.adorsys.ledgers.middleware.api.domain.um.AccessTokenTO;
 import de.adorsys.ledgers.middleware.api.domain.um.BearerTokenTO;
+import de.adorsys.ledgers.middleware.client.rest.AccountRestClient;
 import de.adorsys.ledgers.middleware.client.rest.AuthRequestInterceptor;
 import de.adorsys.ledgers.oba.service.api.domain.ConsentReference;
 import de.adorsys.ledgers.oba.service.api.domain.ConsentType;
@@ -47,11 +49,13 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Currency;
 import java.util.HashSet;
+import java.util.List;
 
 import static de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PISControllerTest {
@@ -85,6 +89,8 @@ class PISControllerTest {
     private AuthRequestInterceptor authInterceptor;
     @Mock
     private TokenAuthenticationService authenticationService;
+    @Mock
+    private AccountRestClient accountRestClient;
 
     @Test
     void login() {
@@ -112,6 +118,20 @@ class PISControllerTest {
 
         // Then
         assertEquals(ResponseEntity.ok(getPaymentAuthorizeResponse(true, true, FINALISED)), result);
+    }
+
+    @Test
+    void getAccountList() {
+        // Given
+        ReflectionTestUtils.setField(controller, "middlewareAuth", new MiddlewareAuthentication(null, getBearerToken()));
+        when(accountRestClient.getListOfAccounts()).thenReturn(ResponseEntity.ok(Collections.singletonList(new AccountDetailsTO())));
+
+        // When
+        ResponseEntity<List<AccountDetailsTO>> result = controller.getAccountList();
+
+        // Then
+        verify(authInterceptor, times(1)).setAccessToken(null);
+        assertTrue(result.getStatusCode().is2xxSuccessful());
     }
 
     @Test

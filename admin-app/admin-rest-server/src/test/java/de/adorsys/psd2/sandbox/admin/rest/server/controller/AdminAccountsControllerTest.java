@@ -16,7 +16,7 @@
  * contact us at psd2@adorsys.com.
  */
 
-package de.adorsys.psd2.sandbox.tpp.rest.server.controller;
+package de.adorsys.psd2.sandbox.admin.rest.server.controller;
 
 import de.adorsys.ledgers.middleware.api.domain.account.*;
 import de.adorsys.ledgers.middleware.api.domain.payment.AmountTO;
@@ -26,9 +26,9 @@ import de.adorsys.ledgers.middleware.api.domain.um.UserTO;
 import de.adorsys.ledgers.middleware.client.rest.AccountMgmtStaffRestClient;
 import de.adorsys.ledgers.middleware.client.rest.UserMgmtStaffRestClient;
 import de.adorsys.ledgers.util.domain.CustomPageImpl;
-import de.adorsys.psd2.sandbox.tpp.rest.api.domain.*;
-import de.adorsys.psd2.sandbox.tpp.rest.server.mapper.AccountMapper;
-import de.adorsys.psd2.sandbox.tpp.rest.server.service.DownloadResourceService;
+import de.adorsys.psd2.sandbox.admin.rest.api.domain.*;
+import de.adorsys.psd2.sandbox.admin.rest.server.mapper.AccountMapper;
+import de.adorsys.psd2.sandbox.admin.rest.server.service.DownloadResourceService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -48,7 +48,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class TppAccountsControllerTest {
+class AdminAccountsControllerTest {
     private static final String USER_LOGIN = "TEST";
     private static final String USER_ID = "o2SA3pHkRqYpnHkGYGfJ_s";
     private static final String ACCOUNT_ID = "iZ4HeU0hQ-4vAqi8w7GD7Y";
@@ -56,7 +56,7 @@ class TppAccountsControllerTest {
     private static final Currency EUR = Currency.getInstance("EUR");
 
     @InjectMocks
-    private TppAccountsController accountsController;
+    private AdminAccountsController accountsController;
     @Mock
     private AccountMapper accountMapper;
     @Mock

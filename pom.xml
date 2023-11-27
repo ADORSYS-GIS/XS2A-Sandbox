@@ -179,11 +179,15 @@
         <sonar.language>java</sonar.language>
         <sonar.coverage.exclusions>
             **/*Entity.java,**/*TO.java,**/*BO.java,**/*PO.java,**/*Application.java,**/*Exception.java,**/*Filter.java,
-            **/*Config.java,pom.xml,**/oba-rest-api/**/*,**/oba-service-api/**/*,**/tpp-cms-api/**/*,**/tpp-rest-api/**/*,**/tpp-rest-client/**/*,**/online-banking-app/**/*,**/consent-psu-rest-client/**/*,**/*Configuration.java
+            **/*Config.java,pom.xml,**/oba-rest-api/**/*,**/oba-service-api/**/*,**/tpp-cms-api/**/*,**/tpp-rest-api/**/*,
+            **/tpp-rest-client/**/*,**/admin-rest-api/**/*,**/admin-rest-client/**/*,**/online-banking-app/**/*,
+            **/consent-psu-rest-client/**/*,**/*Configuration.java,**/*Properties.java,**/*PermittedResources.java
         </sonar.coverage.exclusions>
         <sonar.exclusions>
             **/*Entity.java,**/*TO.java,**/*BO.java,**/*PO.java,**/*Application.java,**/*Exception.java,**/*Filter.java,
-            **/*Config.java,pom.xml,**/oba-rest-api/**/*,**/oba-service-api/**/*,**/tpp-cms-api/**/*,**/tpp-rest-api/**/*,**/tpp-rest-client/**/*,**/online-banking-app/**/*,**/consent-psu-rest-client/**/*,**/*Configuration.java
+            **/*Config.java,pom.xml,**/oba-rest-api/**/*,**/oba-service-api/**/*,**/tpp-cms-api/**/*,**/tpp-rest-api/**/*,
+            **/tpp-rest-client/**/*,**/admin-rest-api/**/*,**/admin-rest-client/**/*,**/online-banking-app/**/*,
+            **/consent-psu-rest-client/**/*,**/*Configuration.java,**/*Properties.java,**/*PermittedResources.java
         </sonar.exclusions>
         <sonar.moduleName>${project.artifactId}</sonar.moduleName>
         <skipITs>true</skipITs>
