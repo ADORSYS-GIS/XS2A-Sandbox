@@ -16,25 +16,30 @@
  * contact us at psd2@adorsys.com.
  */
 
-package de.adorsys.psd2.sandbox.admin.rest.server.controller;
+package de.adorsys.psd2.sandbox.tpp.rest.server.auth;
 
-import de.adorsys.psd2.sandbox.admin.rest.api.resource.AdminDataRestApi;
-import de.adorsys.psd2.sandbox.admin.rest.server.service.IbanGenerationService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import de.adorsys.ledgers.middleware.api.domain.um.AccessTokenTO;
+import de.adorsys.ledgers.middleware.api.domain.um.BearerTokenTO;
+import de.adorsys.ledgers.middleware.api.domain.um.UserRoleTO;
+import org.junit.jupiter.api.Test;
 
-@RestController
-@RequiredArgsConstructor
-@RequestMapping(AdminDataRestApi.BASE_PATH)
-public class AdminDataController implements AdminDataRestApi {
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-    private final IbanGenerationService ibanGenerationService;
+class TppLoginAuthorizationTest {
 
-    @Override
-    public ResponseEntity<String> generateIban(String tppId) {
-        return ResponseEntity.ok(ibanGenerationService.generateNextIban(tppId));
+    @Test
+    void canLogin() {
+        // Given
+        TppLoginAuthorization tppLoginAuthorization = new TppLoginAuthorization();
+        BearerTokenTO token = new BearerTokenTO();
+        AccessTokenTO tokenTO = new AccessTokenTO();
+        tokenTO.setRole(UserRoleTO.STAFF);
+        token.setAccessTokenObject(tokenTO);
+
+        // When
+        boolean actual = tppLoginAuthorization.canLogin(token);
+
+        // Then
+        assertTrue(actual);
     }
-
 }

@@ -161,14 +161,14 @@ class ParseServiceTest {
     }
 
     private void validateDataPayload(Optional<DataPayload> data) {
-        assertThat(data.isPresent()).isTrue();
+        assertThat(data).isPresent();
         DataPayload payload = data.get();
-        assertThat(payload.getBranch() == null).isTrue();
-        assertThat(payload.getGeneratedIbans().size() == 0).isTrue();
-        assertThat(payload.getUsers().size() == 1).isTrue();
-        assertThat(payload.getAccounts().size() == 1).isTrue();
-        assertThat(payload.getBalancesList().size() == 1).isTrue();
-        assertThat(payload.getPayments().size() == 1).isTrue();
+        assertThat(payload.getBranch()).isNull();
+        assertThat(payload.getGeneratedIbans().size()).isSameAs(0);
+        assertThat(payload.getUsers().size()).isSameAs(1);
+        assertThat(payload.getAccounts().size()).isSameAs(1);
+        assertThat(payload.getBalancesList().size()).isSameAs(1);
+        assertThat(payload.getPayments().size()).isSameAs(1);
     }
 
     private void assertNoNullFields(AisConsent consent) {

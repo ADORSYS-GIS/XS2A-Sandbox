@@ -19,10 +19,10 @@
 package de.adorsys.ledgers.oba.rest.server.ws.controller;
 
 import de.adorsys.ledgers.oba.rest.api.resource.oba.ObaDecoupledAPI;
-import de.adorsys.psd2.sandbox.auth.MiddlewareAuthentication;
 import de.adorsys.ledgers.oba.rest.server.ws.domain.DecoupledContext;
 import de.adorsys.ledgers.oba.service.api.domain.DecoupledConfRequest;
 import de.adorsys.ledgers.oba.service.api.service.DecoupledService;
+import de.adorsys.psd2.sandbox.auth.MiddlewareAuthentication;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
@@ -46,7 +46,7 @@ public class DecoupledController implements ObaDecoupledAPI {
 
     @Override
     public ResponseEntity<Boolean> decoupled(DecoupledConfRequest message) {
-        log.info("Confirmation of decoupled operation: {}, id: {}, by: {}", message.getOpType().name(), message.getObjId(), message.getAddressedUser());
+        log.info("Confirmation of decoupled operation: {}, ID: {}, by: {}", message.getOpType().name(), message.getObjId(), message.getAddressedUser());
         return ResponseEntity.ok(decoupledService.executeDecoupledOpr(message, authentication.getBearerToken().getAccess_token()));
     }
 

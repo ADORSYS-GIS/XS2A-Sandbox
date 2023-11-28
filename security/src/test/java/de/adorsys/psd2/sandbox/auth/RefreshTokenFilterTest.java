@@ -23,6 +23,7 @@ import de.adorsys.ledgers.middleware.api.domain.um.AccessTokenTO;
 import de.adorsys.ledgers.middleware.api.domain.um.BearerTokenTO;
 import de.adorsys.ledgers.middleware.api.domain.um.UserRoleTO;
 import de.adorsys.psd2.sandbox.auth.filter.RefreshTokenFilter;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -43,8 +44,10 @@ import java.util.HashSet;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class RefreshTokenFilterTest {
-    public static final String TOKEN_ID = "token_id";
+class RefreshTokenFilterTest {
+
+    private static final String TOKEN_ID = "token_id";
+
     @Spy
     @InjectMocks
     RefreshTokenFilter filter;
@@ -61,7 +64,8 @@ public class RefreshTokenFilterTest {
 
 
     @Test
-    public void doFilterInternal() throws Exception {
+    @SneakyThrows
+    void doFilterInternal() {
         // Given
         SecurityContextHolder.clearContext();
         BearerTokenTO bearer = getBearer();
@@ -71,11 +75,13 @@ public class RefreshTokenFilterTest {
         doReturn(bearer.getRefresh_token()).when(filter).getCookieValue(request, SecurityConstant.REFRESH_TOKEN_COOKIE_PREFIX + TOKEN_ID);
         doReturn(true, false).when(filter).isExpiredToken(anyString());
         when(tokenService.refreshToken(anyString())).thenReturn(bearer);
+
+        // When
         filter.doFilterInternal(request, response, chain);
+
+        // Then
         verify(tokenService, times(1)).refreshToken(anyString());
-
     }
-
 
     private BearerTokenTO getBearer() {
         AccessTokenTO token = new AccessTokenTO();

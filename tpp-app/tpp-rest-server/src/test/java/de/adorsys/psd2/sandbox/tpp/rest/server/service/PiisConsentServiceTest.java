@@ -35,9 +35,11 @@ import de.adorsys.psd2.consent.aspsp.api.piis.CreatePiisConsentRequest;
 import de.adorsys.psd2.consent.aspsp.api.piis.CreatePiisConsentResponse;
 import de.adorsys.psd2.sandbox.tpp.rest.api.domain.AccountAccess;
 import de.adorsys.psd2.sandbox.tpp.rest.api.domain.PiisConsent;
+import de.adorsys.psd2.sandbox.tpp.rest.server.exception.TppException;
 import de.adorsys.psd2.sandbox.tpp.rest.server.mapper.TppPiisConsentMapper;
 import de.adorsys.psd2.xs2a.core.consent.ConsentStatus;
 import de.adorsys.psd2.xs2a.core.profile.AccountReference;
+import feign.FeignException;
 import org.adorsys.ledgers.consent.aspsp.rest.client.CmsAspspPiisClient;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -53,8 +55,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import static de.adorsys.psd2.consent.psu.api.config.CmsPsuApiDefaultValue.DEFAULT_SERVICE_INSTANCE_ID;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -119,6 +120,39 @@ class PiisConsentServiceTest {
     }
 
     @Test
+    void createPiisConsent_loginException() {
+        // Given
+        CreatePiisConsentRequest request = new CreatePiisConsentRequest();
+        request.setTppAuthorisationNumber(TPP_AUTHORISATION_NUMBER);
+
+        PiisConsent piisConsent = getPiisConsent();
+        when(keycloakTokenService.login(LOGIN, PASSWORD))
+            .thenThrow(FeignException.class);
+
+        // then
+        assertThrows(TppException.class, () -> piisConsentService.createPiisConsent(LOGIN, PASSWORD, piisConsent));
+    }
+
+    @Test
+    void createPiisConsent_cmsException() {
+        // Given
+        CreatePiisConsentRequest request = new CreatePiisConsentRequest();
+        request.setTppAuthorisationNumber(TPP_AUTHORISATION_NUMBER);
+
+        PiisConsent piisConsent = getPiisConsent();
+
+        when(tppPiisConsentMapper.toPiisConsentRequest(piisConsent))
+            .thenReturn(request);
+        when(cmsAspspPiisClient.createConsent(request, LOGIN, null, null, null, null))
+            .thenThrow(FeignException.class);
+        when(keycloakTokenService.login(LOGIN, PASSWORD))
+            .thenReturn(getBearerToken());
+
+        // then
+        assertThrows(TppException.class, () -> piisConsentService.createPiisConsent(LOGIN, PASSWORD, piisConsent));
+    }
+
+    @Test
     void getListOfPiisConsentsPaged() {
         // Given
         ResponseData<List<CmsPiisConsent>> response = new ResponseData<>();
@@ -133,7 +167,20 @@ class PiisConsentServiceTest {
 
         // Then
         assertNotNull(consentsPaged.getContent());
+    }
 
+    @Test
+    void getListOfPiisConsentsPaged_cmsException() {
+        // Given
+        ResponseData<List<CmsPiisConsent>> response = new ResponseData<>();
+        response.setData(Collections.singletonList(getCmsPiisConsent()));
+        response.setPageInfo(new CmsPageInfo(0, 10, 10));
+
+        when(cmsAspspPiisClient.getConsentsForPsu(LOGIN, null, null, null, DEFAULT_SERVICE_INSTANCE_ID, 0, 10))
+            .thenThrow(FeignException.class);
+
+        // Then
+        assertThrows(TppException.class, () -> piisConsentService.getListOfPiisConsentsPaged(LOGIN, 0, 10));
     }
 
     private PiisConsent getPiisConsent() {
@@ -185,5 +232,4 @@ class PiisConsentServiceTest {
 
         return response;
     }
-
 }

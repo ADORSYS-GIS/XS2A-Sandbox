@@ -33,8 +33,8 @@ import org.springframework.http.ResponseEntity;
 import java.time.LocalDate;
 import java.util.Currency;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -55,7 +55,7 @@ class TppPiisConsentControllerTest {
     @Test
     void createPiisConsent() {
         // Given
-        PiisConsent piisConsent = getPiisConsent();
+        PiisConsent piisConsent = buildPiisConsent();
         when(piisConsentService.createPiisConsent(LOGIN, PASSWORD, piisConsent)).thenReturn(new SCAConsentResponseTO());
 
         // When
@@ -63,7 +63,7 @@ class TppPiisConsentControllerTest {
 
         // Then
         assertNotNull(actual);
-        assertEquals(200, actual.getStatusCodeValue());
+        assertTrue(actual.getStatusCode().is2xxSuccessful());
     }
 
     @Test
@@ -76,7 +76,20 @@ class TppPiisConsentControllerTest {
 
         // Then
         assertNotNull(actual);
-        assertEquals(200, actual.getStatusCodeValue());
+        assertTrue(actual.getStatusCode().is2xxSuccessful());
+    }
+
+    @Test
+    void getPiisConsent() {
+        // Given
+        when(piisConsentService.getPiisConsent(LOGIN, PIIS_CONSENT_ID)).thenReturn(buildPiisConsent());
+
+        // When
+        ResponseEntity<PiisConsent> actual = tppController.getPiisConsent(LOGIN, PIIS_CONSENT_ID);
+
+        // Then
+        assertNotNull(actual);
+        assertTrue(actual.getStatusCode().is2xxSuccessful());
     }
 
     @Test
@@ -86,10 +99,10 @@ class TppPiisConsentControllerTest {
 
         // Then
         assertNotNull(actual);
-        assertEquals(200, actual.getStatusCodeValue());
+        assertTrue(actual.getStatusCode().is2xxSuccessful());
     }
 
-    private PiisConsent getPiisConsent() {
+    private PiisConsent buildPiisConsent() {
         PiisConsent piisConsent = new PiisConsent();
         AccountAccess access = new AccountAccess();
         access.setIban(IBAN);
