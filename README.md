@@ -1,3 +1,5 @@
+<div align="center"><img src="modelbank.png" height="200"></div>
+
 # ModelBank
 
 This is the try-out version of adorsys ModelBank: an open source (AGPL v3) solution to get acquainted with adorsys’ implementation of a NextGenPSD2 compliant dynamic sandbox. 
