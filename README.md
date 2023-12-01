@@ -1,4 +1,4 @@
-<p align="center"><img src="modelbank.png" height="200"></p>
+<div align="center"><img src="modelbank.png" height="200"></div>
 
 # ModelBank
 
