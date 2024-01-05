@@ -136,8 +136,8 @@
         <pmd.plugin.version>3.21.2</pmd.plugin.version>
 
         <!-- XS2A versions -->
-        <xs2a.version>17.1</xs2a.version>
-        <connector.version>17.1</connector.version>
+        <xs2a.version>17.2</xs2a.version>
+        <connector.version>17.2</connector.version>
 
         <!-- Ledgers version -->
         <ledgers.version>5.0</ledgers.version>
