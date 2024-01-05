@@ -3,9 +3,11 @@
 Current version consists of following components:
 
 1. **Ledgers v.4.22**
-2. **XS2A v.16.xxxxxxxxxx**
-3. **ASPSP-Profile v.16.1**
-4. **Consent-Management v.16.1**
-5. **XS2A Connector-Examples v.16.1**
+2. **XS2A v.16.2**
+3. **ASPSP-Profile v.16.2**
+4. **Consent-Management v.16.2**
+5. **XS2A Connector-Examples v.16.2**
 
 -   Fixed TPP UI wrong IBAN error handling (PASD-236).
+
+-   Extended unit test coverage in a project
