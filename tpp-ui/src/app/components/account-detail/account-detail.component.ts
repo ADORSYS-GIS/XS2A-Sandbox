@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2023 adorsys GmbH & Co KG
+ * Copyright 2018-2024 adorsys GmbH & Co KG
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published
@@ -13,7 +13,7 @@
  * along with this program. If not, see https://www.gnu.org/licenses/.
  *
  * This project is also available under a separate commercial license. You can
- * contact us at psd2@adorsys.com.
+ * contact us at sales@adorsys.com.
  */
 
 import { Component, OnInit } from '@angular/core';
@@ -112,7 +112,7 @@ export class AccountDetailComponent implements OnInit {
     },
     (error) => {
       if (error instanceof HttpErrorResponse && error.status === 400) {
-        // TODO: message should be replaced with error.message when there is a proper one 
+        // TODO: message should be replaced with error.message when there is a proper one
         this.infoService.openFeedback('Wrong IBAN is entered', {
           severity: 'error',
         });
