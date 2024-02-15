@@ -7,6 +7,7 @@ ENV NGINX_ERROR_LOG_DEBUG error
 
 RUN \
   apt-get update && \
+  apt-get remove -y curl && \
   apt-get install -y ruby2.7=2.7.4-1+deb11u1 --no-install-recommends \
   && rm -rf /var/lib/apt/lists/*
 
@@ -20,8 +21,8 @@ RUN chgrp -R root /var/cache/nginx && \
     find /var/cache/nginx -type f -exec chmod 664 {} \; && \
     chmod 775 /var/run && \
     chmod 775 /opt/entry.sh && \
-    chmod -R 777 /etc/nginx/conf.d && \
-    chmod 777 /usr/share/nginx/html/assets/settings.json
+    chmod -R 775 /etc/nginx/conf.d && \
+    chmod 644 /usr/share/nginx/html/assets/settings.json
 
 EXPOSE 4205
 
