@@ -277,7 +277,7 @@ Hier ein Json Beispiel:
     "img": "Rene.png",
     "name": "René Pongratz",
     "position": "Software Architect & Expert for API Management",
-    "email": "psd2@adorsys.de"
+    "email": "sales@adorsys.com"
   },
   "officesInfo": [
     {
@@ -286,7 +286,7 @@ Hier ein Json Beispiel:
       "addressFirstLine": "Fürther Str. 246a, Gebäude 32 im 4.OG",
       "addressSecondLine": "90429 Nürnberg",
       "phone": "+49(0)911 360698-0",
-      "email": "psd2@adorsys.de"
+      "email": "sales@adorsys.com"
     },
     {
       "city": "Frankfurt",
