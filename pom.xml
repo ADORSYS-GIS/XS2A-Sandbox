@@ -123,38 +123,38 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Maven plugins-->
-        <maven-enforcer-plugin.version>3.4.0</maven-enforcer-plugin.version>
-        <maven.surefire.plugin.version>3.1.2</maven.surefire.plugin.version>
-        <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
+        <maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
+        <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
+        <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
         <sonar-maven-plugin.version>3.7.0.1746</sonar-maven-plugin.version>
-        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
         <maven-failsafe-plugin.version>3.1.2</maven-failsafe-plugin.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
         <maven-javadoc-plugin.version>3.6.0</maven-javadoc-plugin.version>
-        <liquibase-maven-plugin.version>4.17.0</liquibase-maven-plugin.version>
+        <liquibase-maven-plugin.version>4.25.1</liquibase-maven-plugin.version>
         <pmd.plugin.version>3.21.2</pmd.plugin.version>
 
         <!-- XS2A versions -->
-        <xs2a.version>17.2</xs2a.version>
-        <connector.version>17.2</connector.version>
+        <xs2a.version>17.3-SNAPSHOT</xs2a.version>
+        <connector.version>17.3-SNAPSHOT</connector.version>
 
         <!-- Ledgers version -->
-        <ledgers.version>5.0</ledgers.version>
+        <ledgers.version>5.1-SNAPSHOT</ledgers.version>
 
         <!-- Spring-related versions -->
-        <spring-boot-dependencies.version>3.1.2</spring-boot-dependencies.version>
-        <spring-cloud-dependencies.version>2022.0.4</spring-cloud-dependencies.version>
+        <spring-boot-dependencies.version>3.2.0</spring-boot-dependencies.version>
+        <spring-cloud-dependencies.version>2023.0.0</spring-cloud-dependencies.version>
         <spring-test.version>6.0.11</spring-test.version>
-        <spring-security.version>6.0.5</spring-security.version>
+        <spring-security.version>6.1.3</spring-security.version>
 
         <!-- Other versions -->
         <jetbrains.annotations.version>15.0</jetbrains.annotations.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
-        <springdoc.version>2.0.0</springdoc.version>
+        <springdoc.version>2.3.0</springdoc.version>
         <swagger-annotations.version>2.2.15</swagger-annotations.version>
         <nimbus-jose-jwt.version>9.25.6</nimbus-jose-jwt.version>
-        <lombok.version>1.18.24</lombok.version>
+        <lombok.version>1.18.30</lombok.version>
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
         <commons-io.version>2.11.0</commons-io.version>
         <junit-jupiter.version>5.10.0</junit-jupiter.version>
@@ -164,7 +164,7 @@
         <jakarta.annotation-api.version>2.1.1</jakarta.annotation-api.version>
         <jakarta.validation-api.version>3.0.2</jakarta.validation-api.version>
         <jakarta.persistence-api.version>3.1.0</jakarta.persistence-api.version>
-        <jackson-core.version>2.15.1</jackson-core.version>
+        <jackson-core.version>2.15.3</jackson-core.version>
         <opencsv.version>5.7.1</opencsv.version>
         <feign-okhttp.version>10.10.1</feign-okhttp.version>
         <commons-validator.version>1.7</commons-validator.version>
@@ -487,7 +487,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-<!--                    <source>${java.version}</source>-->
+                    <parameters>true</parameters>
+                    <!--                    <source>${java.version}</source>-->
 <!--                    <target>${java.version}</target>-->
                     <annotationProcessorPaths>
                         <path>
