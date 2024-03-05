@@ -50,7 +50,7 @@ public class TppUsersController implements TppUsersRestApi {
     @Override
     public ResponseEntity<UserTO> createUser(User user) {
         UserTO userTO = userMapper.toUserTO(user);
-        return userMgmtStaffRestClient.createUser(userTO);
+        return ResponseEntity.ok(userMgmtStaffRestClient.createUser(userTO).getBody());
     }
 
     @Override
@@ -76,17 +76,17 @@ public class TppUsersController implements TppUsersRestApi {
 
     @Override
     public ResponseEntity<UserTO> getUser(String userId) {
-        return userMgmtStaffRestClient.getBranchUserById(userId);
+        return ResponseEntity.ok(userMgmtStaffRestClient.getBranchUserById(userId).getBody());
     }
 
     @Override
     public ResponseEntity<UserTO> getSelf() {
-        return userMgmtRestClient.getUser();
+        return ResponseEntity.ok(userMgmtRestClient.getUser().getBody());
     }
 
     @Override
     public ResponseEntity<Boolean> changeStatus(String userId) {
-        return userMgmtStaffRestClient.changeStatus(userId);
+        return ResponseEntity.ok(userMgmtStaffRestClient.changeStatus(userId).getBody());
     }
 
     @Override

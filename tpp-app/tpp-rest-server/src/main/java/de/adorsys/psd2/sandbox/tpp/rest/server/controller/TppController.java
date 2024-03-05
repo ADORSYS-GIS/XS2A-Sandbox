@@ -67,7 +67,7 @@ public class TppController implements TppRestApi {
 
     @Override
     public ResponseEntity<Set<Currency>> getCurrencies() {
-        return dataRestClient.currencies();
+        return ResponseEntity.ok(dataRestClient.currencies().getBody());
     }
 
     @Override
@@ -88,13 +88,15 @@ public class TppController implements TppRestApi {
         bbanStructure.setCountryPrefix(structure.getCountryCode().name());
         bbanStructure.setLength(structure.getLength());
         bbanStructure.setEntryType(BbanStructure.EntryType.valueOf(structure.getType().name().toUpperCase()));
-        return dataRestClient.branchId(bbanStructure);
+
+        return ResponseEntity.ok(dataRestClient.branchId(bbanStructure).getBody());
     }
 
     @Override
     public ResponseEntity<Void> register(User user) {
         UserTO userTO = userMapper.toUserTO(user);
         userMgmtStaffRestClient.register(user.getId(), userTO);
+
         return ResponseEntity.status(CREATED).build();
     }
 
@@ -104,22 +106,26 @@ public class TppController implements TppRestApi {
         cmsDbNativeService.deleteConsentsByUserIds(logins);
         UserTO user = userMgmtRestClient.getUser().getBody();
 
-        return dataRestClient.branch(requireNonNull(user).getBranch());
+        dataRestClient.branch(requireNonNull(user).getBranch());
+        return ResponseEntity.ok().build();
     }
 
     @Override
     public ResponseEntity<Void> transactions(String accountId) {
-        return dataRestClient.account(accountId);
+        dataRestClient.account(accountId);
+        return ResponseEntity.ok().build();
     }
 
     @Override
     public ResponseEntity<Void> account(String accountId) {
-        return dataRestClient.depositAccount(accountId);
+        dataRestClient.depositAccount(accountId);
+        return ResponseEntity.ok().build();
     }
 
     @Override
     public ResponseEntity<Void> user(String userId) {
-        return dataRestClient.user(userId);
+        dataRestClient.user(userId);
+        return ResponseEntity.ok().build();
     }
 
     @Override

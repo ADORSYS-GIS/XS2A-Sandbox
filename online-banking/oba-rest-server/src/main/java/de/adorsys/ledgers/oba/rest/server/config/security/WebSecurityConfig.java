@@ -31,9 +31,11 @@ import de.adorsys.psd2.sandbox.auth.filter.TokenAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -52,67 +54,36 @@ import static de.adorsys.ledgers.oba.rest.server.config.security.PermittedResour
 @SuppressWarnings("PMD.SignatureDeclareThrowsException")
 public class WebSecurityConfig {
 
-    @Order(1)
     @Configuration
     @RequiredArgsConstructor
     public static class ObaSecurityConfig {
+        private final TokenAuthenticationService tokenAuthenticationService;
+        private final AuthRequestInterceptor authInterceptor;
+        private final ObjectMapper objectMapper;
         private final LoginAuthenticationFilter loginAuthenticationFilter;
         private final RefreshTokenFilter refreshTokenFilter;
         private final TokenAuthenticationFilter tokenAuthenticationFilter;
 
         @Bean
-        protected SecurityFilterChain configureOba(HttpSecurity http) throws Exception {
+        protected SecurityFilterChain configureObaSecurity(HttpSecurity http) throws Exception {
             http
-                .authorizeRequests()
-                .requestMatchers("/api/v1/**").authenticated()
-                .requestMatchers(APP_WHITELIST).permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .httpBasic()
-                .disable();
+                .httpBasic(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth
+                                                   .requestMatchers(APP_INDEX_WHITELIST).permitAll()
+                                                   .requestMatchers(APP_SCA_WHITELIST).permitAll()
+                                                   .requestMatchers(APP_WHITELIST).permitAll()
+                                                   .requestMatchers(SWAGGER_WHITELIST).permitAll()
+                                                   .requestMatchers(ACTUATOR_WHITELIST).permitAll()
+                                                   .anyRequest().authenticated())
 
-            http
-                .csrf()
-                .disable()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-            http
-                .headers()
-                .frameOptions()
-                .disable();
-
-            http.addFilterBefore(loginAuthenticationFilter, BasicAuthenticationFilter.class);
-            http.addFilterBefore(refreshTokenFilter, BasicAuthenticationFilter.class);
-            http.addFilterBefore(tokenAuthenticationFilter, BasicAuthenticationFilter.class);
-
-            return http.build();
-        }
-    }
-
-    @Order(2)
-    @Configuration
-    @RequiredArgsConstructor
-    public static class ObaScaSecurityConfig {
-        private final TokenAuthenticationService tokenAuthenticationService;
-        private final AuthRequestInterceptor authInterceptor;
-        private final ObjectMapper objectMapper;
-
-        @Bean
-        protected SecurityFilterChain configureObaForRedirect(HttpSecurity http) throws Exception {
-            http
-                .authorizeHttpRequests()
-                .requestMatchers(APP_INDEX_WHITELIST).permitAll()
-                .requestMatchers(APP_SCA_WHITELIST).permitAll()
-                .requestMatchers(APP_WHITELIST).permitAll()
-                .requestMatchers(SWAGGER_WHITELIST).permitAll()
-                .requestMatchers(ACTUATOR_WHITELIST).permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .cors();
-
-            http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-            http.headers().frameOptions().disable();
-            http.addFilterBefore(new JWTAuthenticationFilter(tokenAuthenticationService, authInterceptor, objectMapper), BasicAuthenticationFilter.class);
+                .cors(Customizer.withDefaults())
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
+                .addFilterBefore(new JWTAuthenticationFilter(tokenAuthenticationService, authInterceptor, objectMapper), BasicAuthenticationFilter.class)
+                .addFilterBefore(loginAuthenticationFilter, BasicAuthenticationFilter.class)
+                .addFilterBefore(refreshTokenFilter, BasicAuthenticationFilter.class)
+                .addFilterBefore(tokenAuthenticationFilter, BasicAuthenticationFilter.class);
 
             return http.build();
         }

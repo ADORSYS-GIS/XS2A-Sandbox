@@ -36,21 +36,22 @@ public class TppRecoveryPointController implements TppRecoveryPointRestApi {
 
     @Override
     public ResponseEntity<RecoveryPointTO> point(Long id) {
-        return dataRestClient.getPoint(id);
+        return ResponseEntity.ok(dataRestClient.getPoint(id).getBody());
     }
 
     @Override
     public ResponseEntity<List<RecoveryPointTO>> points() {
-        return dataRestClient.getAllPoints();
+        return ResponseEntity.ok(dataRestClient.getAllPoints().getBody());
     }
 
     @Override
     public ResponseEntity<Void> createPoint(RecoveryPointTO recoveryPoint) {
-        return dataRestClient.createPoint(recoveryPoint);
+        return ResponseEntity.ok(dataRestClient.createPoint(recoveryPoint).getBody());
     }
 
     @Override
     public ResponseEntity<Void> deletePoint(Long id) {
-        return dataRestClient.deletePoint(id);
+        dataRestClient.deletePoint(id);
+        return ResponseEntity.noContent().build();
     }
 }

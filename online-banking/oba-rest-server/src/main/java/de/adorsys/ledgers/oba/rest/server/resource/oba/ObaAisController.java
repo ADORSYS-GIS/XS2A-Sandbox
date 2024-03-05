@@ -68,11 +68,11 @@ public class ObaAisController implements ObaAisApi {
 
     @Override
     public ResponseEntity<CustomPageImpl<PaymentTO>> getPendingPeriodicPayments(int page, int size) {
-        return paymentRestClient.getPendingPeriodicPaymentsPaged(page, size);
+        return ResponseEntity.ok(paymentRestClient.getPendingPeriodicPaymentsPaged(page, size).getBody());
     }
 
     @Override
     public ResponseEntity<CustomPageImpl<PaymentTO>> getAllPayments(int page, int size) {
-        return paymentRestClient.getAllPaymentsPaged(page, size);
+        return ResponseEntity.ok(paymentRestClient.getAllPaymentsPaged(page, size).getBody());
     }
 }

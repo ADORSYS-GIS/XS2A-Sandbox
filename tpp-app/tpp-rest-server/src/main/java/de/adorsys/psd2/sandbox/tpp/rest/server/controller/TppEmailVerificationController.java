@@ -33,11 +33,13 @@ public class TppEmailVerificationController implements TppEmailVerificationRestA
 
     @Override
     public ResponseEntity<Void> sendEmailVerification(String email) {
-        return scaVerificationRestClient.sendEmailVerification(email);
+        scaVerificationRestClient.sendEmailVerification(email);
+        return ResponseEntity.noContent().build();
     }
 
     @Override
     public ResponseEntity<Void> confirmVerificationToken(String token) {
-        return scaVerificationRestClient.confirmVerificationToken(token);
+        scaVerificationRestClient.confirmVerificationToken(token);
+        return ResponseEntity.noContent().build();
     }
 }

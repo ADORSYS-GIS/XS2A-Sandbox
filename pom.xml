@@ -136,11 +136,11 @@
         <pmd.plugin.version>3.21.2</pmd.plugin.version>
 
         <!-- XS2A versions -->
-        <xs2a.version>17.3-SNAPSHOT</xs2a.version>
-        <connector.version>17.3-SNAPSHOT</connector.version>
+        <xs2a.version>17.3</xs2a.version>
+        <connector.version>17.3</connector.version>
 
         <!-- Ledgers version -->
-        <ledgers.version>5.1-SNAPSHOT</ledgers.version>
+        <ledgers.version>5.1</ledgers.version>
 
         <!-- Spring-related versions -->
         <spring-boot-dependencies.version>3.2.0</spring-boot-dependencies.version>
@@ -164,7 +164,7 @@
         <jakarta.annotation-api.version>2.1.1</jakarta.annotation-api.version>
         <jakarta.validation-api.version>3.0.2</jakarta.validation-api.version>
         <jakarta.persistence-api.version>3.1.0</jakarta.persistence-api.version>
-        <jackson-core.version>2.15.3</jackson-core.version>
+        <jackson-core.version>2.16.1</jackson-core.version>
         <opencsv.version>5.7.1</opencsv.version>
         <feign-okhttp.version>10.10.1</feign-okhttp.version>
         <commons-validator.version>1.7</commons-validator.version>

@@ -15,5 +15,8 @@ Current version consists of following components:
     -   Spring Security - to 6.1.3
     -   Spring Test - to 6.1.3
     -   Lombok - to 1.18.30
-    -   Jackson - to 2.15.3
+    -   Jackson - to 2.16.1
     -   SpringDoc - to 2.3.0
+
+-   Nginx version in UI docker images was bumped to 1.25.4 to close vulnerabilities.
+-   File attributes were updated for the UI docker images.

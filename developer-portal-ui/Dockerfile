@@ -1,5 +1,5 @@
 # Stage SERVE
-FROM nginx:1.22.1
+FROM nginx:1.25.4
 LABEL maintainer="https://git.adorsys.de/adorsys/xs2a/psd2-dynamic-sandbox"
 
 ENV NGINX_ACCESS_LOG_DEBUG combined
@@ -15,7 +15,7 @@ RUN chgrp -R root /var/cache/nginx && \
     find /var/cache/nginx -type f -exec chmod 664 {} \; && \
     chmod 775 /var/run && \
     chmod 775 /opt/entry.sh && \
-    chmod -R 777 /etc/nginx/conf.d
+    chmod -R 775 /etc/nginx/conf.d
 
 EXPOSE 4206
 
