@@ -27,8 +27,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@Tag(name = "Online Banking PIS Cancellation.")
+@Tag(name = "Online Banking PIS Cancellation")
 public interface ObaCancellationApi {
+
     String BASE_PATH = "/api/v1/payment/cancellation";
 
     @PostMapping
@@ -37,7 +38,7 @@ public interface ObaCancellationApi {
     ResponseEntity<GlobalScaResponseTO> initCancellation(@RequestParam String paymentId);
 
     @PostMapping("/sca")
-    @Operation(summary = "Select Sca Method for payment cancellation")
+    @Operation(summary = "Select SCA Method for payment cancellation")
     @SecurityRequirement(name = "apiKey")
     ResponseEntity<GlobalScaResponseTO> selectSca(@RequestParam String paymentId, @RequestParam String cancellationId, @RequestParam String scaMethodId);
 

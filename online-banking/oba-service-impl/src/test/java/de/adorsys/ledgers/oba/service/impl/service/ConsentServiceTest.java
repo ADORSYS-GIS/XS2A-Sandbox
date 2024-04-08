@@ -66,6 +66,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -86,6 +87,7 @@ class ConsentServiceTest {
     private static final String IBAN = "DE1234567890";
     private static final Currency EUR = Currency.getInstance("EUR");
     private static final String USER_LOGIN = "login";
+    private static final LocalDateTime LOCAL_DATE_TIME_NOW = LocalDateTime.now();
 
     @InjectMocks
     private ConsentServiceImpl consentService;
@@ -164,7 +166,7 @@ class ConsentServiceTest {
     }
 
     @Test
-    void confirmAisConsentDecoupled_ledgers_auth_failure() throws IOException, NoSuchFieldException {
+    void confirmAisConsentDecoupled_ledgers_auth_failure() throws IOException {
         // Given
         ReflectionTestUtils.setField(consentService, "objectMapper", mapper);
         when(securityDataService.decryptId(any())).thenReturn(Optional.of(CONSENT_ID));
@@ -173,16 +175,6 @@ class ConsentServiceTest {
 
         // Then
         assertThrows(ObaException.class, () -> consentService.confirmAisConsentDecoupled(USER_LOGIN, "encryptedConsentId", AUTHORIZATION_ID, TAN));
-    }
-
-    private Response getResponse() throws JsonProcessingException {
-        return Response.builder()
-                   .request(Request.create(Request.HttpMethod.POST, "", new HashMap<>(), null, new RequestTemplate()))
-                   .reason("Msg")
-                   .headers(new HashMap<>())
-                   .status(401)
-                   .body(mapper.writeValueAsBytes(Map.of("devMessage", "Msg")))
-                   .build();
     }
 
     @Test
@@ -317,6 +309,46 @@ class ConsentServiceTest {
         assertThrows(ObaException.class, () -> consentService.confirmAisConsentDecoupled(USER_LOGIN, "encryptedConsentId", AUTHORIZATION_ID, TAN));
     } //TODO FIX ME!!!
 
+    @Test
+    void getListOfConsentsPaged() {
+        CmsAisAccountConsent consent = new CmsAisAccountConsent();
+        Collection<CmsAisAccountConsent> collection = IntStream.range(0, 10)
+                                                          .mapToObj(i -> {
+                                                              consent.setId(String.valueOf(i));
+                                                              return consent;
+                                                          }).collect(Collectors.toList());
+        ResponseDataMixIn<Collection<CmsAisAccountConsent>> consentResponse = new ResponseDataMixIn(collection, new CmsPageInfo(0, 10, 10), null);
+        when(cmsAspspAisClient.getConsentsByPsu(any(), any(), anyString(), any(), any(), any(), any(), any(), any(), any()))
+            .thenReturn(consentResponse);
+        CustomPageImpl<ObaAisConsent> result = consentService.getListOfConsentsPaged(USER_LOGIN, 0, 10);
+        assertEquals(10, result.getNumberOfElements());
+        assertEquals(0, result.getNumber());
+        assertTrue(result.isFirstPage());
+        assertTrue(result.isFirstPage());
+        assertFalse(result.isNextPage());
+        assertTrue(result.isLastPage());
+        assertEquals(10, result.getTotalElements());
+        assertEquals(10, result.getContent().size());
+    }
+
+    @Test
+    void getListOfConsentsPaged_error() {
+        when(cmsAspspAisClient.getConsentsByPsu(any(), any(), anyString(), any(), any(), any(), any(), any(), any(), any()))
+            .thenThrow(FeignException.class);
+        ObaException exception = assertThrows(ObaException.class, () -> consentService.getListOfConsentsPaged(USER_LOGIN, 0, 10));
+        assertEquals(AIS_BAD_REQUEST, exception.getObaErrorCode());
+    }
+
+    private Response getResponse() throws JsonProcessingException {
+        return Response.builder()
+                   .request(Request.create(Request.HttpMethod.POST, "", new HashMap<>(), null, new RequestTemplate()))
+                   .reason("Msg")
+                   .headers(new HashMap<>())
+                   .status(401)
+                   .body(mapper.writeValueAsBytes(Map.of("devMessage", "Msg")))
+                   .build();
+    }
+
     private SCAConsentResponseTO getSCAConsentResponseTO() {
         SCAConsentResponseTO response = new SCAConsentResponseTO();
         response.setConsentId(CONSENT_ID);
@@ -324,7 +356,7 @@ class ConsentServiceTest {
     }
 
     private CmsAisAccountConsent getCmsAisAccountConsent() {
-        return new CmsAisAccountConsent(CONSENT_ID, getAisAccountAccess(), false, LocalDate.now().plusMonths(1), LocalDate.now().plusMonths(1), 3, LocalDate.now(), ConsentStatus.VALID, false, false,
+        return new CmsAisAccountConsent(CONSENT_ID, getAisAccountAccess(), false, LocalDate.now().plusMonths(1), LocalDate.now().plusMonths(1), 3, LOCAL_DATE_TIME_NOW, ConsentStatus.VALID, false, false,
                                         AisConsentRequestType.BANK_OFFERED, Collections.emptyList(), new TppInfo(), new AuthorisationTemplate(), false, Collections.emptyList(),
                                         Collections.emptyMap(), OffsetDateTime.MIN, OffsetDateTime.MIN, null, null);
     }
@@ -365,36 +397,6 @@ class ConsentServiceTest {
     private JsonNode getJsonNodeError() throws JsonProcessingException {
         String json = "\"{\\\"devMessage\\\":\\\"error\\\" }\"";
         return mapper.readTree(json);
-    }
-
-    @Test
-    void getListOfConsentsPaged() {
-        CmsAisAccountConsent consent = new CmsAisAccountConsent();
-        Collection<CmsAisAccountConsent> collection = IntStream.range(0, 10)
-                                                          .mapToObj(i -> {
-                                                              consent.setId(String.valueOf(i));
-                                                              return consent;
-                                                          }).collect(Collectors.toList());
-        ResponseDataMixIn<Collection<CmsAisAccountConsent>> consentResponse = new ResponseDataMixIn(collection,new CmsPageInfo(0, 10, 10), null);
-        when(cmsAspspAisClient.getConsentsByPsu(any(), any(), anyString(), any(), any(), any(), any(), any(), any(), any()))
-            .thenReturn(consentResponse);
-        CustomPageImpl<ObaAisConsent> result = consentService.getListOfConsentsPaged(USER_LOGIN, 0, 10);
-        assertEquals(10, result.getNumberOfElements());
-        assertEquals(0, result.getNumber());
-        assertTrue(result.isFirstPage());
-        assertTrue(result.isFirstPage());
-        assertFalse(result.isNextPage());
-        assertTrue(result.isLastPage());
-        assertEquals(10, result.getTotalElements());
-        assertEquals(10, result.getContent().size());
-    }
-
-    @Test
-    void getListOfConsentsPaged_error() {
-        when(cmsAspspAisClient.getConsentsByPsu(any(), any(), anyString(), any(), any(), any(), any(), any(), any(), any()))
-            .thenThrow(FeignException.class);
-        ObaException exception = assertThrows(ObaException.class, () -> consentService.getListOfConsentsPaged(USER_LOGIN, 0, 10));
-        assertEquals(AIS_BAD_REQUEST, exception.getObaErrorCode());
     }
 }
 

@@ -29,8 +29,8 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "PSU AIS. Provides access to online banking AIS functionality")
 public interface AISApi {
-    String BASE_PATH = "/ais";
 
+    String BASE_PATH = "/ais";
 
     /**
      * Identifies the user by login and pin.
@@ -45,14 +45,14 @@ public interface AISApi {
      * </li>
      * </ul>
      *
-     * @param encryptedConsentId  the encryptedConsentId
-     * @param authorisationId     the auth id
-     * @param login               the login
-     * @param pin                 the password
+     * @param encryptedConsentId the encryptedConsentId
+     * @param authorisationId    the auth id
+     * @param login              the login
+     * @param pin                the password
      * @return ConsentAuthorizeResponse
      */
     @PostMapping(path = "/{encryptedConsentId}/authorisation/{authorisationId}/login")
-    @Operation(summary = "Identifies the user by login an pin. Return sca methods information")
+    @Operation(summary = "Identifies the user by login and pin. Returns SCA methods information")
     ResponseEntity<ConsentAuthorizeResponse> login(
         @PathVariable("encryptedConsentId") String encryptedConsentId,
         @PathVariable("authorisationId") String authorisationId,
@@ -62,30 +62,29 @@ public interface AISApi {
     /**
      * Start the consent process. By sending the customer request consent to the core banking.
      *
-     * @param encryptedConsentId                the encrypted consent id
-     * @param authorisationId                   the authorization id
-     * @param aisConsent                        the consent request object
+     * @param encryptedConsentId the encrypted consent ID
+     * @param authorisationId    the authorization ID
+     * @param aisConsent         the consent request object
      * @return ConsentAuthorizeResponse
      */
     @PostMapping("/{encryptedConsentId}/authorisation/{authorisationId}/start")
-    @Operation(summary = "Starts the cosent authaurization process after user selects which account to grant access to")
+    @Operation(summary = "Starts the consent authorization process after user selects which account to grant access to")
     @SecurityRequirement(name = "apiKey")
     ResponseEntity<ConsentAuthorizeResponse> startConsentAuth(
         @PathVariable("encryptedConsentId") String encryptedConsentId,
         @PathVariable("authorisationId") String authorisationId,
         @RequestBody AisConsentTO aisConsent);
 
-
     /**
      * Selects the SCA Method for use.
      *
-     * @param encryptedConsentId                the sca id
-     * @param authorisationId                   the auth id
-     * @param scaMethodId                       sca
+     * @param encryptedConsentId the sca ID
+     * @param authorisationId    the auth ID
+     * @param scaMethodId        sca
      * @return ConsentAuthorizeResponse
      */
     @PostMapping("/{encryptedConsentId}/authorisation/{authorisationId}/methods/{scaMethodId}")
-    @Operation(summary = "Selects the SCA Method for use.")
+    @Operation(summary = "Selects the SCA Method for user.")
     @SecurityRequirement(name = "apiKey")
     ResponseEntity<ConsentAuthorizeResponse> selectMethod(
         @PathVariable("encryptedConsentId") String encryptedConsentId,
@@ -95,9 +94,9 @@ public interface AISApi {
     /**
      * Provides a TAN for the validation of an authorization
      *
-     * @param encryptedConsentId                the sca id
-     * @param authorisationId                   the auth id
-     * @param authCode                          the auth code
+     * @param encryptedConsentId the sca id
+     * @param authorisationId    the auth id
+     * @param authCode           the auth code
      * @return ConsentAuthorizeResponse
      */
     @PostMapping(path = "/{encryptedConsentId}/authorisation/{authorisationId}/authCode", params = {"authCode"})
@@ -120,8 +119,9 @@ public interface AISApi {
      * @return
      */
     @GetMapping(path = "/{encryptedConsentId}/authorisation/{authorisationId}/done")
-    @Operation(summary = "Close consent session", description = "This call provides the server with the opportunity to close this session and "
-                    + "redirect the PSU to the TPP or close the application window.")
+    @Operation(summary = "Close consent session",
+        description = "This call provides the server with the opportunity to close this session and "
+                          + "redirect the PSU to the TPP or close the application window.")
     @SecurityRequirement(name = "apiKey")
     ResponseEntity<ConsentAuthorizeResponse> aisDone(
         @PathVariable("encryptedConsentId") String encryptedConsentId,
@@ -136,8 +136,8 @@ public interface AISApi {
      * @return <code>true</code> if consent authorisation was found and failed. <code>false</code> otherwise.
      */
     @DeleteMapping(path = "/{encryptedConsentId}/{authorisationId}")
-    @Operation(summary = "Revoke consent", description = "This call provides the server with the opportunity to close this session and "
-            + "revoke consent.")
+    @Operation(summary = "Revoke consent",
+        description = "This call provides the server with the opportunity to close this session and revoke consent.")
     @SecurityRequirement(name = "apiKey")
     ResponseEntity<ConsentAuthorizeResponse> revokeConsent(@PathVariable("encryptedConsentId") String encryptedConsentId,
                                                            @PathVariable("authorisationId") String authorisationId);

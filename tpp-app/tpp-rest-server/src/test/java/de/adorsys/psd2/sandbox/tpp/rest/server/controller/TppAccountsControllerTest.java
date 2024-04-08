@@ -24,7 +24,6 @@ import de.adorsys.ledgers.middleware.api.domain.um.AccessTypeTO;
 import de.adorsys.ledgers.middleware.api.domain.um.AccountAccessTO;
 import de.adorsys.ledgers.middleware.api.domain.um.UserTO;
 import de.adorsys.ledgers.middleware.client.rest.AccountMgmtStaffRestClient;
-import de.adorsys.ledgers.middleware.client.rest.AccountRestClient;
 import de.adorsys.ledgers.middleware.client.rest.UserMgmtStaffRestClient;
 import de.adorsys.ledgers.util.domain.CustomPageImpl;
 import de.adorsys.psd2.sandbox.tpp.rest.api.domain.*;
@@ -66,8 +65,6 @@ class TppAccountsControllerTest {
     private UserMgmtStaffRestClient userMgmtStaffRestClient;
     @Mock
     private DownloadResourceService downloadResourceService;
-    @Mock
-    private AccountRestClient accountRestClient;
 
     @Test
     void createAccount() {
@@ -180,6 +177,18 @@ class TppAccountsControllerTest {
         assertEquals(ResponseEntity.ok(true), result);
     }
 
+    @Test
+    void updateCreditLimit() {
+        // Given
+        when(accountMgmtStaffRestClient.changeCreditLimit(anyString(), any(BigDecimal.class))).thenAnswer(i -> ResponseEntity.ok().build());
+
+        // When
+        ResponseEntity<Void> actual = accountsController.updateCreditLimit(ACCOUNT_ID, new BigDecimal(1000));
+
+        // Then
+        assertThat(actual.getStatusCode().is2xxSuccessful()).isTrue();
+    }
+
     private AmountTO getAmountTO() {
         return new AmountTO(EUR, BigDecimal.ONE);
     }
@@ -213,7 +222,7 @@ class TppAccountsControllerTest {
     }
 
     private AccountDetailsTO getAccountDetailsTO() {
-        return new AccountDetailsTO("id", IBAN, "bban", "pan", "maskedPan", "msisdn", EUR, "name",null, "product", AccountTypeTO.CASH, AccountStatusTO.ENABLED,
+        return new AccountDetailsTO("id", IBAN, "bban", "pan", "maskedPan", "msisdn", EUR, "name", "display name", "product", AccountTypeTO.CASH, AccountStatusTO.ENABLED,
                                     "bic", "linkedAccounts", UsageTypeTO.PRIV, "details", Collections.singletonList(new AccountBalanceTO()), false, false, BigDecimal.ZERO, null);
     }
 

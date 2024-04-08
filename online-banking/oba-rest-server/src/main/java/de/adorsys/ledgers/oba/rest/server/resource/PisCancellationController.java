@@ -31,13 +31,12 @@ import de.adorsys.ledgers.oba.service.api.service.CommonPaymentService;
 import de.adorsys.ledgers.oba.service.api.service.TokenAuthenticationService;
 import de.adorsys.psd2.sandbox.auth.MiddlewareAuthentication;
 import feign.FeignException;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletResponse;
 
 import static de.adorsys.ledgers.oba.rest.api.resource.PisCancellationApi.BASE_PATH;
 
@@ -48,20 +47,19 @@ import static de.adorsys.ledgers.oba.rest.api.resource.PisCancellationApi.BASE_P
 public class PisCancellationController implements PisCancellationApi {
     private final CommonPaymentService paymentService;
     private final XISControllerService xisService;
-    private final HttpServletResponse response;
-    private final ResponseUtils responseUtils;
     private final MiddlewareAuthentication middlewareAuth;
     private final AuthRequestInterceptor authInterceptor;
     private final TokenAuthenticationService authenticationService;
 
     @Override
+    @Operation(summary = "Identifies the user by login and pin. Return SCA methods information")
     public ResponseEntity<PaymentAuthorizeResponse> login(String encryptedPaymentId, String authorisationId, String login, String pin) {
         PaymentWorkflow workflow = paymentService.identifyPayment(encryptedPaymentId, authorisationId, null);
         if (workflow.getPaymentStatus().equals(TransactionStatusTO.RCVD.name())) {
             throw ObaException.builder()
-                .devMessage(String.format("Cancellation of Payment id: %s is not possible thought OnlineBanking as it's status is RECEIVED, cancellation of this payment is only possible though EMBEDDED route", encryptedPaymentId))
-                .obaErrorCode(ObaErrorCode.LOGIN_FAILED)
-                .build();
+                      .devMessage(String.format("Cancellation of Payment id: %s is not possible thought OnlineBanking as it's status is RECEIVED, cancellation of this payment is only possible though EMBEDDED route", encryptedPaymentId))
+                      .obaErrorCode(ObaErrorCode.LOGIN_FAILED)
+                      .build();
         }
         xisService.checkFailedCount(encryptedPaymentId);
 

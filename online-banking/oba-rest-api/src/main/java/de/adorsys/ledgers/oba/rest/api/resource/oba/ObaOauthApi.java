@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Tag(name = "Online Banking Oauth Authorization")
 public interface ObaOauthApi {
+
     String BASE_PATH = "/oauth";
 
     @PostMapping("/authorise")

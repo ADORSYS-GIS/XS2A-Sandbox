@@ -55,11 +55,11 @@
               text['orderNumber'] % 2 === 0
                 ? {
                     'align-items': 'flex-start',
-                    'margin-right': '8vw'
+                    'margin-right': '16vw'
                   }
                 : {
                     'align-items': 'flex-end',
-                    'margin-left': '8vw',
+                    'margin-left': '16vw',
                     'text-align': 'end'
                   }
             "
@@ -82,7 +82,8 @@
               "
             >
               <div class="circle"></div>
-              <div class="divider" *ngIf="i !== productHistory.length - 2"></div>
+<!--              <div class="divider" *ngIf="i !== productHistory.length - 2"></div>-->
+<!--              TODO: please fix me!-->
             </div>
           </div>
           <div

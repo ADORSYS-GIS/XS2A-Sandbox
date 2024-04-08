@@ -44,12 +44,14 @@ public interface TppAccountsRestApi {
 
     String BASE_PATH = "/tpp/accounts";
 
-    @Operation(summary = "Create account for a given user", description = "Endpoint to a deposit account for a user with given ID")
+    @Operation(summary = "Create account for a given user",
+        description = "Endpoint to a deposit account for a user with given ID")
     @SecurityRequirement(name = "apiKey")
     @PostMapping
     ResponseEntity<Boolean> createAccount(@RequestParam(value = "userId") String userId, @RequestBody DepositAccount account);
 
-    @Operation(summary = "Update Account access for a given user", description = "Endpoint to update account access with given iban for a user with given ID ")
+    @Operation(summary = "Update Account access for a given user",
+        description = "Endpoint to update account access with given iban for a user with given ID")
     @SecurityRequirement(name = "apiKey")
     @PutMapping("/access")
     ResponseEntity<Void> updateAccountAccess(@RequestBody AccountAccess accountAccess);
@@ -59,7 +61,8 @@ public interface TppAccountsRestApi {
      *
      * @return list of accounts that belongs to the same branch as staff user.
      */
-    @Operation(summary = "Get list of Accessible Accounts", description = "Returns the list of all accounts connected to the given TPP")
+    @Operation(summary = "Get list of Accessible Accounts",
+        description = "Returns the list of all accounts connected to the given TPP")
     @SecurityRequirement(name = "apiKey")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200",
@@ -74,7 +77,8 @@ public interface TppAccountsRestApi {
      *
      * @return list of accounts that belongs to the same branch as staff user.
      */
-    @Operation(summary = "Get list of Accessible Accounts, paged view", description = "Returns the list of all accounts connected to the given TPP")
+    @Operation(summary = "Get list of Accessible Accounts, paged view",
+        description = "Returns the list of all accounts connected to the given TPP")
     @SecurityRequirement(name = "apiKey")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200",
@@ -89,11 +93,12 @@ public interface TppAccountsRestApi {
         @RequestParam(value = "withBalance", required = false, defaultValue = "false") boolean withBalance);
 
     /**
-     * Returns a single account by its ID if it belongs to the same branch as STAFF user.
+     * Returns a single account by its ID if it belong to the same branch as STAFF user.
      *
-     * @return single account by its ID if it belongs to the same branch as STAFF user.
+     * @return single account by its ID if it belong to the same branch as STAFF user.
      */
-    @Operation(summary = "Get an account by its ID", description = "Returns the account by its ID if it belongs to the TPP")
+    @Operation(summary = "Get an account by its ID",
+        description = "Returns the account by its ID if it belongs to the TPP")
     @SecurityRequirement(name = "apiKey")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200",
@@ -104,11 +109,12 @@ public interface TppAccountsRestApi {
     ResponseEntity<AccountDetailsTO> getSingleAccount(@PathVariable("accountId") String accountId);
 
     /**
-     * Returns an account report by its ID if it belongs to the same branch as STAFF user.
+     * Returns an account report by its ID if it belong to the same branch as STAFF user.
      *
-     * @return single account report by its ID if it belongs to the same branch as STAFF user.
+     * @return single account report by its ID if it belong to the same branch as STAFF user.
      */
-    @Operation(summary = "Get an account report by its ID", description = "Returns the account report by its ID if it belongs to the TPP")
+    @Operation(summary = "Get an account report by its ID",
+        description = "Returns the account report by its ID if it belongs to the TPP")
     @SecurityRequirement(name = "apiKey")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200",
@@ -119,11 +125,12 @@ public interface TppAccountsRestApi {
     ResponseEntity<AccountReport> accountReport(@PathVariable("accountId") String accountId);
 
     /**
-     * Returns a single account by its ID if it belongs to the same branch as STAFF user.
+     * Returns a single account by its ID if it belong to the same branch as STAFF user.
      *
-     * @return single account by its ID if it belongs to the same branch as STAFF user.
+     * @return single account by its ID if it belong to the same branch as STAFF user.
      */
-    @Operation(summary = "Deposit cash to an account by its ID", description = "Deposits cash to the account by its ID if it belongs to the TPP")
+    @Operation(summary = "Deposit cash to an account by its ID",
+        description = "Deposits cash to the account by its ID if it belongs to the TPP")
     @SecurityRequirement(name = "apiKey")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200",
@@ -135,14 +142,17 @@ public interface TppAccountsRestApi {
 
     @GetMapping("/example")
     @Operation(summary = "Download account template")
+    @SecurityRequirement(name = "apiKey")
     ResponseEntity<Resource> downloadAccountTemplate();
 
-    @Operation(summary = "Block/Unblock Account", description = "Changes block state for given account, returns status being set to the block")
+    @Operation(summary = "Block/Unblock Account",
+        description = "Changes block state for given account, returns status being set to the block")
     @SecurityRequirement(name = "apiKey")
     @PostMapping("/status")
     ResponseEntity<Boolean> changeStatus(@RequestParam(value = "accountId") String accountId);
 
-    @Operation(summary = "Update credit limit for account",description = "Enables/Disables credit limit for certain account")
+    @Operation(summary = "Update credit limit for account",
+        description = "Enables/Disables credit limit for certain account")
     @SecurityRequirement(name = "apiKey")
     @PutMapping("/credit")
     ResponseEntity<Void> updateCreditLimit(@RequestParam(value = "accountId") String accountId, @RequestBody BigDecimal creditAmount);

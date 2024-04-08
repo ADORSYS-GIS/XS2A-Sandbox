@@ -25,18 +25,24 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.RequiredArgsConstructor;
-import org.springdoc.core.GroupedOpenApi;
+import org.springdoc.core.models.GroupedOpenApi;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
 @Configuration
 @RequiredArgsConstructor
 public class SwaggerConfig {
+
     private static final String API_KEY = "apiKey";
     private static final String AUTHORIZATION_HEADER = "Authorization";
 
     private final BuildProperties buildProperties;
+
+    @Value("${keycloak.auth-server-url}")
+    private String keycloakUrl;
 
     @Bean
     public GroupedOpenApi obaApi() {
@@ -59,7 +65,7 @@ public class SwaggerConfig {
                              .title("Online banking")
                              .description("Implementation of backend for online banking UI. "
                                               + "We have 3 preloaded users in Ledgers: <b>marion.mueller</b>, <b>anton.brueckner</b>, <b>max.musterman</b> all with the PIN <b>12345</b>. "
-                                              + "You can use the Keycloak API: <b>{keycloak.url}/realms/ledgers/protocol/openid-connect/token</b> to gain an access token. Then use the access token with the prefix 'Bearer ' to authorize on this UI."
+                                              + "You can use the Keycloak API: <b>" + keycloakUrl + "/realms/ledgers/protocol/openid-connect/token</b> to gain an access token. Then use the access token with the prefix 'Bearer ' to authorize on this UI."
                              )
                              .contact(contact)
                              .version(buildProperties.getVersion() + " " + buildProperties.get("build.number"))

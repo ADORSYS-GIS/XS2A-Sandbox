@@ -23,7 +23,7 @@
     <parent>
         <artifactId>tpp-app</artifactId>
         <groupId>de.adorsys.psd2.sandbox</groupId>
-        <version>6.8-SNAPSHOT</version>
+        <version>9.2</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -105,10 +105,10 @@
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
 
-        <!-- Springfox and swagger UI -->
+        <!-- Springdoc and swagger UI -->
         <dependency>
             <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
         </dependency>
 
         <dependency>
@@ -136,12 +136,6 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
         </dependency>
-
-        <!-- Quickfix Iban4j -->
-        <!--dependency>
-            <groupId>org.iban4j</groupId>
-            <artifactId>iban4j</artifactId>
-        </dependency-->
 
         <!-- Test dependencies -->
         <dependency>

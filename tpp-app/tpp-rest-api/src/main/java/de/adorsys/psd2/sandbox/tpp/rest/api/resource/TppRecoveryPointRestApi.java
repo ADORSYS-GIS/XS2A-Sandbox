@@ -31,7 +31,7 @@ import java.util.List;
 public interface TppRecoveryPointRestApi {
     String BASE_PATH = "/tpp/recovery";
 
-    @Operation(summary = "Get recovery point by id")
+    @Operation(summary = "Get recovery point by ID")
     @SecurityRequirement(name = "apiKey")
     @GetMapping("/point/{id}")
     ResponseEntity<RecoveryPointTO> point(@PathVariable("id") Long id);
@@ -46,7 +46,7 @@ public interface TppRecoveryPointRestApi {
     @PostMapping("/point")
     ResponseEntity<Void> createPoint(@RequestBody RecoveryPointTO recoveryPoint);
 
-    @Operation(summary = "Remove existing recovery point by id")
+    @Operation(summary = "Remove existing recovery point by ID")
     @SecurityRequirement(name = "apiKey")
     @DeleteMapping("/point/{id}")
     ResponseEntity<Void> deletePoint(@PathVariable("id") Long id);

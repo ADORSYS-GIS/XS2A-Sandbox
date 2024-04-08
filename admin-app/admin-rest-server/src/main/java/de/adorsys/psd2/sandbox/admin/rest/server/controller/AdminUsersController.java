@@ -50,7 +50,7 @@ public class AdminUsersController implements AdminUsersRestApi {
     @Override
     public ResponseEntity<UserTO> createUser(User user) {
         UserTO userTO = userMapper.toUserTO(user);
-        return userMgmtStaffRestClient.createUser(userTO);
+        return ResponseEntity.ok(userMgmtStaffRestClient.createUser(userTO).getBody());
     }
 
     @Override
@@ -60,15 +60,14 @@ public class AdminUsersController implements AdminUsersRestApi {
         return ResponseEntity.ok(userPage);
     }
 
-    // TODO resolve 'branch' on Ledgers side
     @Override
     public ResponseEntity<Void> updateUser(User user) {
         if (StringUtils.isBlank(user.getId())) {
-            throw new AdminException("User id is not present in body!", 400);
+            throw new AdminException("User ID is not present in body!", 400);
         }
         String branch = Optional.ofNullable(userMgmtRestClient.getUser().getBody())
                             .map(UserTO::getBranch)
-                            .orElseThrow(() -> new AdminException("No tpp code present!", 400));
+                            .orElseThrow(() -> new AdminException("No TPP code present!", 400));
         UserTO userTO = userMapper.toUserTO(user);
         userTO.setBranch(branch);
         userMgmtStaffRestClient.modifyUser(branch, userTO);
@@ -77,17 +76,17 @@ public class AdminUsersController implements AdminUsersRestApi {
 
     @Override
     public ResponseEntity<UserTO> getUser(String userId) {
-        return userMgmtStaffRestClient.getBranchUserById(userId);
+        return ResponseEntity.ok(userMgmtStaffRestClient.getBranchUserById(userId).getBody());
     }
 
     @Override
     public ResponseEntity<UserTO> getSelf() {
-        return userMgmtRestClient.getUser();
+        return ResponseEntity.ok(userMgmtRestClient.getUser().getBody());
     }
 
     @Override
     public ResponseEntity<Boolean> changeStatus(String userId) {
-        return userMgmtStaffRestClient.changeStatus(userId);
+        return ResponseEntity.ok(userMgmtStaffRestClient.changeStatus(userId).getBody());
     }
 
     @Override

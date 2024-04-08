@@ -35,7 +35,7 @@ keycloak:
   public-client: false
   principal-attribute: preferred_username
   credentials:
-    secret: a61a81cd-7178-40d8-8386-ed02791e6592 #Here should be personal generated secret for client (swap public to 'private?' generate secret, swap to public again)
+    secret: a61a81cd-7178-40d8-8386-ed02791e6592 #Here should be personal generated secret for client (swap 'public' to 'private', generate secret, swap to 'public' again)
 
 db:
   host: localhost
@@ -94,25 +94,16 @@ feign:
       default:
         loggerLevel: full
 
-logging.level.de.adorsys.ledgers.middleware: DEBUG
-logging.level.org.adorsys.ledgers.consent: DEBUG
-logging.level.de.adorsys.ledgers.xs2a.api: DEBUG
-logging.level.de.adorsys.ledgers.rest: DEBUG
-logging.level.de.adorsys.psd2.consent: DEBUG
-logging.level.org.hibernate: INFO
-logging.level.com.netflix.config: INFO
-logging.level.com.zaxxer.hikari: INFO
-
 # Cors configuration
 management:
   endpoints:
     web:
       cors:
         allow-credentials: true
-        allowed-origin-patterns: "*"
         allowed-headers: "*"
         allowed-methods: GET,POST,PUT,DELETE,OPTIONS,PATCH
         max-age: 3600
+        allowed-origin-patterns: "*"
   endpoint:
     info:
       enabled: true

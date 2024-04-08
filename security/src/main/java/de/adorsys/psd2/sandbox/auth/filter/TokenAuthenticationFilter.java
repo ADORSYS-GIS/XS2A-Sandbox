@@ -22,15 +22,15 @@ import de.adorsys.ledgers.keycloak.client.api.KeycloakTokenService;
 import de.adorsys.ledgers.middleware.api.domain.um.BearerTokenTO;
 import de.adorsys.ledgers.middleware.client.rest.AuthRequestInterceptor;
 import feign.FeignException;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -42,8 +42,8 @@ public class TokenAuthenticationFilter extends AbstractAuthFilter {
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
 
-        authInterceptor.setAccessToken(null);
         String bearerToken = resolveBearerToken(request);
+        authInterceptor.setAccessToken(bearerToken);
 
         if (StringUtils.isBlank(bearerToken)) {
             chain.doFilter(request, response);
@@ -57,7 +57,7 @@ public class TokenAuthenticationFilter extends AbstractAuthFilter {
                 BearerTokenTO validateResponse = tokenService.validate(bearerToken);
 
                 BearerTokenTO token = Optional.ofNullable(validateResponse)
-                    .orElseThrow(() -> new AccessDeniedException("Invalid token !"));
+                                          .orElseThrow(() -> new AccessDeniedException("Invalid token!"));
 
                 fillSecurityContext(token);
             } catch (FeignException | AccessDeniedException e) {

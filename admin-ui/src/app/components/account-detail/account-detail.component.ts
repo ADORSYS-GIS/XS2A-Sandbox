@@ -31,6 +31,7 @@ import { AccountService } from '../../services/account.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TestDataGenerationService } from '../../services/test.data.generation.service';
 import { InfoService } from '../../commons/info/info.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-account-detail',
@@ -119,7 +120,20 @@ export class AccountDetailComponent implements OnInit {
           );
           this.router.navigate(['/accounts']);
         } else {
-          this.infoService.openFeedback('Account creation has failed!');
+          this.infoService.openFeedback('Account creation has failed!', {
+            severity: 'error',
+          });
+        }
+      },
+      (error) => {
+        if (error instanceof HttpErrorResponse && error.status === 400) {
+          // TODO: message should be replaced with error.message when there is a proper one
+          this.infoService.openFeedback('Wrong IBAN is entered', {
+            severity: 'error',
+          });
+        } else {
+          console.error('An unexpected error occurred:', error);
+          this.infoService.openFeedback('Unexpected error occurred!');
         }
       });
   }

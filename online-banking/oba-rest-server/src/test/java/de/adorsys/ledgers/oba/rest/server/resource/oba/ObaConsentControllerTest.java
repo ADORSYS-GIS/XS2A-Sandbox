@@ -101,7 +101,7 @@ class ObaConsentControllerTest {
     }
 
     @Test
-    void createPiis() throws NoSuchFieldException {
+    void createPiis() {
         // Given
         ReflectionTestUtils.setField(controller, "auth", new MiddlewareAuthentication(null, new BearerTokenTO(TOKEN, null, 999, null, getAccessTokenTO(), new HashSet<>())));
 

@@ -25,8 +25,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "Online Banking Authorization. Provides access to online banking")
+@Tag(name = "Online Banking Authorization. Provides access to Online Banking")
 public interface ObaAuthorizationApi {
+
     String BASE_PATH = "/api/v1";
 
     /**

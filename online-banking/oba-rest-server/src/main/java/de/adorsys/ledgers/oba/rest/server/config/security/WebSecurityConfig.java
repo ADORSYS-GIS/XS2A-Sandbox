@@ -18,6 +18,7 @@
 
 package de.adorsys.ledgers.oba.rest.server.config.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.adorsys.ledgers.middleware.api.domain.um.AccessTokenTO;
 import de.adorsys.ledgers.middleware.client.rest.AuthRequestInterceptor;
 import de.adorsys.ledgers.oba.rest.server.auth.JWTAuthenticationFilter;
@@ -30,12 +31,14 @@ import de.adorsys.psd2.sandbox.auth.filter.TokenAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -44,71 +47,45 @@ import java.util.Optional;
 
 import static de.adorsys.ledgers.oba.rest.server.config.security.PermittedResources.*;
 
-@SuppressWarnings("PMD.UnusedImports")
 @EnableSandboxSecurityFilter
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@SuppressWarnings("PMD.SignatureDeclareThrowsException")
 public class WebSecurityConfig {
 
-    @Order(1)
     @Configuration
     @RequiredArgsConstructor
-    public static class ObaSecurityConfig extends WebSecurityConfigurerAdapter {
+    public static class ObaSecurityConfig {
+        private final TokenAuthenticationService tokenAuthenticationService;
+        private final AuthRequestInterceptor authInterceptor;
+        private final ObjectMapper objectMapper;
         private final LoginAuthenticationFilter loginAuthenticationFilter;
         private final RefreshTokenFilter refreshTokenFilter;
         private final TokenAuthenticationFilter tokenAuthenticationFilter;
 
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            http.antMatcher("/api/v1/**")
-                .authorizeRequests()
-                .antMatchers(APP_WHITELIST).permitAll()
-                .and()
-                .authorizeRequests().anyRequest()
-                .authenticated()
-                .and()
-                .httpBasic()
-                .disable();
-
-            http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-            http.headers().frameOptions().disable();
-
-            http.addFilterBefore(loginAuthenticationFilter, BasicAuthenticationFilter.class);
-            http.addFilterBefore(refreshTokenFilter, BasicAuthenticationFilter.class);
-            http.addFilterBefore(tokenAuthenticationFilter, BasicAuthenticationFilter.class);
-        }
-    }
-
-    @Order(2)
-    @Configuration
-    @RequiredArgsConstructor
-    public static class ObaScaSecurityConfig extends WebSecurityConfigurerAdapter {
-        private final TokenAuthenticationService tokenAuthenticationService;
-        private final AuthRequestInterceptor authInterceptor;
-
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
+        @Bean
+        protected SecurityFilterChain configureObaSecurity(HttpSecurity http) throws Exception {
             http
-                .authorizeRequests().antMatchers(APP_INDEX_WHITELIST).permitAll()
-                .and()
-                .authorizeRequests().antMatchers(APP_SCA_WHITELIST).permitAll()
-                .and()
-                .authorizeRequests().antMatchers(APP_WHITELIST).permitAll()
-                .and()
-                .authorizeRequests().antMatchers(SWAGGER_WHITELIST).permitAll()
-                .and()
-                .authorizeRequests().antMatchers(ACTUATOR_WHITELIST).permitAll()
-                .and()
-                .cors()
-                .and()
-                .authorizeRequests().anyRequest().authenticated();
+                .httpBasic(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth
+                                                   .requestMatchers(APP_INDEX_WHITELIST).permitAll()
+                                                   .requestMatchers(APP_SCA_WHITELIST).permitAll()
+                                                   .requestMatchers(APP_WHITELIST).permitAll()
+                                                   .requestMatchers(SWAGGER_WHITELIST).permitAll()
+                                                   .requestMatchers(ACTUATOR_WHITELIST).permitAll()
+                                                   .anyRequest().authenticated())
 
-            http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-            http.headers().frameOptions().disable();
-            http.addFilterBefore(new JWTAuthenticationFilter(tokenAuthenticationService, authInterceptor), BasicAuthenticationFilter.class);
+                .cors(Customizer.withDefaults())
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
+                .addFilterBefore(new JWTAuthenticationFilter(tokenAuthenticationService, authInterceptor, objectMapper), BasicAuthenticationFilter.class)
+                .addFilterBefore(loginAuthenticationFilter, BasicAuthenticationFilter.class)
+                .addFilterBefore(refreshTokenFilter, BasicAuthenticationFilter.class)
+                .addFilterBefore(tokenAuthenticationFilter, BasicAuthenticationFilter.class);
 
-
+            return http.build();
         }
     }
 
@@ -137,9 +114,9 @@ public class WebSecurityConfig {
      */
     private static Optional<MiddlewareAuthentication> authorize() {
         return SecurityContextHolder.getContext() == null ||
-            !(SecurityContextHolder.getContext().getAuthentication() instanceof MiddlewareAuthentication)
-            ? Optional.empty()
-            : Optional.of((MiddlewareAuthentication) SecurityContextHolder.getContext().getAuthentication());
+                   !(SecurityContextHolder.getContext().getAuthentication() instanceof MiddlewareAuthentication)
+                   ? Optional.empty()
+                   : Optional.of((MiddlewareAuthentication) SecurityContextHolder.getContext().getAuthentication());
     }
 
     private AccessTokenTO extractToken(MiddlewareAuthentication authentication) {

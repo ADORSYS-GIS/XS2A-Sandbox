@@ -58,4 +58,5 @@ public interface CmsAspspPiisClient {
     ResponseEntity<Boolean> terminateConsent(
         @PathVariable("consent-id") String consentId,
         @RequestHeader(value = "instance-id", required = false, defaultValue = DEFAULT_SERVICE_INSTANCE_ID) String instanceId);
+
 }

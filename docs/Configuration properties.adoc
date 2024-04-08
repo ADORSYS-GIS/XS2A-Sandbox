@@ -22,7 +22,7 @@
 |keycloak.principal-attribute | Preferred user attribute in token| preferred_username
 |keycloak.credentials.secret | Client secret | a61a81cd-7178-40d8-8386-ed02791e6592
 
-3+^|*TPP server properties*
+3+^|*TPP REST server properties*
 
 |ledgers.url | Link to ledgers | http://localhost:8088
 |app.endpoints.tpp.self.registration.disabled | Enables/disables TPP self-registration | FALSE
@@ -41,5 +41,20 @@
 |tpp.datasource.jdbc-url | TPP datasource URL | jdbc:postgresql://localhost:5432/consent?currentSchema=tpp
 |tpp.datasource.username | TPP datasource connection username | cms
 |tpp.datasource.password | TPP datasource connection user password | cms
+
+3+^|*Admin REST server properties*
+
+|ledgers.url | Link to ledgers | http://localhost:8088
+
+|keycloak.auth-server-url | Link to IDP | http://localhost:8080
+|keycloak.realm | Realm in IDP | ledgers
+|keycloak.resource | Client name | ledgers-client
+|keycloak.public-client | Flag describes if client public | FALSE
+|keycloak.principal-attribute | Preferred user attribute in token| preferred_username
+|keycloak.credentials.secret | Client secret | a61a81cd-7178-40d8-8386-edч02791e6592
+
+|spring.datasource.hikari.jdbc-url | CMS datasource URL | jdbc:postgresql://localhost:5432/consent?currentSchema=consent
+|spring.datasource.hikari.username | CMS datasource connection username | cms
+|spring.datasource.hikari.password | CMS datasource connection user password | cms
 
 |===

@@ -31,14 +31,16 @@ import org.springframework.web.bind.annotation.*;
 public interface TppPiisConsentRestApi {
     String BASE_PATH = "/tpp/piis-consents";
 
-    @Operation(summary = "Create PIIS consent", description = "Endpoint to create PIIS consent for the given PSU")
+    @Operation(summary = "Create PIIS consent",
+        description = "Endpoint to create PIIS consent for the given PSU")
     @SecurityRequirement(name = "apiKey")
     @PostMapping
     ResponseEntity<SCAConsentResponseTO> createPiisConsent(@RequestParam("userLogin") String userLogin,
                                                            @RequestParam("password") String password,
                                                            @RequestBody PiisConsent piisConsent);
 
-    @Operation(summary = "Get PIIS consents", description = "Endpoint to get the list of PIIS consents for the given PSU with pagination")
+    @Operation(summary = "Get PIIS consents",
+        description = "Endpoint to get the list of PIIS consents for the given PSU with pagination")
     @SecurityRequirement(name = "apiKey")
     @GetMapping
     ResponseEntity<CustomPageImpl<PiisConsent>> getPiisConsents(
@@ -46,14 +48,16 @@ public interface TppPiisConsentRestApi {
         @RequestParam(value = "page", required = false, defaultValue = "0") int page,
         @RequestParam(value = "size", required = false, defaultValue = "25") int size);
 
-    @Operation(summary = "Get PIIS consent details", description = "Endpoint to get the details of PIIS consent by its ID")
+    @Operation(summary = "Get PIIS consent details",
+        description = "Endpoint to get the details of PIIS consent by its ID")
     @SecurityRequirement(name = "apiKey")
     @GetMapping("/{consentId}")
     ResponseEntity<PiisConsent> getPiisConsent(
         @RequestParam("userLogin") String userLogin,
         @PathVariable(value = "consentId") String consentId);
 
-    @Operation(summary = "Terminate the given PIIS consent", description = "Changes the definite PIIS consent status to TERMINATED_BY_ASPSP")
+    @Operation(summary = "Terminate the given PIIS consent",
+        description = "Changes the definite PIIS consent status to TERMINATED_BY_ASPSP")
     @SecurityRequirement(name = "apiKey")
     @PutMapping("/{consentId}/terminate")
     ResponseEntity<Void> terminatePiisConsent(@PathVariable(value = "consentId") String consentId);

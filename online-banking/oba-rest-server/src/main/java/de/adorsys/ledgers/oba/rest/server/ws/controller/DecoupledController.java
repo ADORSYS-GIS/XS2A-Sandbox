@@ -46,7 +46,7 @@ public class DecoupledController implements ObaDecoupledAPI {
 
     @Override
     public ResponseEntity<Boolean> decoupled(DecoupledConfRequest message) {
-        log.info("Confirmation of decoupled operation: {}, id: {}, by: {}", message.getOpType().name(), message.getObjId(), message.getAddressedUser());
+        log.info("Confirmation of decoupled operation: {}, ID: {}, by: {}", message.getOpType().name(), message.getObjId(), message.getAddressedUser());
         return ResponseEntity.ok(decoupledService.executeDecoupledOpr(message, authentication.getBearerToken().getAccess_token()));
     }
 

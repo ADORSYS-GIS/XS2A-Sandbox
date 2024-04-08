@@ -23,7 +23,7 @@
     <parent>
         <artifactId>cms-connector</artifactId>
         <groupId>de.adorsys.psd2.sandbox</groupId>
-        <version>6.8-SNAPSHOT</version>
+        <version>9.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -86,6 +86,7 @@
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-yaml</artifactId>
         </dependency>
+
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>

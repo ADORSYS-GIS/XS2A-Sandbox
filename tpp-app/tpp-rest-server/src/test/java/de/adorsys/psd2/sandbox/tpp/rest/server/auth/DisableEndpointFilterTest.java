@@ -19,25 +19,22 @@
 package de.adorsys.psd2.sandbox.tpp.rest.server.auth;
 
 import de.adorsys.psd2.sandbox.tpp.rest.api.resource.TppRestApi;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.env.Environment;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -86,7 +83,7 @@ class DisableEndpointFilterTest {
         // Given
         SecurityContextHolder.clearContext();
         when(request.getServletPath()).thenReturn(TppRestApi.BASE_PATH + "/register");
-        when(env.getProperty(anyString(),eq(Boolean.class))).thenReturn(false);
+        when(env.getProperty(anyString(), eq(Boolean.class))).thenReturn(false);
 
         // When
         filter.doFilter(request, response, chain);
@@ -100,7 +97,7 @@ class DisableEndpointFilterTest {
         // Given
         SecurityContextHolder.clearContext();
         when(request.getServletPath()).thenReturn(TppRestApi.BASE_PATH + "/register");
-        when(env.getProperty(anyString(),eq(Boolean.class))).thenReturn(true);
+        when(env.getProperty(anyString(), eq(Boolean.class))).thenReturn(true);
 
         // When
         filter.doFilter(request, response, chain);

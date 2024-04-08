@@ -16,7 +16,7 @@ Current version consists of following components:
     -   Spring Cloud - to 2021.0.6
     -   Spring Test - to 5.3.26
 
--   Updated libraries' versions in all frontend applications.
+-   Updated libraries' versions in all frontend applications.  
 
 -   Fixed bug with incorrect TAN error message
 

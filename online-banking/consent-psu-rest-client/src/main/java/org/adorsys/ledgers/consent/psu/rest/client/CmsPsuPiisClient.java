@@ -59,4 +59,5 @@ public interface CmsPsuPiisClient {
         @RequestHeader(value = "psu-corporate-id", required = false) String psuCorporateId,
         @RequestHeader(value = "psu-corporate-id-type", required = false) String psuCorporateIdType,
         @RequestHeader(value = "instance-id", required = false, defaultValue = DEFAULT_SERVICE_INSTANCE_ID) String instanceId);
+
 }

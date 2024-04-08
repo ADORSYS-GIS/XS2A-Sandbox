@@ -20,11 +20,12 @@ package de.adorsys.psd2.sandbox.tpp.db.api.repository;
 
 import de.adorsys.psd2.sandbox.tpp.db.api.domain.OperationInfoEntity;
 import de.adorsys.psd2.sandbox.tpp.db.api.domain.OperationTypeEntity;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
-public interface OperationInfoRepository extends PagingAndSortingRepository<OperationInfoEntity, Long> {
+public interface OperationInfoRepository extends PagingAndSortingRepository<OperationInfoEntity, Long>, CrudRepository<OperationInfoEntity, Long> {
 
     List<OperationInfoEntity> findAllByTppIdAndOperationTypeOrderByCreatedDesc(String tppId, OperationTypeEntity operationType);
 

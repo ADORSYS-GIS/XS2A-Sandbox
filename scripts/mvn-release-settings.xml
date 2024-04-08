@@ -22,7 +22,6 @@
   http://maven.apache.org/xsd/settings-1.0.0.xsd">
     <servers>
         <server>
-            <!-- Nexus local ledgers-->
             <id>gitlab-maven</id>
             <configuration>
                 <httpHeaders>
@@ -46,7 +45,7 @@
             </configuration>
         </server>
         <server>
-            <!-- XS2A ledgers private repository-->
+            <!-- Ledgers private repository-->
             <id>gitlab-ledgers</id>
             <configuration>
                 <httpHeaders>

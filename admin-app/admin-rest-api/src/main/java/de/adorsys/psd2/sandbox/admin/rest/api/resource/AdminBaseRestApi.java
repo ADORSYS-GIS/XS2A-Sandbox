@@ -33,6 +33,7 @@ import java.util.Set;
 
 @Tag(name = "Admin main API")
 public interface AdminBaseRestApi {
+
     String BASE_PATH = "/admin";
 
     @Operation(summary = "Login for Admin")
@@ -60,12 +61,12 @@ public interface AdminBaseRestApi {
     @PostMapping("/register")
     ResponseEntity<Void> register(@RequestBody User user);
 
-    @Operation(summary = "Remove Tpp")
+    @Operation(summary = "Remove TPP")
     @SecurityRequirement(name = "apiKey")
     @DeleteMapping("/self")
     ResponseEntity<Void> remove();
 
-    @Operation(summary = "Remove transactions for account in Tpp")
+    @Operation(summary = "Remove transactions for account in TPP")
     @SecurityRequirement(name = "apiKey")
     @DeleteMapping("/transactions/{accountId}")
     ResponseEntity<Void> transactions(@PathVariable(value = "accountId") String accountId);

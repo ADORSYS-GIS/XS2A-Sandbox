@@ -1,4 +1,4 @@
-FROM adorsys/java:11
+FROM adorsys/java:17
 LABEL maintainer="https://git.adorsys.de/adorsys/xs2a/psd2-dynamic-sandbox"
 
 ENV SERVER_PORT 8094

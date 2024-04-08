@@ -1,12 +1,12 @@
-# Release notes v.7.8
+# Release notes v.8.0
 
 Current version consists of following components:
 
-1. **Ledgers v.4.xx**
-2. **XS2A v.15.x**
-3. **ASPSP-Profile v.15.x**
-4. **Consent-Management v.15.x**
-5. **XS2A Connector-Examples v.15.x**
+1. **Ledgers v.4.22**
+2. **XS2A v.16.1**
+3. **ASPSP-Profile v.16.1**
+4. **Consent-Management v.16.1**
+5. **XS2A Connector-Examples v.16.1**
 
 -   Dependencies versions were bumped up:
 
@@ -21,6 +21,8 @@ Current version consists of following components:
     -   jackson-core - to 2.14.2
     -   opencsv - to 5.7.1
 
--   Fixed bugs in Admin-UI and Oba-UI
+-   Fixed bugs in Admin-UI
+
+-   Fixed bugs in OBA-UI
 
 -   UI/UX improvements in Developer Portal

@@ -59,6 +59,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Collections;
 import java.util.Currency;
@@ -88,6 +89,7 @@ class RedirectConsentServiceImplTest {
     private static final Currency EUR = Currency.getInstance("EUR");
     private static final String USER_LOGIN = "login";
     private static final String USER_ID = "userId";
+    private static final LocalDateTime LOCAL_DATE_TIME_NOW = LocalDateTime.now();
 
     @InjectMocks
     private RedirectConsentServiceImpl redirectConsentService;
@@ -256,7 +258,7 @@ class RedirectConsentServiceImplTest {
     }
 
     private CmsAisAccountConsent getCmsAisAccountConsent(AisConsentRequestType type, String iban) {
-        return new CmsAisAccountConsent(CONSENT_ID, getAisAccountAccess(iban), false, LocalDate.now().plusMonths(1), LocalDate.now().plusMonths(1), 3, LocalDate.now(), ConsentStatus.VALID, false, false,
+        return new CmsAisAccountConsent(CONSENT_ID, getAisAccountAccess(iban), false, LocalDate.now().plusMonths(1), LocalDate.now().plusMonths(1), 3, LOCAL_DATE_TIME_NOW, ConsentStatus.VALID, false, false,
                                         type, Collections.emptyList(), new TppInfo(), new AuthorisationTemplate(), false, Collections.emptyList(),
                                         Collections.emptyMap(), OffsetDateTime.MIN, OffsetDateTime.MIN, null, null);
     }

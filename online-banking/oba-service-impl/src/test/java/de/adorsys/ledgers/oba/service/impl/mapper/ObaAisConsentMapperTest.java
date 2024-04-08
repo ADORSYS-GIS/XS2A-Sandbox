@@ -38,6 +38,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Collections;
 import java.util.Currency;
@@ -74,7 +75,7 @@ class ObaAisConsentMapperTest {
     }
 
     private AccountDetailsTO getAccountDetailsTO() {
-        return new AccountDetailsTO("id", IBAN, "bban", "pan", "maskedPan", "msisdn", EUR, "name", "displayName", "product", CASH, ENABLED, "bic", "linkedAccounts", UsageTypeTO.PRIV, "details", Collections.EMPTY_LIST, false, false, BigDecimal.ZERO, null);
+        return new AccountDetailsTO("id", IBAN, "bban", "pan", "maskedPan", "msisdn", EUR, "name", "display name", "product", CASH, ENABLED, "bic", "linkedAccounts", UsageTypeTO.PRIV, "details", Collections.EMPTY_LIST, false, false, BigDecimal.ZERO, null);
     }
 
     private AisConsentTO getAisConsentTO() {
@@ -86,7 +87,7 @@ class ObaAisConsentMapperTest {
     }
 
     private CmsAisAccountConsent getCmsAisAccountConsent() {
-        return new CmsAisAccountConsent(CONSENT_ID, getAisAccountAccess(), false, LocalDate.now().plusMonths(1), LocalDate.now().plusMonths(1), 3, LocalDate.now(), ConsentStatus.VALID, false, false,
+        return new CmsAisAccountConsent(CONSENT_ID, getAisAccountAccess(), false, LocalDate.now().plusMonths(1), LocalDate.now().plusMonths(1), 3, LocalDateTime.now(), ConsentStatus.VALID, false, false,
                                         AisConsentRequestType.GLOBAL, Collections.singletonList(getPsuIdData()), getTppInfo(), new AuthorisationTemplate(), false, Collections.emptyList(),
                                         Collections.emptyMap(), OffsetDateTime.MIN, OffsetDateTime.MIN, null, null);
     }

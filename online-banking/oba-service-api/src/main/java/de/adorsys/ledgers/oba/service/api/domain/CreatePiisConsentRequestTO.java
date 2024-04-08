@@ -27,7 +27,7 @@ import java.time.LocalDate;
 @Data
 @Schema(description = "PIIS consent request", name = "PiisConsentRequest")
 public class CreatePiisConsentRequestTO {
-    @Schema(description = "TPP attribute that fully described Tpp for which the consent will be created. If the property is omitted, the consent will be created for all TPPs")
+    @Schema(description = "TPP attribute that fully described TPP for which the consent will be created. If the property is omitted, the consent will be created for all TPPs")
     private String tppAuthorisationNumber;
 
     @Schema(description = "Account, where the confirmation of funds service is aimed to be submitted to.")

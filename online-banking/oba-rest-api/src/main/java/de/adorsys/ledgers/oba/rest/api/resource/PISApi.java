@@ -31,8 +31,8 @@ import java.util.List;
 
 @Tag(name = "PSU PIS. Provides access to online banking payment functionality")
 public interface PISApi {
-    String BASE_PATH = "/pis";
 
+    String BASE_PATH = "/pis";
 
     /**
      * Identifies the user by login an pin. Return authorisation information.
@@ -47,7 +47,7 @@ public interface PISApi {
      * @return PaymentAuthorizeResponse
      */
     @PostMapping(path = "/{encryptedPaymentId}/authorisation/{authorisationId}/login")
-    @Operation(summary = "Identifies the user by login an pin. Return sca methods information")
+    @Operation(summary = "Identifies the user by login and pin. Return sca methods information")
     ResponseEntity<PaymentAuthorizeResponse> login(
         @PathVariable("encryptedPaymentId") String encryptedPaymentId,
         @PathVariable("authorisationId") String authorisationId,
@@ -109,8 +109,9 @@ public interface PISApi {
      * @return <code>true</code> if payment authorisation was found and failed. <code>false</code> otherwise.
      */
     @DeleteMapping(path = "/{encryptedPaymentId}/{authorisationId}")
-    @Operation(summary = "Fail payment authorisation", description = "This call provides the server with the opportunity to close this session and "
-                    + "revoke consent.")
+    @Operation(summary = "Fail payment authorisation",
+        description = "This call provides the server with the opportunity to close this session and "
+                          + "revoke consent.")
     @SecurityRequirement(name = "apiKey")
     ResponseEntity<PaymentAuthorizeResponse> failPaymentAuthorisation(@PathVariable("encryptedPaymentId") String encryptedPaymentId,
                                                                       @PathVariable("authorisationId") String authorisationId);
@@ -126,8 +127,9 @@ public interface PISApi {
      * @return redirect location header with TPP url
      */
     @GetMapping(path = "/{encryptedPaymentId}/authorisation/{authorisationId}/done")
-    @Operation(summary = "Close consent session",description = "This call provides the server with the opportunity to close this session and "
-                    + "redirect the PSU to the TPP or close the application window.")
+    @Operation(summary = "Close consent session",
+        description = "This call provides the server with the opportunity to close this session and "
+                          + "redirect the PSU to the TPP or close the application window.")
     @SecurityRequirement(name = "apiKey")
     ResponseEntity<PaymentAuthorizeResponse> pisDone(
         @PathVariable("encryptedPaymentId") String encryptedPaymentId,
@@ -143,7 +145,8 @@ public interface PISApi {
      * @return list of bank accounts for given PSU.
      */
     @GetMapping(path = "/accounts")
-    @Operation(summary = "Read account list for given PSU", description = "This call allows to get all accounts for given PSU.")
+    @Operation(summary = "Read account list for given PSU",
+        description = "This call allows to get all accounts for given PSU.")
     @SecurityRequirement(name = "apiKey")
     ResponseEntity<List<AccountDetailsTO>> getAccountList();
 

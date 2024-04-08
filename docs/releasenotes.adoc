@@ -4,9 +4,20 @@ On this page release notes for each version released are published.
 
 For upcoming versions see our xref:Roadmap.adoc[Roadmap].
 
+=== Mainline 9.x (Development)
+
+* xref:release_notes/Release_notes_9.2.md[Version 9.2 (release date: 05.03.2024)]
+* xref:release_notes/Release_notes_9.1.md[Version 9.1 (release date: 05.01.2024)]
+* xref:release_notes/Release_notes_9.0.md[Version 9.0 (release date: 09.11.2023)]
+
+=== Mainline 8.x (Stable)
+
+* xref:release_notes/Release_notes_8.2.md[Version 8.2 (release date: 15.02.2024)]
+* xref:release_notes/Release_notes_8.1.md[Version 8.1 (release date: 05.01.2024)]
+* xref:release_notes/Release_notes_8.0.md[Version 8.0 (release date: 09.11.2023)]
+
 === Mainline 7.x (Development)
 
-* xref:release_notes/Release_notes_7.8.md[Version 7.8 (release date: xx.xx.2023)]
 * xref:release_notes/Release_notes_7.7.md[Version 7.7 (release date: 03.07.2023)]
 * xref:release_notes/Release_notes_7.6.md[Version 7.6 (release date: 19.06.2023)]
 * xref:release_notes/Release_notes_7.5.md[Version 7.5 (release date: 10.01.2023)]
@@ -18,7 +29,6 @@ For upcoming versions see our xref:Roadmap.adoc[Roadmap].
 
 === Mainline 6.x (Stable)
 
-* xref:release_notes/Release_notes_6.8.md[Version 6.8 (release date: xx.xx.2023)]
 * xref:release_notes/Release_notes_6.7.md[Version 6.7 (release date: 03.07.2023)]
 * xref:release_notes/Release_notes_6.6.md[Version 6.6 (release date: 19.06.2023)]
 * xref:release_notes/Release_notes_6.5.md[Version 6.5 (release date: 10.01.2023)]
@@ -47,7 +57,7 @@ For upcoming versions see our xref:Roadmap.adoc[Roadmap].
 * xref:release_notes/Release_notes_5.1.md[Version 5.1 (release date: 03.12.2020)]
 * xref:release_notes/Release_notes_5.0.md[Version 5.0 (release date: 04.11.2020)]
 
-=== Mainline 4.x(Stable)
+=== Mainline 4.x (Stable)
 
 * xref:release_notes/Release_notes_4.11.md[Version 4.11 (release date: 04.06.2021)]
 * xref:release_notes/Release_notes_4.10.md[Version 4.10 (release date: 20.05.2021)]

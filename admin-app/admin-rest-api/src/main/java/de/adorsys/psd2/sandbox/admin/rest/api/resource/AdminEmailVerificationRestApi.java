@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Tag(name = "Admin Email verification management")
 public interface AdminEmailVerificationRestApi {
+
     String BASE_PATH = "/admin/sca";
 
     @PostMapping

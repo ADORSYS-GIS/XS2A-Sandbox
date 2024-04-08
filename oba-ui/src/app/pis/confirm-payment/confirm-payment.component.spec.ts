@@ -41,10 +41,26 @@ const mockActivatedRoute = {
   params: of({ id: '12345' }),
 };
 
+const mockResponse = {
+  encryptedConsentId: 'owirhJHGVSgueif98200293uwpgofowbOUIGb39845zt0',
+  authorisationId: 'uwpgofowbOUIGb39845zt0owirhJHGVSgueif98200293',
+  payment: {
+    debtorAccount: {
+      iban: 'DE80760700240271232400',
+      currency: 'EUR',
+    },
+  },
+};
+
+const mockResponseInit = {
+  scaStatus: 'psuAuthenticated',
+};
+
 describe('ConfirmPaymentComponent', () => {
   let component: ConfirmPaymentComponent;
   let fixture: ComponentFixture<ConfirmPaymentComponent>;
   let router: Router;
+  let activatedRoute: ActivatedRoute;
   let shareDataServiceStub: Partial<ShareDataService>;
   let psiServiceStub: Partial<PsupisprovidesGetPsuAccsService>;
 
@@ -68,10 +84,23 @@ describe('ConfirmPaymentComponent', () => {
           this.data?.next(data);
         }
       },
+      changePaymentData(data: PaymentAuthorizeResponse) {
+        if (data) {
+          this.data?.next(data);
+        }
+      },
     };
     psiServiceStub = {
       choseIbanAndCurrencyObservable(): Observable<ICurrencyAndIban> {
         const subjectMock = new BehaviorSubject<ICurrencyAndIban>(null);
+        return subjectMock.asObservable();
+      },
+      getIsSubmitted(): Observable<boolean> {
+        const subjectMock = new BehaviorSubject<boolean>(null);
+        return subjectMock.asObservable();
+      },
+      sendPisInitiate() {
+        const subjectMock = new BehaviorSubject<any>(mockResponseInit);
         return subjectMock.asObservable();
       },
     };
@@ -83,13 +112,17 @@ describe('ConfirmPaymentComponent', () => {
         { provide: ShareDataService, useValue: shareDataServiceStub },
         { provide: PsupisprovidesGetPsuAccsService, useValue: psiServiceStub },
         { provide: Router, useValue: mockRouter },
-        { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        {
+          provide: ActivatedRoute,
+          useValue: { params: of(mockActivatedRoute), queryParams: of({}) },
+        },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ConfirmPaymentComponent);
     router = TestBed.inject(Router);
+    activatedRoute = TestBed.inject(ActivatedRoute);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -113,14 +146,28 @@ describe('ConfirmPaymentComponent', () => {
   });
 
   it('should confirm the payment and redirect to result page without scaMethod', () => {
-    const mockResponse = {
-      encryptedConsentId: 'owirhJHGVSgueif98200293uwpgofowbOUIGb39845zt0',
-      authorisationId: 'uwpgofowbOUIGb39845zt0owirhJHGVSgueif98200293',
-    };
+
     component.payAuthResponse = mockResponse;
+    mockResponseInit.scaStatus = 'exempted';
     component.transactionStatus = 'ACSP';
+
+    const sendPisInitiateSpy = spyOn(
+      component,
+      'sendPisInitiate'
+    ).and.callThrough();
+
+    const redirectSpy = spyOn(component, 'redirectOnConfirm').and.callThrough();
+
     const navigateSpy = spyOn(router, 'navigate');
+
     component.onConfirm();
+
+    expect(sendPisInitiateSpy).toHaveBeenCalledWith([
+      'DE80760700240271232400',
+      'EUR',
+    ]);
+    expect(redirectSpy).toHaveBeenCalledWith(mockResponseInit);
+
     expect(navigateSpy).toHaveBeenCalledWith(
       [`${RoutingPath.PAYMENT_INITIATION}/${RoutingPath.RESULT}`],
       {
@@ -134,13 +181,20 @@ describe('ConfirmPaymentComponent', () => {
   });
 
   it('should confirm the payment and redirect to select sca page ', () => {
-    const mockResponse = {
-      encryptedConsentId: 'owirhJHGVSgueif98200293uwpgofowbOUIGb39845zt0',
-      authorisationId: 'uwpgofowbOUIGb39845zt0owirhJHGVSgueif98200293',
+    const mockResponse2 = {
+      currency: 'EUR',
+      iban: 'DE80760700240271232400',
     };
-    component.authResponse = mockResponse;
+
+    mockResponseInit.scaStatus = 'psuAuthenticated';
+    component.payAuthResponse = mockResponse;
+    component.payAuthResponse.payment.debtorAccount = mockResponse2;
+
+    const redirectSpy = spyOn(component, 'redirectOnConfirm').and.callThrough();
     const navigateSpy = spyOn(router, 'navigate');
+
     component.onConfirm();
+    expect(redirectSpy).toHaveBeenCalledWith(mockResponseInit);
     expect(navigateSpy).toHaveBeenCalledWith([
       `${RoutingPath.PAYMENT_INITIATION}/${RoutingPath.SELECT_SCA}`,
     ]);

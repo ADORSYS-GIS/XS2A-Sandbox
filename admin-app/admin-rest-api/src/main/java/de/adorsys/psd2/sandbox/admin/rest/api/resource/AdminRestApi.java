@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Admin API")
 public interface AdminRestApi {
+
     String BASE_PATH = "/admin/admin";
 
     String COUNTRY = "country";
@@ -43,7 +44,8 @@ public interface AdminRestApi {
     String BLOCKED = "blocked";
     String IBAN_PARAM = "ibanParam";
 
-    @Operation(summary = "Get users", description = "Retrieves Page of Users with filters")
+    @Operation(summary = "Get users",
+        description = "Retrieves Page of Users with filters")
     @SecurityRequirement(name = "apiKey")
     @GetMapping("/users")
     ResponseEntity<CustomPageImpl<UserExtendedTO>> users(@RequestParam(value = COUNTRY, defaultValue = "", required = false) String countryCode,
@@ -55,12 +57,15 @@ public interface AdminRestApi {
                                                          @RequestParam("page") int page,
                                                          @RequestParam("size") int size);
 
-    @Operation(summary = "Update user", description = "Update user")
+    @Operation(summary =
+                   "Update user",
+        description = "Update user")
     @SecurityRequirement(name = "apiKey")
     @PutMapping("/users")
     ResponseEntity<Void> user(@RequestBody UserTO user);
 
-    @Operation(summary = "Retrieves Page of accounts with filters")
+    @Operation(summary =
+                   "Retrieves Page of accounts with filters")
     @SecurityRequirement(name = "apiKey")
     @GetMapping("/account")
     ResponseEntity<CustomPageImpl<AccountDetailsExtendedTO>> accounts(@RequestParam(value = COUNTRY, defaultValue = "", required = false) String countryCode,
@@ -88,22 +93,24 @@ public interface AdminRestApi {
     ResponseEntity<CustomPageImpl<UserTO>> admins(@RequestParam("page") int page,
                                                   @RequestParam("size") int size);
 
-    @Operation(summary = "Remove Tpp")
+    @Operation(summary = "Remove TPP")
     @SecurityRequirement(name = "apiKey")
     @DeleteMapping()
     ResponseEntity<Void> remove(String tppId);
 
-    @Operation(summary = "Remove test Tpps (with digit names)")
+    @Operation(summary = "Remove test TPPs (with digit names)")
     @SecurityRequirement(name = "apiKey")
     @DeleteMapping("/test/data")
     ResponseEntity<Void> removeAllTestData() throws InterruptedException;
 
-    @Operation(summary = "Set password for Tpp", description = "Changes password for given Tpp")
+    @Operation(summary = "Set password for TPP",
+        description = "Changes password for given TPP")
     @SecurityRequirement(name = "apiKey")
     @PutMapping("/password")
     ResponseEntity<Void> updatePassword(@RequestParam(value = TPP_ID) String tppId, @RequestParam("pin") String password);
 
-    @Operation(summary = "Block/Unblock User", description = "Changes block state for given user, returns status being set to the block")
+    @Operation(summary = "Block/Unblock User",
+        description = "Changes block state for given user, returns status being set to the block")
     @SecurityRequirement(name = "apiKey")
     @PostMapping("/status")
     ResponseEntity<Boolean> changeStatus(@RequestParam(value = USER_ID) String userId);

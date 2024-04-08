@@ -28,7 +28,10 @@ import de.adorsys.ledgers.middleware.api.domain.um.BearerTokenTO;
 import de.adorsys.ledgers.middleware.client.rest.AccountRestClient;
 import de.adorsys.ledgers.middleware.client.rest.AuthRequestInterceptor;
 import de.adorsys.ledgers.middleware.client.rest.OauthRestClient;
-import de.adorsys.ledgers.oba.service.api.domain.*;
+import de.adorsys.ledgers.oba.service.api.domain.ConsentAuthorizeResponse;
+import de.adorsys.ledgers.oba.service.api.domain.ConsentReference;
+import de.adorsys.ledgers.oba.service.api.domain.ConsentType;
+import de.adorsys.ledgers.oba.service.api.domain.ConsentWorkflow;
 import de.adorsys.ledgers.oba.service.api.domain.exception.ObaException;
 import de.adorsys.ledgers.oba.service.api.service.AuthorizationService;
 import de.adorsys.ledgers.oba.service.api.service.RedirectConsentService;
@@ -54,11 +57,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Currency;
 import java.util.HashSet;
 
 import static de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO.*;
@@ -75,15 +77,11 @@ class AISControllerTest {
     private static final String ENCRYPTED_ID = "ENC_123";
     private static final String AUTH_ID = "AUTH_1";
     private static final String METHOD_ID = "SCA_1";
-    private static final String COOKIE = "COOKIE";
     private static final String TOKEN = "TOKEN";
     private static final String OK_URI = "OK_URI";
     private static final String NOK_URI = "NOK_URI";
     private static final String CONSENT_ID = "12345";
     private static final String CODE = "xyz132";
-    private static final String ASPSP_ACC_ID = "ASPSP_ACC_ID";
-    private static final String IBAN = "DE123456789";
-    private static final Currency EUR = Currency.getInstance("EUR");
     private static final LocalDate DATE = LocalDate.of(2020, 1, 24);
     private static final LocalDate EXPIRE_DATE = LocalDate.of(2050, 1, 1);
 
@@ -111,7 +109,6 @@ class AISControllerTest {
     private AuthRequestInterceptor authInterceptor;
     @Mock
     private TokenAuthenticationService authenticationService;
-
 
     @Test
     void login() {
@@ -189,7 +186,7 @@ class AISControllerTest {
     }
 
     @Test
-    void startConsentAuth_received() throws NoSuchFieldException {
+    void startConsentAuth_received() {
         // Given
         ReflectionTestUtils.setField(controller, "middlewareAuth", new MiddlewareAuthentication(null, getBearer(TOKEN)));
         when(redirectConsentService.identifyConsent(anyString(), anyString(), any())).thenReturn(getConsentWorkflow(RECEIVED, ConsentStatus.RECEIVED));
@@ -208,7 +205,7 @@ class AISControllerTest {
     }
 
     @Test
-    void authrizedConsent() throws NoSuchFieldException {
+    void authorizedConsent() {
         // Given
         ReflectionTestUtils.setField(controller, "middlewareAuth", new MiddlewareAuthentication(null, getBearerToken()));
         when(redirectConsentService.identifyConsent(anyString(), anyString(), any())).thenReturn(getConsentWorkflow(FINALISED, ConsentStatus.RECEIVED));
@@ -222,7 +219,7 @@ class AISControllerTest {
     }
 
     @Test
-    void selectMethod() throws NoSuchFieldException {
+    void selectMethod() {
         // Given
         ReflectionTestUtils.setField(controller, "middlewareAuth", new MiddlewareAuthentication(null, getBearerToken()));
         when(redirectConsentService.identifyConsent(anyString(), anyString(), any())).thenReturn(getConsentWorkflow(SCAMETHODSELECTED, ConsentStatus.RECEIVED));
@@ -281,7 +278,7 @@ class AISControllerTest {
     }
 
     @Test
-    void revokeConsent() throws NoSuchFieldException {
+    void revokeConsent() {
         // Given
         when(redirectConsentService.identifyConsent(anyString(), anyString(), any())).thenReturn(getConsentWorkflow(FINALISED, ConsentStatus.RECEIVED));
 
@@ -323,15 +320,6 @@ class AISControllerTest {
         cons.setConsent(getAisConsentTO(isEmptyConsent));
         cons.setEncryptedConsentId(hasEncrConsId ? ENCRYPTED_ID : null);
         return cons;
-    }
-
-    private ResponseEntity<AuthorizeResponse> getAuthResponse() {
-        AuthorizeResponse resp = new AuthorizeResponse();
-        resp.setAuthorisationId(AUTH_ID);
-        resp.setEncryptedConsentId(ENCRYPTED_ID);
-        resp.setScaStatus(PSUIDENTIFIED);
-        resp.setScaMethods(Collections.emptyList());
-        return ResponseEntity.ok(resp);
     }
 
     private ConsentWorkflow getConsentWorkflow(ScaStatusTO status, ConsentStatus consentStatus) {

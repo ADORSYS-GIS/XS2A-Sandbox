@@ -1,20 +1,13 @@
-<p align=center><img src="modelbank.png" height="200"></p>
+<div align="center"><img src="modelbank.png" height="200"></div>
 
-# ModelBank: A dynamic PSD2 Sandbox environment for realistic TPP integration testing
+# ModelBank
 
-This is adorsys ModelBank: a dynamic sandbox environment that fully meets the PSD2 requirements for providing APIs for Third-Party Providers (TPP). Based on the Berlin Group’s NextGen PSD2 specification for access to accounts (XS2A), ModelBank meets all the regulatory requirements and is NISP compliant. 
+This is the try-out version of adorsys ModelBank: an open source (AGPL v3) solution to get acquainted with adorsys’ implementation of a NextGenPSD2 compliant dynamic sandbox. 
 
-ModelBank is an open source (AGPL v3) try out solution. It is delivered as-is and comes without any warranty, to the extent permitted by applicable law.
+This software is delivered as-is and we're happy about any contributions done by the community to improve it.
 
-**Caveat**: This repository is not the latest version of Modelbank as it runs with our enterprise clients. Do not use it for commercial purposes! This public repository will only be updated every 6 months or so. It may contain security related issues that are already fixed with our customers but did not make it to the public repository, yet.
-
-**Enterprise Version**: There is an enterprise version of Model Bank that we proudly manage, adapt, extend, improve and operate for our enterprise clients, mostly European banks and open banking aggregators. This version consists of latest Berlin Group implementation of XS2A Core.
-
-**Partnerships**: If you are an organization that would like to commercially use our solutions beyond AGPL v3 requirements, please get in contact. We currently focus on collaborative projects with our customers where our frameworks can be used as a basis for building new individual PSD2 solutions.
-
-**Upcoming Regulation**: If you are interested in this project's further developments in the context of Berlin Group, Open Banking UK, PSD3, PSR, DORA and FIDA, please get in contact.
-
-For any inquiries please write to [sales@adorsys.com](mailto:sales@adorsys.com).
+We currently focus on collaborative projects with our customers where our frameworks can be used as a basis for building new individual XS2A solutions.
+If you are an organisation that would like to commercially use our solutions beyond AGPL v3 requirements, we are open to discuss alternative individual licensing options. If you are interested in working with us or have any other inquiries, please contact us under [sales@adorsys.com](mailto:sales@adorsys.com).
 
 ## What is it
 
@@ -26,15 +19,15 @@ The 'Berlin Group' is a pan-European payments interoperability standards and har
 ModelBank is a dynamic sandbox environment that allows to emulate and test ASPSP's OpenAPI PSD2 services.
 Modelbank functionality supports all mandatory services of XS2A. Optional services are partially supported via UI interfaces, but fully supported and can be tested through XS2A interface.
 
-ModelBank is based on [XS2A Service](https://github.com/adorsys/xs2a), [XS2A-connector-examples](https://github.com/adorsys/xs2a-connector-examples) and [Ledgers](https://github.com/adorsys/ledgers). ModelBank also uses Keycloak identity provider (IDP) for the security/token issues and for handling the system users.
+ModelBank is based on [XS2A Service](https://git.adorsys.de/adorsys/xs2a/aspsp-xs2a), [XS2A-connector-examples](https://git.adorsys.de/adorsys/xs2a/xs2a-connector-examples) and [Ledgers](https://git.adorsys.de/adorsys/xs2a/ledgers). ModelBank also uses Keycloak identity provider (IDP) for the security/token issues and for handling the system users.
 
-With ModelBank [TPP UI](tpp-ui/), you as a testing TPP can access banking APIs directly, get TPP certificates and manage testing accounts. Administrators cannot login to TPP UI.
+With ModelBank [TPP UI](https://git.adorsys.de/adorsys/xs2a/psd2-dynamic-sandbox/-/tree/master/tpp-ui), you as a testing TPP can access banking APIs directly, get TPP certificates and manage testing accounts. Administrators cannot log in to TPP UI.
 
-The ModelBank [Admin UI](admin-ui/) provides a user interface to manage administrators of the ModelBank, its users and TPPs. Please note, that TPPs cannot login to this application.
+The ModelBank [Admin UI](https://git.adorsys.de/adorsys/xs2a/psd2-dynamic-sandbox/-/tree/master/admin-ui) provides a user interface to manage administrators of the ModelBank, its users and TPPs. Please note, that TPPs cannot log in to this application.
 
-[Developer Portal](developer-portal-ui/) contains testing instructions and all the necessary documentation. Also, there is a possibility to send requests to XS2A system to proceed basic Payment and Consent flows available in test cases inside Developer Portal.
+[Developer Portal](https://git.adorsys.de/adorsys/xs2a/psd2-dynamic-sandbox/-/tree/master/developer-portal-ui) contains testing instructions and all the necessary documentation. Also, there is a possibility to send requests to XS2A system to proceed basic Payment and Consent flows available in test cases inside Developer Portal.
 
-All four SCA approaches are supported: REDIRECT, OAUTH, EMBEDDED, DECOUPLED. Two of them (REDIRECT, EMBEDDED) are directly testable on Developer portal. For the Redirect SCA Approach an [Online Banking UI](oba-ui/) is used for authorisation and SCA.
+All four SCA approaches are supported: REDIRECT, OAUTH, EMBEDDED, DECOUPLED. Two of them (REDIRECT, EMBEDDED) are directly testable on Developer portal. For the Redirect SCA Approach an [Online Banking UI](https://git.adorsys.de/adorsys/xs2a/psd2-dynamic-sandbox/-/tree/master/oba-ui) is used for authorisation and SCA.
 
 ## Project documentation
 
@@ -70,9 +63,10 @@ Any person is free to join us by implementing some parts of code or fixing some 
 
 ## Contact
 
-For commercial support please contact [sales@adorsys.com](mailto:sales@adorsys.com).
-Visit our Website at: [adorsys](https://adorsys.com/services/open-and-digital-finance/)
+For commercial support please contact [adorsys Team](https://adorsys.com/en/products/).
 
 ## License
 
-This project is licensed under Affero GNU General Public License v.3 (AGPL v.3). See the [LICENSE](https://github.com/adorsys/XS2A-Sandbox/blob/support-6.x/LICENSE) file for details. For alternative individual licensing options please contact us at [adorsys](https://adorsys.com/services/open-and-digital-finance/)
+This project is licensed under Affero GNU General Public License v.3 (AGPL v.3). 
+See the [LICENSE](LICENSE) file for details. 
+For alternative individual licensing options please contact us at [sales@adorsys.com](mailto:sales@adorsys.com).

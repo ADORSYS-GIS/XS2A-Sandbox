@@ -12,7 +12,7 @@ $ make check
 +
 ```sh
 $ brew install plantuml jq
-$ gem install asciidoctor
+$ brew install asciidoctor
 ```
 
 * create architecture documentation

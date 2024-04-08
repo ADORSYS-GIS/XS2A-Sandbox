@@ -23,7 +23,7 @@
     <parent>
         <artifactId>admin-app</artifactId>
         <groupId>de.adorsys.psd2.sandbox</groupId>
-        <version>6.8-SNAPSHOT</version>
+        <version>9.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -83,10 +83,10 @@
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
 
-        <!-- Springdoc and swagger UI -->
+        <!-- springdoc and swagger UI -->
         <dependency>
             <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
         </dependency>
 
         <dependency>

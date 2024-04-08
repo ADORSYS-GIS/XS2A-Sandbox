@@ -5,7 +5,7 @@ For build and run ModelBank requires GNU Make to be installed on your local mach
 1.Download the project and go to the project directory:
 
 ```sh
-> git clone https://github.com/adorsys/XS2A-Sandbox.git
+> git clone https://git.adorsys.de/adorsys/xs2a/psd2-dynamic-sandbox.git
 > cd XS2A-Sandbox
 ```
 
@@ -31,12 +31,12 @@ Line to add:
 ```
 
 If something is missing, install it to your local machine, otherwise the build will fail.
-List of dependencies that are required to use ModelBank: **Java 11**, **nodeJs**, **AngularCLI**, **asciidoctor**, **jq**, **docker**, **docker-compose**, **maven**, **plantuml**.
+List of dependencies that are required to use ModelBank: **Java 17**, **nodeJs**, **AngularCLI**, **asciidoctor**, **jq**, **docker**, **docker-compose**, **maven**, **plantuml**.
 Here are links where you can install needed dependencies:
 
 | Dependency          | Link                                    |
 |---------------------| --------------------------------------- |
-| Java 11             | https://openjdk.java.net/install/       |
+| Java 17             | https://openjdk.java.net/install/       |
 | Node.js 18.x        | https://nodejs.org/en/download          |
 | Angular CLI 15.x    | https://angular.io/guide/quickstart     |
 | Asciidoctor 2.0     | https://asciidoctor.org                 |
@@ -54,6 +54,13 @@ For a fast and painless start of all the services it should be not less than 5 G
 
 ---
 
+---
+
+**Note2:**
+If you clone master branch or tag version of ModelBank you should run service with commands like `docker-compose up` or `make run`.
+
+---
+
 3.Build and run the project:
 
 You can build and run ModelBank in two ways - with a docker command or with Makefile commands.
@@ -66,10 +73,7 @@ Build all the services with command:
 > make
 ```
 
-After building services you can run ModelBank with a simple docker command.
-
-**Please note:**
-To be able to use adorsys' applications docker images you have to build them on your local first.
+After building services you can run ModelBank with a simple docker command:
 
 ```sh
 > docker-compose up
@@ -121,9 +125,11 @@ with the password `12345` for all those users.
 
 ## Links to local Swagger Interfaces
 
-Following urls will access the swagger interfaces:
+Following URLs will access the swagger interfaces for all ModelBank components (except the Keycloak - it uses its own web UI):
 
 ### XS2A Interface
+
+External endpoints for TPPs in accordance with BerlinGroup API specification.
 
 ```
 http://localhost:8089/swagger-ui.html
@@ -137,11 +143,39 @@ ASPSP-profile is a module where bank-specific settings are stored.
 http://localhost:48080/swagger-ui.html
 ```
 
+### CMS
+
+Consent Management System is a module where XS2A database is running.
+
+```
+http://localhost:38080/swagger-ui.html
+```
+
+### Ledgers
+
+Ledgers is a core banking emulating system used to handle accounts and payments. Security and user management is processed by Keycloak identity provider (IDP).
+
+```
+http://localhost:8088/swagger-ui.html
+```
+
+### Keycloak
+
+Identity provider used to handle ModelBank users (admins, TPPs and customers). Ledgers is using Keycloak under the hood, so there is no need to configure the IDP manually, thus its web UI is available at:
+
+```
+http://localhost:8080
+```
+
 ## Links to local User Interfaces
 
 ### Developer portal UI
 
-Developer portal is the main information resource on how to get started, how to test and work with ModelBank.
+Developer portal is the main information resource on how to get started, how to test and work with ModelBank. You can try the main ModelBank functionality here also:
+
+-   create the payment in redirect approach and authorise it with SCA in Online Banking Application;
+-   create the AIS consent in redirect approach and authorise it with SCA in Online Banking Application;
+-   read payment details and accounts/balances/transactions for the consent.
 
 ```
 http://localhost:4206

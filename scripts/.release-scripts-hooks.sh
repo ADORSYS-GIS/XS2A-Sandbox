@@ -32,23 +32,13 @@ function get_remote_repo_name {
 # Hook method to define the develop branch name
 # Returns the develop branch name as text
 function get_develop_branch_name {
-  if [[ "$1" =~ ^6\..* ]]
-  then
-    echo "support-6.x"
-  else
-    echo "develop"
-  fi
+  echo "develop"
 }
 
 # Hook method to define the master branch name
 # Returns the master branch name as text
 function get_master_branch_name {
-  if [[ "$1"  =~ ^6\..* ]]
-  then
-    echo "master-6.x"
-  else
-    echo "master"
-  fi
+  echo "master"
 }
 
 # Hook method to format the release branch name
@@ -110,5 +100,5 @@ function set_modules_version {
     mv info.json tpp-ui/info.json
     jq --arg VERSION "$1"  --arg BUILD_ID "null" '.version = $VERSION | .build_number = $BUILD_ID' oba-ui/info.json >> info.json
     mv info.json oba-ui/info.json
-  fi
+  fi 
 }

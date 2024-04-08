@@ -33,11 +33,11 @@ public class AdminEmailVerificationController implements AdminEmailVerificationR
 
     @Override
     public ResponseEntity<Void> sendEmailVerification(String email) {
-        return scaVerificationRestClient.sendEmailVerification(email);
+        return ResponseEntity.ok(scaVerificationRestClient.sendEmailVerification(email).getBody());
     }
 
     @Override
     public ResponseEntity<Void> confirmVerificationToken(String token) {
-        return scaVerificationRestClient.confirmVerificationToken(token);
+        return ResponseEntity.ok(scaVerificationRestClient.confirmVerificationToken(token).getBody());
     }
 }

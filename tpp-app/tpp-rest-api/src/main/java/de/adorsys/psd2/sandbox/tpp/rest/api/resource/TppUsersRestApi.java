@@ -32,12 +32,14 @@ public interface TppUsersRestApi {
     String BASE_PATH = "/tpp/users";
     String USER_ID = "userId";
 
-    @Operation(summary = "Create users for a given TPP", description = "Endpoint to create a user for a given TPP")
+    @Operation(summary = "Create users for a given TPP",
+        description = "Endpoint to create a user for a given TPP")
     @SecurityRequirement(name = "apiKey")
     @PostMapping
     ResponseEntity<UserTO> createUser(@RequestBody User user);
 
-    @Operation(summary = "List users for a given TPP", description = "Endpoint to lists users for a given TPP")
+    @Operation(summary = "List users for a given TPP",
+        description = "Endpoint to lists users for a given TPP")
     @SecurityRequirement(name = "apiKey")
     @GetMapping
     ResponseEntity<CustomPageImpl<UserTO>> getAllUsers(
@@ -45,12 +47,14 @@ public interface TppUsersRestApi {
         @RequestParam(value = "page", required = false, defaultValue = "0") int page,
         @RequestParam(value = "size", required = false, defaultValue = "25") int size);
 
-    @Operation(summary = "Update user for a given TPP", description = "Endpoint to update a user for a given TPP")
+    @Operation(summary = "Update user for a given TPP",
+        description = "Endpoint to update a user for a given TPP")
     @SecurityRequirement(name = "apiKey")
     @PutMapping
     ResponseEntity<Void> updateUser(@RequestBody User user);
 
-    @Operation(summary = "Retrieves user by id", description = "Endpoint to get user by id")
+    @Operation(summary = "Retrieves user by ID",
+        description = "Endpoint to get user by ID")
     @SecurityRequirement(name = "apiKey")
     @GetMapping("/{userId}")
     ResponseEntity<UserTO> getUser(@PathVariable("userId") String userId);
@@ -60,7 +64,8 @@ public interface TppUsersRestApi {
     @GetMapping("/me")
     ResponseEntity<UserTO> getSelf();
 
-    @Operation(summary = "Block/Unblock User", description = "Changes block state for given user, returns status being set to the block")
+    @Operation(summary = "Block/Unblock User",
+        description = "Changes block state for given user, returns status being set to the block")
     @SecurityRequirement(name = "apiKey")
     @PostMapping("/status")
     ResponseEntity<Boolean> changeStatus(@RequestParam(value = USER_ID) String userId);

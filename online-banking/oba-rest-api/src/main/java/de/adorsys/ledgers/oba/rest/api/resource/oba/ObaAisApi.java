@@ -36,7 +36,9 @@ import java.util.List;
 
 @Tag(name = "Online Banking Account Information")
 public interface ObaAisApi {
+
     String BASE_PATH = "/api/v1/ais";
+
     String LOCAL_DATE_YYYY_MM_DD_FORMAT = "yyyy-MM-dd";
     String DATE_TO_QUERY_PARAM = "dateTo";
     String DATE_FROM_QUERY_PARAM = "dateFrom";
@@ -55,12 +57,12 @@ public interface ObaAisApi {
      * @return account details for queried account
      */
     @GetMapping(path = "/account/{accountId}")
-    @Operation(summary = "Get account details by account id")
+    @Operation(summary = "Get account details by account ID")
     @SecurityRequirement(name = "apiKey")
     ResponseEntity<AccountDetailsTO> account(@PathVariable(name = "accountId") String accountId);
 
     /**
-     * @param accountId selected accounts id
+     * @param accountId selected accounts ID
      * @param dateFrom  date from which the user requests to see transactions
      * @param dateTo    date until which user requests to see transactions
      * @return List of transactions for account
@@ -73,7 +75,7 @@ public interface ObaAisApi {
                                                      @RequestParam(name = DATE_TO_QUERY_PARAM, required = false) @DateTimeFormat(pattern = LOCAL_DATE_YYYY_MM_DD_FORMAT) LocalDate dateTo);
 
     /**
-     * @param accountId selected accounts id
+     * @param accountId selected accounts ID
      * @param dateFrom  date from which the user requests to see transactions
      * @param dateTo    date until which user requests to see transactions
      * @return List of transactions for account

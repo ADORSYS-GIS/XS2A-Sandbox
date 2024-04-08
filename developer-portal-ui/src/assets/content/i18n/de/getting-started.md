@@ -25,7 +25,7 @@ Abbildung 1.1: Komponenten der ModelBank
 
 # XS2A-Schnittstelle
 
-Der Zentrale Bestandteil der **ModelBank** ist die XS2A-Schnittstelle, die gemäß der Spezifikation der Berlin Group [NextGenPSD2](https://www.berlin-group.org/psd2-access-to-bank-accounts) (Version 1.3.11) implementiert wurde und auf Testdaten basiert. Mehr Details finden Sie in unsere <a href="#" id="XS2AInterfaceSwagger">XS2A Swagger UI</a> und der [OpenSource XS2A Schnittstelle auf GitHub](https://github.com/adorsys/xs2a).
+Der Zentrale Bestandteil der **ModelBank** ist die XS2A-Schnittstelle, die gemäß der Spezifikation der Berlin Group [NextGenPSD2](https://www.berlin-group.org/psd2-access-to-bank-accounts) (Version 1.3.12) implementiert wurde und auf Testdaten basiert. Mehr Details finden Sie in unsere <a href="#" id="XS2AInterfaceSwagger">XS2A Swagger UI</a> und der [OpenSource XS2A Schnittstelle auf GitLab](https://git.adorsys.de/adorsys/xs2a/aspsp-xs2a).
 
 # ASPSP-Profile
 
@@ -120,7 +120,7 @@ Ob Sie alle notwendigen Programme installiert haben. Die fehlenden müssen Sie l
 
 | Dependency          |                  Link                   |
 |---------------------| :-------------------------------------: |
-| Java 11             |    https://openjdk.java.net/install/    |
+| Java 17             |    https://openjdk.java.net/install/    |
 | Node.js 18.x        |     https://nodejs.org/en/download      |
 | Angular CLI 15.x    |   https://angular.io/guide/quickstart   |
 | Asciidoctor 2.0     |         https://asciidoctor.org         |
@@ -142,12 +142,12 @@ _docker-compose rm -s -f -v_
 
 ## Download ModelBank
 
-Laden Sie das Projekt direkt von GitHub herunter oder nutzen Sie folgenden Befehl:
+Laden Sie das Projekt direkt von GitLab herunter oder nutzen Sie folgenden Befehl:
 
-_git clone https://github.com/adorsys/XS2A-Sandbox.git_
+_git clone https://git.adorsys.de/adorsys/xs2a/psd2-dynamic-sandbox.git_
 
 **Note:**
-Ziehen Sie immer an GitHub
+Ziehen Sie immer an GitLab
 
 ## Starten der ModelBank
 
@@ -163,8 +163,7 @@ Falls Sie es wollen benutze einen ersten Weg:
 
 _make_
 
-2. Nach dem Gebäude der Dienste können Sie ModelBank mit einem einfachen Docker-Befehl ausführen.
-   Bitte beachten Sie, dass Sie die Docker images der Adorsys-Anwendungen zunächst lokal erstellen müssen, um sie verwenden zu können.
+2. Nach dem Gebäude der Dienste können Sie ModelBank mit einem einfachen Docker-Befehl ausführen:
 
 _docker-compose up_
 
@@ -278,7 +277,7 @@ Hier ein Json Beispiel:
     "img": "Rene.png",
     "name": "René Pongratz",
     "position": "Software Architect & Expert for API Management",
-    "email": "psd2@adorsys.de"
+    "email": "sales@adorsys.com"
   },
   "officesInfo": [
     {
@@ -287,7 +286,7 @@ Hier ein Json Beispiel:
       "addressFirstLine": "Fürther Str. 246a, Gebäude 32 im 4.OG",
       "addressSecondLine": "90429 Nürnberg",
       "phone": "+49(0)911 360698-0",
-      "email": "psd2@adorsys.de"
+      "email": "sales@adorsys.com"
     },
     {
       "city": "Frankfurt",

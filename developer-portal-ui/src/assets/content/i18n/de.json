@@ -86,6 +86,10 @@
         "POINT_12": {
           "TITLE": "Release ver 6.7/7.7",
           "CONTENT": "Frontend-Anwendungen auf Angular Version 15 verschoben, Versionen der Backend-Bibliotheken aktualisiert"
+        },
+        "POINT_13": {
+          "TITLE": "Release ver 9.0",
+          "CONTENT": "Auf Java 17 verschoben, Spring Boot 3"
         }
       }
     },

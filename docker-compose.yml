@@ -167,9 +167,9 @@ services:
     volumes:
       - xs2a-ledgers-data:/var/lib/data
     depends_on:
+      - xs2a-consent-management-db
       - fakesmtp
       - ledgers-keycloak
-      - xs2a-consent-management-db
 
   # Keycloak as IDP
   ledgers-keycloak:

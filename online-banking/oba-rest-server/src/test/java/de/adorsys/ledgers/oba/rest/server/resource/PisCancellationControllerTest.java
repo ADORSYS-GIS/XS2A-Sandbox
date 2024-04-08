@@ -21,6 +21,7 @@ package de.adorsys.ledgers.oba.rest.server.resource;
 import de.adorsys.ledgers.middleware.api.domain.account.AccountReferenceTO;
 import de.adorsys.ledgers.middleware.api.domain.payment.*;
 import de.adorsys.ledgers.middleware.api.domain.sca.GlobalScaResponseTO;
+import de.adorsys.ledgers.middleware.api.domain.sca.OpTypeTO;
 import de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO;
 import de.adorsys.ledgers.middleware.api.domain.um.AccessTokenTO;
 import de.adorsys.ledgers.middleware.api.domain.um.BearerTokenTO;
@@ -35,6 +36,7 @@ import de.adorsys.ledgers.oba.service.api.service.TokenAuthenticationService;
 import de.adorsys.psd2.consent.api.pis.CmsCommonPayment;
 import de.adorsys.psd2.consent.api.pis.CmsPaymentResponse;
 import de.adorsys.psd2.sandbox.auth.MiddlewareAuthentication;
+import feign.FeignException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -55,7 +57,7 @@ import static de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PisCancellationControllerTest {
@@ -82,8 +84,6 @@ class PisCancellationControllerTest {
     @Mock
     private XISControllerService xisService;
     @Mock
-    private ResponseUtils responseUtils;
-    @Mock
     private MiddlewareAuthentication middlewareAuth;
     @Mock
     private AuthRequestInterceptor authInterceptor;
@@ -105,6 +105,21 @@ class PisCancellationControllerTest {
     }
 
     @Test
+    void login_feignException() {
+        // Given
+        when(paymentService.identifyPayment(anyString(), anyString(), any())).thenReturn(getPaymentWorkflow(PSUIDENTIFIED, ACSP));
+        when(authenticationService.login(anyString(), anyString(), anyString())).thenThrow(FeignException.class);
+        when(xisService.resolvePaymentWorkflow(any())).thenReturn(ResponseEntity.ok(getPaymentAuthorizeResponse(true, true, PSUIDENTIFIED)));
+
+        // When
+        ResponseEntity<PaymentAuthorizeResponse> result = controller.login(ENCRYPTED_ID, AUTH_ID, LOGIN, PIN);
+
+        // Then
+        verify(xisService, times(1)).resolveFailedLoginAttempt(ENCRYPTED_ID, PMT_ID, LOGIN, AUTH_ID, OpTypeTO.PAYMENT);
+        assertEquals(ResponseEntity.ok(getPaymentAuthorizeResponse(true, true, PSUIDENTIFIED)), result);
+    }
+
+    @Test
     void login_failure() {
         when(paymentService.identifyPayment(anyString(), anyString(), any())).thenReturn(getPaymentWorkflow(PSUIDENTIFIED, RCVD));
 
@@ -112,9 +127,8 @@ class PisCancellationControllerTest {
         assertThrows(ObaException.class, () -> controller.login(ENCRYPTED_ID, AUTH_ID, LOGIN, PIN));
     }
 
-
     @Test
-    void authorisePayment() throws NoSuchFieldException {
+    void authorisePayment() {
         // Given
         ReflectionTestUtils.setField(controller, "middlewareAuth", new MiddlewareAuthentication(null, getBearerToken()));
 
@@ -129,7 +143,16 @@ class PisCancellationControllerTest {
     }
 
     @Test
-    void pisDone() throws NoSuchFieldException {
+    void selectMethod() {
+        // When
+        controller.selectMethod(ENCRYPTED_ID, AUTH_ID, METHOD_ID);
+
+        // Then
+        verify(xisService, times(1)).selectScaMethod(ENCRYPTED_ID, AUTH_ID, METHOD_ID);
+    }
+
+    @Test
+    void pisDone() {
         // Given
         when(paymentService.identifyPayment(anyString(), anyString(), any())).thenReturn(getPaymentWorkflow(ScaStatusTO.FINALISED, TransactionStatusTO.CANC));
         ReflectionTestUtils.setField(controller, "middlewareAuth", new MiddlewareAuthentication(null, getBearerToken()));

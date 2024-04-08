@@ -24,15 +24,16 @@ import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityScheme;
-import lombok.RequiredArgsConstructor;
-import org.springdoc.core.GroupedOpenApi;
+import lombok.AllArgsConstructor;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class TppSwaggerConfig {
+
     private static final String API_KEY = "apiKey";
     private static final String AUTHORIZATION_HEADER = "Authorization";
 
@@ -60,8 +61,7 @@ public class TppSwaggerConfig {
                              .description("TPP backend application of PSD2 ModelBank Environment")
                              .contact(contact)
                              .version(buildProperties.getVersion() + " " + buildProperties.get("build.number"))
-                             .license(new License()
-                                          .name("AGPL version 3.0")
+                             .license(new License().name("AGPL version 3.0")
                                           .url("https://www.gnu.org/licenses/agpl-3.0.txt")))
                    .components(new Components()
                                    .addSecuritySchemes(API_KEY, new SecurityScheme()

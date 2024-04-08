@@ -33,6 +33,7 @@ import java.util.List;
 
 @Tag(name = "Online Banking ASPSP PIIS Consents")
 public interface ObaPiisConsentApi {
+
     String BASE_PATH = "/api/v1/piis-consents";
 
     /**
@@ -52,8 +53,8 @@ public interface ObaPiisConsentApi {
     @Operation(summary = "Get List of valid AIS Consents")
     @SecurityRequirement(name = "apiKey")
     ResponseEntity<CustomPageImpl<ObaPiisConsent>> getPiisConsentsPaged(@PathVariable("userLogin") String userLogin,
-                                                                       @RequestParam(required = false, defaultValue = "0") int page,
-                                                                       @RequestParam(required = false, defaultValue = "25") int size);
+                                                                        @RequestParam(required = false, defaultValue = "0") int page,
+                                                                        @RequestParam(required = false, defaultValue = "25") int size);
 
     /**
      * @param consentId identifier of consent

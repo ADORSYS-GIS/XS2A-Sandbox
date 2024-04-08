@@ -54,7 +54,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
@@ -156,15 +156,15 @@ public class AISController implements AISApi {
         CmsAisConsentResponse consentResponse = workflow.getConsentResponse();
         authInterceptor.setAccessToken(workflow.getScaResponse().getBearerToken().getAccess_token());
         String tppOkRedirectUri = isOauth2Integrated
-            ? requireNonNull(oauthRestClient.oauthCode(consentResponse.getTppOkRedirectUri()).getBody()).getRedirectUri()
-            : authService.resolveAuthConfirmationCodeRedirectUri(consentResponse.getTppOkRedirectUri(), authConfirmationCode);
+                                      ? requireNonNull(oauthRestClient.oauthCode(consentResponse.getTppOkRedirectUri()).getBody()).getRedirectUri()
+                                      : authService.resolveAuthConfirmationCodeRedirectUri(consentResponse.getTppOkRedirectUri(), authConfirmationCode);
         String tppNokRedirectUri = Optional.ofNullable(consentResponse.getTppNokRedirectUri())
-            .filter(StringUtils::isNotBlank)
-            .orElse(consentResponse.getTppOkRedirectUri());
+                                       .filter(StringUtils::isNotBlank)
+                                       .orElse(consentResponse.getTppOkRedirectUri());
 
         String redirectURL = EnumSet.of(VALID, ConsentStatus.RECEIVED, PARTIALLY_AUTHORISED).contains(consentStatus) && isNotFailedAuthorizationList(consentResponse)
-            ? tppOkRedirectUri
-            : tppNokRedirectUri;
+                                 ? tppOkRedirectUri
+                                 : tppNokRedirectUri;
         ConsentAuthorizeResponse consentAuthorizeResponse = workflow.getAuthResponse();
         consentAuthorizeResponse.setRedirectUrl(redirectURL);
         return ResponseEntity.ok(consentAuthorizeResponse);
@@ -234,22 +234,20 @@ public class AISController implements AISApi {
         return consentAuthorisationResponse;
     }
 
-
     private void updatePSUIdentification(ConsentWorkflow workflow, String psuId) {
         PsuIdData psuIdData = new PsuIdData(psuId, null, null, null, null);
-      try {
-        cmsPsuAisClient.updatePsuDataInConsent(workflow.consentId(), workflow.authId(), DEFAULT_SERVICE_INSTANCE_ID, psuIdData);
-      }catch (FeignException e){
-          if (e.status() == HttpStatus.REQUEST_TIMEOUT.value()) {
-              throw ObaException.builder()
-                  .obaErrorCode(ObaErrorCode.RESOURCE_EXPIRED)
-                  .devMessage("Authorisation is expired")
-                  .build();
-
-          } else {
-              throw e;
-          }
-      }
+        try {
+            cmsPsuAisClient.updatePsuDataInConsent(workflow.consentId(), workflow.authId(), DEFAULT_SERVICE_INSTANCE_ID, psuIdData);
+        } catch (FeignException e) {
+            if (e.status() == HttpStatus.REQUEST_TIMEOUT.value()) {
+                throw ObaException.builder()
+                          .obaErrorCode(ObaErrorCode.RESOURCE_EXPIRED)
+                          .devMessage("Authorisation is expired")
+                          .build();
+            } else {
+                throw e;
+            }
+        }
     }
 
     /*
@@ -266,6 +264,4 @@ public class AISController implements AISApi {
             authInterceptor.setAccessToken(null);
         }
     }
-
-
 }

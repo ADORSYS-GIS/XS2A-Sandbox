@@ -61,7 +61,7 @@ class CmsAspspConsentDataServiceImplTest {
     private ObjectMapper mapper;
 
     @BeforeEach
-    void set() throws NoSuchFieldException {
+    void set() {
         ReflectionTestUtils.setField(service, "loginFailedMax", 3);
     }
 

@@ -43,7 +43,7 @@ public interface TppOperationInfoRestApi {
     ResponseEntity<OperationInfo> addOperationInfo(@RequestBody OperationInfo operationInfo);
 
     @DeleteMapping
-    @Operation(summary = "Removes Operation info by id")
+    @Operation(summary = "Removes Operation info by ID")
     @SecurityRequirement(name = "apiKey")
     ResponseEntity<Void> deleteOperationInfo(@RequestParam(value = "operationInfoId") Long operationInfoId);
 }

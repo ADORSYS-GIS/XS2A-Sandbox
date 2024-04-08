@@ -45,8 +45,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collections;
@@ -61,11 +61,9 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class XISControllerServiceTest {
-    private static final String PIN = "12345";
     private static final String LOGIN = "anton.brueckner";
     private static final String ENCRYPTED_ID = "ENC_123";
     private static final String AUTH_ID = "AUTH_1";
-    private static final String COOKIE = "COOKIE";
     private static final String TOKEN = "TOKEN";
     private static final String OK_URI = "OK_URI";
     private static final String NOK_URI = "NOK_URI";
@@ -102,7 +100,7 @@ class XISControllerServiceTest {
     private CmsPsuPisClient cmsPsuPisClient;
 
     @Test
-    void auth() throws NoSuchFieldException {
+    void auth() {
         // Given
         ReflectionTestUtils.setField(service, "response", new MockHttpServletResponse());
         ReflectionTestUtils.setField(service, "loginPage", "www.loginPage.html");

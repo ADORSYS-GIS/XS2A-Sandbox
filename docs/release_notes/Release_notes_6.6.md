@@ -24,6 +24,6 @@ Current version consists of following components:
 
 -   SMTP configuration properties for Ledgers were extended in docker-compose file.
 
--   Fixed bug during account creation with 'DISABLED' or 'BLOCKED' statuses from TPP-UI. 
+-   Fixed bug during account creation with 'DISABLED' or 'BLOCKED' statuses from TPP-UI.
 
--   Fixed bug for new account creation with the same IBAN and currency in TPP-UI and admin UI.
+- Fixed bug for new account creation with the same IBAN and currency in TPP-UI and admin UI.

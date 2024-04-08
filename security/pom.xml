@@ -23,7 +23,7 @@
     <parent>
         <artifactId>psd2-dynamic-sandbox</artifactId>
         <groupId>de.adorsys.psd2.sandbox</groupId>
-        <version>6.8-SNAPSHOT</version>
+        <version>9.2</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -31,10 +31,9 @@
     <artifactId>auth-commons</artifactId>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
         <ruleset.basedir>..</ruleset.basedir>
     </properties>
+
     <dependencies>
 
         <dependency>
@@ -53,7 +52,6 @@
             <artifactId>nimbus-jose-jwt</artifactId>
             <version>${nimbus-jose-jwt.version}</version>
         </dependency>
-
 
         <!-- Test dependencies -->
         <dependency>

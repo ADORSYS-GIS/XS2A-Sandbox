@@ -25,7 +25,7 @@ Figure 1.1: Components of the ModelBank
 
 # XS2A Interface
 
-Central component of the **ModelBank** is the XS2A interface which meets the requirements of the Berlin Group's specification [NextGenPSD2](https://www.berlin-group.org/psd2-access-to-bank-accounts) (Version 1.3.11) and is based on test data. You can visit our <a href="#" id="XS2AInterfaceSwagger">XS2A Swagger UI</a> or find full [adorsys XS2A Interface on GitHub](https://github.com/adorsys/xs2a).
+Central component of the **ModelBank** is the XS2A interface which meets the requirements of the Berlin Group's specification [NextGenPSD2](https://www.berlin-group.org/psd2-access-to-bank-accounts) (Version 1.3.12) and is based on test data. You can visit our <a href="#" id="XS2AInterfaceSwagger">XS2A Swagger UI</a> or find full [adorsys XS2A Interface on GitLab](https://git.adorsys.de/adorsys/xs2a/aspsp-xs2a).
 
 <div class="divider">
 </div>
@@ -161,11 +161,11 @@ This ModelBank runs with the docker-compose that can be found at docker-compose.
 
 _make check_
 
-If something is missing, install it to your local machine, otherwise the build will fail. List of dependencies that are required to use ModelBank: Java 11, NodeJs, Angular CLI, Asciidoctor, jq, Docker, Docker Compose, Maven, PlantUML. Here are links where you can install needed dependencies:
+If something is missing, install it to your local machine, otherwise the build will fail. List of dependencies that are required to use ModelBank: Java 17, NodeJs, Angular CLI, Asciidoctor, jq, Docker, Docker Compose, Maven, PlantUML. Here are links where you can install needed dependencies:
 
 | Dependency          |                  Link                   |
 |---------------------| :-------------------------------------: |
-| Java 11             |    https://openjdk.java.net/install/    |
+| Java 17             |    https://openjdk.java.net/install/    |
 | Node.js 18.x        |     https://nodejs.org/en/download      |
 | Angular CLI 15.x    |   https://angular.io/guide/quickstart   |
 | Asciidoctor 2.0     |         https://asciidoctor.org         |
@@ -192,16 +192,21 @@ Check amount of memory given to Docker (Open Docker Desktop -> Preferences -> Ad
 
 Download the project directly from GitHub or use command:
 
-_git clone https://github.com/adorsys/XS2A-Sandbox.git_
+_git clone https://git.adorsys.de/adorsys/xs2a/psd2-dynamic-sandbox.git_
 
 **Note2:**
-Always make a pull from GitHub
+Always make a pull from GitLab
 
 ## Build and run ModelBank
 
 After downloading the project go to the project directory:
 
 _cd XS2A-Sandbox_
+
+---
+
+**Note3:**
+If you cloned master branch or tag version of ModelBank you should run service with commands like `docker-compose up` or `make run`.
 
 ---
 
@@ -213,8 +218,7 @@ If you want use a first way:
 
 _make_
 
-2. After building services you can run ModelBank with a simple docker command.
-   Please note, to be able to use adorsys' applications docker images you have to build them on your local first.
+2. After building services you can run ModelBank with a simple docker command:
 
 _docker-compose up_
 

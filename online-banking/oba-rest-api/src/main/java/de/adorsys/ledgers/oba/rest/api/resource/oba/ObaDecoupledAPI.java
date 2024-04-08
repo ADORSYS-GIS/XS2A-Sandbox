@@ -26,7 +26,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@Tag(name = "Online Banking Decoupled")
+@Tag(name = "Online Banking Decoupled operations")
 public interface ObaDecoupledAPI {
     String BASE_PATH = "/api/v1/decoupled";
 

@@ -39,4 +39,5 @@ public interface AspspConsentDataClient {
     @DeleteMapping("/{consent-id}")
     ResponseEntity<Void> deleteAspspConsentData(
         @PathVariable("consent-id") String encryptedConsentId);
+
 }

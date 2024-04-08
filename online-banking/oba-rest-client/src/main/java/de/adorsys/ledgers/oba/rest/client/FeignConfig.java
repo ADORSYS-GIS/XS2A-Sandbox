@@ -25,7 +25,6 @@ import de.adorsys.ledgers.oba.rest.utils.NullHeaderInterceptor;
 import feign.Client;
 import feign.codec.Decoder;
 import okhttp3.Interceptor;
-import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
@@ -79,8 +78,8 @@ public class FeignConfig {
     static class RedirectInterceptor implements Interceptor {
         @Override
         public Response intercept(Interceptor.Chain chain) throws IOException {
-            Request request = chain.request();
-            Response response = chain.proceed(request);
+            var request = chain.request();
+            var response = chain.proceed(request);
             if (HttpStatus.FOUND.value() == response.code()) {
                 return response.newBuilder().code(HttpStatus.OK.value()).build();
             }

@@ -8,8 +8,6 @@ Current version consists of following components:
 4. **Consent-Management v.12.3**
 5. **XS2A Connector-Examples v.12.3**
 
--   Updated and fixed documentation.
--   Fixed bug on TPP-UI and Admin-UI (SCA method name renamed from `EMAIL` to `SMTP_OTP`).
 -   Implemented support of payments without debtor account in initial request.
 -   Implemented PIIS consent listing in OBA and PIIS consent creation and handling in TPP-UI application.
 -   Minor UI changes in Developer Portal.

@@ -33,6 +33,7 @@ public class PermittedResources {
     protected static final String[] INDEX_WHITELIST = {
         "/",
         "/index.css",
+        "/index.html",
         "/img/*",
         "/favicon.ico"
     };

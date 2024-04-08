@@ -28,6 +28,10 @@ import de.adorsys.psd2.sandbox.auth.filter.TokenAuthenticationFilter;
 import feign.FeignException;
 import feign.Request;
 import feign.Response;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -37,10 +41,6 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.HashMap;
@@ -116,12 +116,12 @@ class TokenAuthenticationFilterTest {
 
     private Response getResponse() throws JsonProcessingException {
         return Response.builder()
-            .request(Request.create(Request.HttpMethod.POST, "", new HashMap<>(), null, Charset.defaultCharset()))
-            .reason("Msg")
-            .headers(new HashMap<>())
-            .status(401)
-            .body(mapper.writeValueAsBytes(Map.of("devMessage", "Msg")))
-            .build();
+                   .request(Request.create(Request.HttpMethod.POST, "", new HashMap<>(), null, Charset.defaultCharset()))
+                   .reason("Msg")
+                   .headers(new HashMap<>())
+                   .status(401)
+                   .body(mapper.writeValueAsBytes(Map.of("devMessage", "Msg")))
+                   .build();
     }
 
     private BearerTokenTO getBearer() {

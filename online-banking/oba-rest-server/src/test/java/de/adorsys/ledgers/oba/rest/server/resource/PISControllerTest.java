@@ -18,14 +18,19 @@
 
 package de.adorsys.ledgers.oba.rest.server.resource;
 
+import de.adorsys.ledgers.middleware.api.domain.account.AccountDetailsTO;
 import de.adorsys.ledgers.middleware.api.domain.account.AccountReferenceTO;
 import de.adorsys.ledgers.middleware.api.domain.payment.*;
 import de.adorsys.ledgers.middleware.api.domain.sca.GlobalScaResponseTO;
 import de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO;
 import de.adorsys.ledgers.middleware.api.domain.um.AccessTokenTO;
 import de.adorsys.ledgers.middleware.api.domain.um.BearerTokenTO;
+import de.adorsys.ledgers.middleware.client.rest.AccountRestClient;
 import de.adorsys.ledgers.middleware.client.rest.AuthRequestInterceptor;
-import de.adorsys.ledgers.oba.service.api.domain.*;
+import de.adorsys.ledgers.oba.service.api.domain.ConsentReference;
+import de.adorsys.ledgers.oba.service.api.domain.ConsentType;
+import de.adorsys.ledgers.oba.service.api.domain.PaymentAuthorizeResponse;
+import de.adorsys.ledgers.oba.service.api.domain.PaymentWorkflow;
 import de.adorsys.ledgers.oba.service.api.service.CommonPaymentService;
 import de.adorsys.ledgers.oba.service.api.service.TokenAuthenticationService;
 import de.adorsys.psd2.consent.api.pis.CmsCommonPayment;
@@ -44,11 +49,13 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Currency;
 import java.util.HashSet;
+import java.util.List;
 
 import static de.adorsys.ledgers.middleware.api.domain.sca.ScaStatusTO.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PISControllerTest {
@@ -82,7 +89,8 @@ class PISControllerTest {
     private AuthRequestInterceptor authInterceptor;
     @Mock
     private TokenAuthenticationService authenticationService;
-
+    @Mock
+    private AccountRestClient accountRestClient;
 
     @Test
     void login() {
@@ -98,23 +106,8 @@ class PISControllerTest {
         assertEquals(ResponseEntity.ok(getPaymentAuthorizeResponse(true, true, PSUIDENTIFIED)), result);
     }
 
-    /*@Test
-    void initiatePayment() throws NoSuchFieldException {
-        // Given
-        FieldSetter.setField(controller, controller.getClass().getDeclaredField("middlewareAuth"), new MiddlewareAuthentication(null, new BearerTokenTO(TOKEN, null, 999, null, getAccessTokenTO())));
-        when(responseUtils.consentCookie(any())).thenReturn(COOKIE);
-        when(paymentService.identifyPayment(anyString(), anyString(), anyBoolean(), anyString(), anyString(), any())).thenReturn(getPaymentWorkflow(PSUIDENTIFIED));
-        when(paymentService.initiatePayment(any(), anyString())).thenReturn(getPaymentWorkflow(PSUIDENTIFIED));
-
-        // When
-        ResponseEntity<PaymentAuthorizeResponse> result = controller.initiatePayment(ENCRYPTED_ID, AUTH_ID);
-
-        // Then
-        assertEquals(ResponseEntity.ok(getPaymentAuthorizeResponse(true, true, PSUIDENTIFIED)), result);
-    }*/ //TODO Useless as seems method unused by FE
-
     @Test
-    void authrizedPayment() throws NoSuchFieldException {
+    void authrizedPayment() {
         // Given
         ReflectionTestUtils.setField(controller, "middlewareAuth", new MiddlewareAuthentication(null, getBearerToken()));
         when(paymentService.identifyPayment(anyString(), anyString(), any())).thenReturn(getPaymentWorkflow(PSUIDENTIFIED));
@@ -128,7 +121,21 @@ class PISControllerTest {
     }
 
     @Test
-    void failPaymentAuthorisation() throws NoSuchFieldException {
+    void getAccountList() {
+        // Given
+        ReflectionTestUtils.setField(controller, "middlewareAuth", new MiddlewareAuthentication(null, getBearerToken()));
+        when(accountRestClient.getListOfAccounts()).thenReturn(ResponseEntity.ok(Collections.singletonList(new AccountDetailsTO())));
+
+        // When
+        ResponseEntity<List<AccountDetailsTO>> result = controller.getAccountList();
+
+        // Then
+        verify(authInterceptor, times(1)).setAccessToken(null);
+        assertTrue(result.getStatusCode().is2xxSuccessful());
+    }
+
+    @Test
+    void failPaymentAuthorisation() {
         // Given
         ReflectionTestUtils.setField(controller, "middlewareAuth", new MiddlewareAuthentication(null, getBearerToken()));
         when(paymentService.identifyPayment(anyString(), anyString(), any())).thenReturn(getPaymentWorkflow(FAILED));
@@ -141,7 +148,7 @@ class PISControllerTest {
     }
 
     @Test
-    void pisDone() throws NoSuchFieldException {
+    void pisDone() {
         // Given
         when(paymentService.identifyPayment(anyString(), anyString(), any())).thenReturn(getPaymentWorkflow(ScaStatusTO.FINALISED));
         ReflectionTestUtils.setField(controller, "middlewareAuth", new MiddlewareAuthentication(null, getBearerToken()));
@@ -206,15 +213,6 @@ class PISControllerTest {
         target.setEndToEndIdentification("END_TO_END");
         to.setTargets(Collections.singletonList(target));
         return to;
-    }
-
-    private ResponseEntity<AuthorizeResponse> getAuthResponse() {
-        AuthorizeResponse resp = new AuthorizeResponse();
-        resp.setAuthorisationId(AUTH_ID);
-        resp.setEncryptedConsentId(ENCRYPTED_ID);
-        resp.setScaStatus(PSUIDENTIFIED);
-        resp.setScaMethods(Collections.emptyList());
-        return ResponseEntity.ok(resp);
     }
 
     private GlobalScaResponseTO getScaLoginResponse() {
