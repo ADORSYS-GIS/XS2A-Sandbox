@@ -13,3 +13,6 @@ Current version consists of following components:
     -   Spring Boot - to 3.2.7
     -   nimbus-jose-jwt - to 9.37.2
     -   Spring Security - to 6.1.9
+    -   Angular - to 16.2.14
+    -   Vite - to 4.5.3
+    -   webpack-dev-middleware - to 6.1.2
