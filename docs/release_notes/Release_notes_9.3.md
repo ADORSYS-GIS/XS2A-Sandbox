@@ -16,3 +16,5 @@ Current version consists of following components:
     -   Angular - to 16.2.14
     -   Vite - to 4.5.3
     -   webpack-dev-middleware - to 6.1.2
+    -   angular-devkit - to 16.2.14
+    -   Node-modules - updated to latest versions.
