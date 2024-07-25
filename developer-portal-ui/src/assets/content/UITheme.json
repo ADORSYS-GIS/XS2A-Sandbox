@@ -61,7 +61,7 @@
       "examplesCurrency": "EUR",
       "tppSettings": {
         "tppDefaultNokRedirectUrl": "https://www.google.com",
-        "tppDefaultRedirectUrl": "https://adorsys-platform.de/solutions/xs2a-sandbox/"
+        "tppDefaultRedirectUrl": "https://adorsys.com/services/open-and-digital-finance/"
       }
     }
   }
