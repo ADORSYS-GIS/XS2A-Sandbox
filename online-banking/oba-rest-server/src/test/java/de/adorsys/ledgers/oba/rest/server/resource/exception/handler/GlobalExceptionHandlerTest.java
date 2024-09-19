@@ -41,7 +41,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.method.HandlerMethod;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.net.ConnectException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;

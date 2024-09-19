@@ -28,7 +28,7 @@ import de.adorsys.psd2.consent.api.pis.CmsSinglePayment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 @Configuration
 @RequiredArgsConstructor
