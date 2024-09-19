@@ -114,7 +114,7 @@
 
     <properties>
         <!-- Common properties -->
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <ruleset.basedir>${project.basedir}</ruleset.basedir>
@@ -140,12 +140,13 @@
         <connector.version>16.4-SNAPSHOT</connector.version>
 
         <!-- Ledgers version -->
-        <ledgers.version>4.22</ledgers.version>
+        <ledgers.version>6.1-SNAPSHOT</ledgers.version>
 
         <!-- Spring-related versions -->
-        <spring-boot-dependencies.version>2.7.18</spring-boot-dependencies.version>
-        <spring-cloud-dependencies.version>2021.0.9</spring-cloud-dependencies.version>
-        <spring-test.version>5.3.31</spring-test.version>
+        <spring-boot-dependencies.version>3.2.7</spring-boot-dependencies.version>
+        <spring-cloud-dependencies.version>2023.0.0</spring-cloud-dependencies.version>
+        <spring-test.version>6.0.11</spring-test.version>
+        <spring-security.version>6.1.9</spring-security.version>
 
         <!-- Other versions -->
         <jetbrains.annotations.version>15.0</jetbrains.annotations.version>
@@ -158,7 +159,10 @@
         <junit-jupiter.version>5.9.0</junit-jupiter.version>
         <mockito-junit-jupiter.version>3.11.2</mockito-junit-jupiter.version>
         <hamcrest-library.version>2.2</hamcrest-library.version>
-        <javax-validation-api.version>2.0.1.Final</javax-validation-api.version>
+        <jakarta.servlet-api.version>6.0.0</jakarta.servlet-api.version>
+        <jakarta.annotation-api.version>2.1.1</jakarta.annotation-api.version>
+        <jakarta.validation-api.version>3.0.2</jakarta.validation-api.version>
+        <jakarta.persistence-api.version>3.1.0</jakarta.persistence-api.version>
         <jackson-core.version>2.15.3</jackson-core.version>
         <opencsv.version>5.7.1</opencsv.version>
         <feign-okhttp.version>10.10.1</feign-okhttp.version>
@@ -270,6 +274,12 @@
             </dependency>
 
             <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-core</artifactId>
+                <version>${spring-security.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot-dependencies.version}</version>
@@ -294,7 +304,7 @@
 
             <dependency>
                 <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-ui</artifactId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
                 <version>${springdoc-openapi-ui.version}</version>
             </dependency>
 
@@ -337,9 +347,15 @@
             </dependency>
 
             <dependency>
-                <groupId>javax.validation</groupId>
+                <groupId>jakarta.validation</groupId>
                 <artifactId>validation-api</artifactId>
-                <version>${javax-validation-api.version}</version>
+                <version>${jakarta-validation-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.persistence</groupId>
+                <artifactId>jakarta.persistence-api</artifactId>
+                <version>${jakarta.persistence-api.version}</version>
             </dependency>
 
             <dependency>
