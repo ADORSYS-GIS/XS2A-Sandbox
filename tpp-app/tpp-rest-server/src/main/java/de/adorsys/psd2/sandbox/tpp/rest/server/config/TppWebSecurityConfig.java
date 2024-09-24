@@ -19,54 +19,55 @@
 package de.adorsys.psd2.sandbox.tpp.rest.server.config;
 
 import de.adorsys.psd2.sandbox.auth.EnableSandboxSecurityFilter;
-import de.adorsys.psd2.sandbox.tpp.rest.server.auth.DisableEndpointFilter;
 import de.adorsys.psd2.sandbox.auth.filter.LoginAuthenticationFilter;
 import de.adorsys.psd2.sandbox.auth.filter.RefreshTokenFilter;
 import de.adorsys.psd2.sandbox.auth.filter.TokenAuthenticationFilter;
+import de.adorsys.psd2.sandbox.tpp.rest.server.auth.DisableEndpointFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import static de.adorsys.psd2.sandbox.tpp.rest.server.config.PermittedResources.*;
 
-@SuppressWarnings("PMD.UnusedImports")
 @EnableSandboxSecurityFilter
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class TppWebSecurityConfig extends WebSecurityConfigurerAdapter {
+@SuppressWarnings("PMD.SignatureDeclareThrowsException")
+public class TppWebSecurityConfig {
     private final LoginAuthenticationFilter loginAuthenticationFilter;
     private final RefreshTokenFilter refreshTokenFilter;
     private final Environment environment;
     private final TokenAuthenticationFilter tokenAuthenticationFilter;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .authorizeRequests().antMatchers(INDEX_WHITELIST).permitAll()
-            .and()
-            .authorizeRequests().antMatchers(APP_WHITELIST).permitAll()
-            .and()
-            .authorizeRequests().antMatchers(ACTUATOR_WHITELIST).permitAll()
-            .and()
-            .authorizeRequests().antMatchers(SWAGGER_WHITELIST).permitAll()
-            .and()
-            .cors()
-            .and()
-            .authorizeRequests().anyRequest().authenticated();
+    @Bean
+    protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests(a -> a.requestMatchers(INDEX_WHITELIST).permitAll()
+                                            .requestMatchers(APP_WHITELIST).permitAll()
+                                            .requestMatchers(ACTUATOR_WHITELIST).permitAll()
+                                            .requestMatchers(SWAGGER_WHITELIST).permitAll()
+                                            .anyRequest().authenticated())
 
-        http.headers().frameOptions().disable();
-        http.httpBasic().disable();
-        http.addFilterBefore(new DisableEndpointFilter(environment), BasicAuthenticationFilter.class);
-        http.addFilterBefore(loginAuthenticationFilter, BasicAuthenticationFilter.class);
-        http.addFilterBefore(refreshTokenFilter, BasicAuthenticationFilter.class);
-        http.addFilterBefore(tokenAuthenticationFilter, BasicAuthenticationFilter.class);
+            .httpBasic(AbstractHttpConfigurer::disable)
+            .csrf(AbstractHttpConfigurer::disable)
+            .cors(Customizer.withDefaults())
+            .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
+            .addFilterBefore(new DisableEndpointFilter(environment), BasicAuthenticationFilter.class)
+            .addFilterBefore(loginAuthenticationFilter, BasicAuthenticationFilter.class)
+            .addFilterBefore(refreshTokenFilter, BasicAuthenticationFilter.class)
+            .addFilterBefore(tokenAuthenticationFilter, BasicAuthenticationFilter.class);
+
+        return http.build();
     }
 }
