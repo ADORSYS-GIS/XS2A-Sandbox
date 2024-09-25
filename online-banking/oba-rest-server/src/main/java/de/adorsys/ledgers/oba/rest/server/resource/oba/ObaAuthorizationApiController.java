@@ -41,7 +41,7 @@ public class ObaAuthorizationApiController implements ObaAuthorizationApi {
 
     @Override
     public ResponseEntity<UserTO> getSelf() {
-        return userMgmtRestClient.getUser();
+        return ResponseEntity.ok(userMgmtRestClient.getUser().getBody());
     }
 
     @Override

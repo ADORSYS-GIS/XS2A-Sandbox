@@ -41,7 +41,7 @@ public class SwaggerConfig {
 
     private final BuildProperties buildProperties;
 
-    @Value("${keycloak.auth-server-url:localhost:8080}")
+    @Value("${keycloak.auth-server-url}")
     private String keycloakUrl;
 
     @Bean

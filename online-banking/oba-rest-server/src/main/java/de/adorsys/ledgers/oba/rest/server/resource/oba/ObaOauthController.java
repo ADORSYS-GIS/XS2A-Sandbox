@@ -45,12 +45,12 @@ public class ObaOauthController implements ObaOauthApi {
 
     @Override
     public ResponseEntity<OauthCodeResponseTO> oauthCode(String login, String pin, String redirectUri) {
-        return oauthRestClient.oauthCode(login, pin, redirectUri);
+        return ResponseEntity.ok(oauthRestClient.oauthCode(login, pin, redirectUri).getBody());
     }
 
     @Override
     public ResponseEntity<BearerTokenTO> oauthToken(String code) {
-        return oauthRestClient.oauthToken(code);
+        return ResponseEntity.ok(oauthRestClient.oauthToken(code).getBody());
     }
 
     @Override

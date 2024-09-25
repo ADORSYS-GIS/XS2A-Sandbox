@@ -53,27 +53,27 @@ public class TppAccountsController implements TppAccountsRestApi {
 
     @Override
     public ResponseEntity<Boolean> createAccount(String userId, DepositAccount account) {
-        return accountMgmtStaffRestClient.createDepositAccountForUser(userId, accountMapper.toAccountDetailsTO(account));
+        return ResponseEntity.ok(accountMgmtStaffRestClient.createDepositAccountForUser(userId, accountMapper.toAccountDetailsTO(account)).getBody());
     }
 
     @Override
     public ResponseEntity<Void> updateAccountAccess(AccountAccess accountAccess) {
-        return userMgmtStaffRestClient.updateAccountAccessForUser(accountAccess.getId(), accountMapper.toAccountAccessTO(accountAccess));
+        return ResponseEntity.ok(userMgmtStaffRestClient.updateAccountAccessForUser(accountAccess.getId(), accountMapper.toAccountAccessTO(accountAccess)).getBody());
     }
 
     @Override
     public ResponseEntity<List<AccountDetailsTO>> getAllAccounts() {
-        return accountMgmtStaffRestClient.getListOfAccounts();
+        return ResponseEntity.ok(accountMgmtStaffRestClient.getListOfAccounts().getBody());
     }
 
     @Override
     public ResponseEntity<CustomPageImpl<AccountDetailsTO>> getAllAccounts(String queryParam, int page, int size, boolean withBalance) {
-        return accountMgmtStaffRestClient.getListOfAccountsPaged(queryParam, page, size, withBalance);
+        return ResponseEntity.ok(accountMgmtStaffRestClient.getListOfAccountsPaged(queryParam, page, size, withBalance).getBody());
     }
 
     @Override
     public ResponseEntity<AccountDetailsTO> getSingleAccount(String accountId) {
-        return accountMgmtStaffRestClient.getAccountDetailsById(accountId);
+        return ResponseEntity.ok(accountMgmtStaffRestClient.getAccountDetailsById(accountId).getBody());
     }
 
     @Override
@@ -83,7 +83,7 @@ public class TppAccountsController implements TppAccountsRestApi {
 
     @Override
     public ResponseEntity<Void> depositCash(String accountId, AmountTO amount) {
-        return accountMgmtStaffRestClient.depositCash(accountId, amount);
+        return ResponseEntity.ok(accountMgmtStaffRestClient.depositCash(accountId, amount).getBody());
     }
 
     @Override
@@ -96,11 +96,11 @@ public class TppAccountsController implements TppAccountsRestApi {
 
     @Override
     public ResponseEntity<Boolean> changeStatus(String accountId) {
-        return accountMgmtStaffRestClient.changeStatus(accountId);
+        return ResponseEntity.ok(accountMgmtStaffRestClient.changeStatus(accountId).getBody());
     }
 
     @Override
     public ResponseEntity<Void> updateCreditLimit(String accountId, BigDecimal creditAmount) {
-        return accountMgmtStaffRestClient.changeCreditLimit(accountId, creditAmount);
+        return ResponseEntity.ok(accountMgmtStaffRestClient.changeCreditLimit(accountId, creditAmount).getBody());
     }
 }

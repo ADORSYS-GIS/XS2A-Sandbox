@@ -25,6 +25,9 @@ import de.adorsys.ledgers.middleware.api.domain.um.AccessTokenTO;
 import de.adorsys.ledgers.middleware.api.domain.um.BearerTokenTO;
 import de.adorsys.psd2.sandbox.auth.ErrorResponse;
 import de.adorsys.psd2.sandbox.auth.MiddlewareAuthentication;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -39,9 +42,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -59,7 +59,7 @@ abstract class AbstractAuthFilter extends OncePerRequestFilter {
         log.error(e.getMessage());
 
         Map<String, String> data = new ErrorResponse()
-            .buildContent(status.value(), status.getReasonPhrase());
+                                       .buildContent(status.value(), status.getReasonPhrase());
         response.setStatus(status.value());
         response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         response.getOutputStream().println(objectMapper.writeValueAsString(data));
@@ -81,10 +81,10 @@ abstract class AbstractAuthFilter extends OncePerRequestFilter {
 
     protected String resolveBearerToken(HttpServletRequest request) {
         return Optional.ofNullable(obtainFromHeader(request, AUTHORIZATION_HEADER))
-            .filter(StringUtils::isNotBlank)
-            .filter(t -> StringUtils.startsWithIgnoreCase(t, BEARER_TOKEN_PREFIX))
-            .map(t -> StringUtils.substringAfter(t, BEARER_TOKEN_PREFIX))
-            .orElse(null);
+                   .filter(StringUtils::isNotBlank)
+                   .filter(t -> StringUtils.startsWithIgnoreCase(t, BEARER_TOKEN_PREFIX))
+                   .map(t -> StringUtils.substringAfter(t, BEARER_TOKEN_PREFIX))
+                   .orElse(null);
     }
 
 
@@ -98,8 +98,8 @@ abstract class AbstractAuthFilter extends OncePerRequestFilter {
 
     private List<GrantedAuthority> buildGrantedAuthorities(AccessTokenTO accessTokenTO) {
         return accessTokenTO.getRole() != null
-            ? Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + accessTokenTO.getRole().name()))
-            : Collections.emptyList();
+                   ? Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + accessTokenTO.getRole().name()))
+                   : Collections.emptyList();
     }
 
 
@@ -135,8 +135,8 @@ abstract class AbstractAuthFilter extends OncePerRequestFilter {
 
     public String getCookieValue(HttpServletRequest request, String name) {
         return Optional.ofNullable(WebUtils.getCookie(request, name))
-            .map(Cookie::getValue)
-            .orElseThrow(() -> new AccessDeniedException(INVALID_REFRESH_TOKEN));
+                   .map(Cookie::getValue)
+                   .orElseThrow(() -> new AccessDeniedException(INVALID_REFRESH_TOKEN));
     }
 
     @SneakyThrows
@@ -148,9 +148,9 @@ abstract class AbstractAuthFilter extends OncePerRequestFilter {
     public boolean isExpiredToken(String jwtToken) {
         Date expirationTime = JWTParser.parse(jwtToken).getJWTClaimsSet().getExpirationTime();
         return Optional.ofNullable(expirationTime)
-            .map(d -> d.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())
-            .map(d -> d.isBefore(LocalDateTime.now()))
-            .orElse(true);
+                   .map(d -> d.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())
+                   .map(d -> d.isBefore(LocalDateTime.now()))
+                   .orElse(true);
     }
 
 

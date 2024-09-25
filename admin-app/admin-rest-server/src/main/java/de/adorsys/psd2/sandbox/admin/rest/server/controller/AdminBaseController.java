@@ -63,7 +63,7 @@ public class AdminBaseController implements AdminBaseRestApi {
 
     @Override
     public ResponseEntity<Set<Currency>> getCurrencies() {
-        return dataRestClient.currencies();
+        return ResponseEntity.ok(dataRestClient.currencies().getBody());
     }
 
     @Override
@@ -84,7 +84,7 @@ public class AdminBaseController implements AdminBaseRestApi {
         bbanStructure.setCountryPrefix(structure.getCountryCode().name());
         bbanStructure.setLength(structure.getLength());
         bbanStructure.setEntryType(BbanStructure.EntryType.valueOf(structure.getType().name().toUpperCase()));
-        return dataRestClient.branchId(bbanStructure);
+        return ResponseEntity.ok(dataRestClient.branchId(bbanStructure).getBody());
     }
 
     @Override
@@ -100,22 +100,22 @@ public class AdminBaseController implements AdminBaseRestApi {
         cmsDbNativeService.deleteConsentsByUserIds(logins);
         UserTO user = userMgmtRestClient.getUser().getBody();
 
-        return dataRestClient.branch(requireNonNull(user).getBranch());
+        return ResponseEntity.ok(dataRestClient.branch(requireNonNull(user).getBranch()).getBody());
     }
 
     @Override
     public ResponseEntity<Void> transactions(String accountId) {
-        return dataRestClient.account(accountId);
+        return ResponseEntity.ok(dataRestClient.account(accountId).getBody());
     }
 
     @Override
     public ResponseEntity<Void> account(String accountId) {
-        return dataRestClient.depositAccount(accountId);
+        return ResponseEntity.ok(dataRestClient.depositAccount(accountId).getBody());
     }
 
     @Override
     public ResponseEntity<Void> user(String userId) {
-        return dataRestClient.user(userId);
+        return ResponseEntity.ok(dataRestClient.user(userId).getBody());
     }
 
     @Override

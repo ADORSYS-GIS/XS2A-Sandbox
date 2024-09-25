@@ -57,17 +57,17 @@ public class AdminController implements AdminRestApi {
 
     @Override
     public ResponseEntity<CustomPageImpl<UserExtendedTO>> users(String countryCode, String tppId, String tppLogin, String userLogin, UserRoleTO role, Boolean blocked, int page, int size) {
-        return adminRestClient.users(countryCode, tppId, tppLogin, userLogin, role, blocked, page, size);
+        return ResponseEntity.ok(adminRestClient.users(countryCode, tppId, tppLogin, userLogin, role, blocked, page, size).getBody());
     }
 
     @Override
     public ResponseEntity<Void> user(UserTO user) {
-        return adminRestClient.user(user);
+        return ResponseEntity.ok(adminRestClient.user(user).getBody());
     }
 
     @Override
     public ResponseEntity<CustomPageImpl<AccountDetailsExtendedTO>> accounts(String countryCode, String tppId, String tppLogin, String ibanParam, Boolean isBlocked, int page, int size) {
-        return adminRestClient.accounts(countryCode, tppId, tppLogin, ibanParam, isBlocked, page, size);
+        return ResponseEntity.ok(adminRestClient.accounts(countryCode, tppId, tppLogin, ibanParam, isBlocked, page, size).getBody());
     }
 
     @Override
@@ -90,7 +90,7 @@ public class AdminController implements AdminRestApi {
 
     @Override
     public ResponseEntity<CustomPageImpl<UserTO>> admins(int page, int size) {
-        return adminRestClient.admins(page, size);
+        return ResponseEntity.ok(adminRestClient.admins(page, size).getBody());
     }
 
     @Override
@@ -130,11 +130,11 @@ public class AdminController implements AdminRestApi {
 
     @Override
     public ResponseEntity<Void> updatePassword(String tppId, String password) {
-        return adminRestClient.updatePassword(tppId, password);
+        return ResponseEntity.ok(adminRestClient.updatePassword(tppId, password).getBody());
     }
 
     @Override
     public ResponseEntity<Boolean> changeStatus(String userId) {
-        return adminRestClient.changeStatus(userId);
+        return ResponseEntity.ok(adminRestClient.changeStatus(userId).getBody());
     }
 }

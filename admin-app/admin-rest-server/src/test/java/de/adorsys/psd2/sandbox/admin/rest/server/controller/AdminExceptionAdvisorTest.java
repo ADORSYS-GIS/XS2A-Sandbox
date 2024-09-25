@@ -105,12 +105,11 @@ class AdminExceptionAdvisorTest {
 
     private void compareBodies(ResponseEntity<Map> result, ResponseEntity<Map<String, String>> expected) {
         assertNotNull(result);
-        assertNotNull(expected);
         assertThat(result.getStatusCode()).isEqualTo(expected.getStatusCode());
         Map<String, String> resultBody = result.getBody();
         Map<String, String> expectedBody = expected.getBody();
-        assertThat(resultBody).containsEntry("code", expectedBody.get("code"));
-        assertThat(resultBody).containsEntry("message", expectedBody.get("message"));
+        assertThat(resultBody.get("code")).isEqualTo(expectedBody.get("code"));
+        assertThat(resultBody.get("message")).isEqualTo(expectedBody.get("message"));
         assertThat(LocalDateTime.parse(resultBody.get("dateTime"))).isEqualToIgnoringSeconds(LocalDateTime.now());
     }
 

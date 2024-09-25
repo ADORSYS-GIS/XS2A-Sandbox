@@ -23,14 +23,14 @@ import de.adorsys.ledgers.middleware.api.domain.um.BearerTokenTO;
 import de.adorsys.psd2.sandbox.auth.LoginAuthorization;
 import de.adorsys.psd2.sandbox.auth.SecurityConstant;
 import feign.FeignException;
-import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.HttpStatus;
-
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpStatus;
+
 import java.io.IOException;
 
 @RequiredArgsConstructor

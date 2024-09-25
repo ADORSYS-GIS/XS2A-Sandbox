@@ -26,6 +26,7 @@ import org.adorsys.ledgers.consent.psu.rest.client.CmsPsuAisClient;
 import org.adorsys.ledgers.consent.psu.rest.client.CmsPsuPisClient;
 import org.adorsys.ledgers.consent.xs2a.rest.client.AspspConsentDataClient;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -33,7 +34,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 
 @EnableFeignClients(basePackageClasses = {AccountRestClient.class, CmsPsuPisClient.class, AspspConsentDataClient.class, CmsAspspPiisClient.class, CmsPsuAisClient.class})
-@SpringBootApplication(exclude = {UserDetailsServiceAutoConfiguration.class})
+@SpringBootApplication(exclude={DataSourceAutoConfiguration.class, UserDetailsServiceAutoConfiguration.class})
 @EnableLedgersMiddlewareRestClient
 @ComponentScan(basePackages = {"de.adorsys.ledgers.oba", "de.adorsys.psd2.mapper"})
 @Import(KeycloakClientConfiguration.class)
