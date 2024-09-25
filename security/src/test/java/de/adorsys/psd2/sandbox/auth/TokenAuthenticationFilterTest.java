@@ -116,12 +116,12 @@ class TokenAuthenticationFilterTest {
 
     private Response getResponse() throws JsonProcessingException {
         return Response.builder()
-            .request(Request.create(Request.HttpMethod.POST, "", new HashMap<>(), null, Charset.defaultCharset()))
-            .reason("Msg")
-            .headers(new HashMap<>())
-            .status(401)
-            .body(mapper.writeValueAsBytes(Map.of("devMessage", "Msg")))
-            .build();
+                   .request(Request.create(Request.HttpMethod.POST, "", new HashMap<>(), null, Charset.defaultCharset()))
+                   .reason("Msg")
+                   .headers(new HashMap<>())
+                   .status(401)
+                   .body(mapper.writeValueAsBytes(Map.of("devMessage", "Msg")))
+                   .build();
     }
 
     private BearerTokenTO getBearer() {

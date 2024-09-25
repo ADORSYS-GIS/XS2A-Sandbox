@@ -52,16 +52,9 @@ public class TokenAuthenticationServiceImpl implements TokenAuthenticationServic
         BearerTokenTO bearerToken = tokenService.validate(accessToken);
 
         if (bearerToken == null) {
-            debug();
             return null;
         }
         return new UserAuthentication(bearerToken);
-    }
-
-    private void debug() {
-        if (log.isDebugEnabled()) {
-            log.debug("Token is not valid.");
-        }
     }
 
     @Override

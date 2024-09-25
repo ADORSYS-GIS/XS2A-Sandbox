@@ -136,7 +136,7 @@
         <maven-javadoc-plugin.version>3.21.2</maven-javadoc-plugin.version>
 
         <!-- XS2A versions -->
-        <xs2a.version>17.4-SNAPSHOT</xs2a.version>
+        <xs2a.version>16.4-SNAPSHOT</xs2a.version>
         <connector.version>16.4-SNAPSHOT</connector.version>
 
         <!-- Ledgers version -->
