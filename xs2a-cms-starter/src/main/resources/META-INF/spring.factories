@@ -1,1 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=de.adorsys.psd2.sandbox.cms.starter.Xs2aCmsAutoConfiguration
