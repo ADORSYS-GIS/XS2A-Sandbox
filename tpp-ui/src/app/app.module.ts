@@ -24,7 +24,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModalModule, NgbPaginationModule, NgbTypeaheadModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { FileUploadModule } from 'ng2-file-upload';
-import { FilterPipeModule } from 'ngx-filter-pipe';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -135,7 +134,6 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
         BrowserAnimationsModule,
         AppRoutingModule,
         FileUploadModule,
-        FilterPipeModule,
         NgHttpLoaderModule.forRoot(),
         NgbModalModule,
         NgbPaginationModule,
