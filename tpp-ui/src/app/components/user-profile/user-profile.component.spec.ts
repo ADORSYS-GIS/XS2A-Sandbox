@@ -75,7 +75,7 @@ describe('UserProfileComponent', () => {
         AuthService,
         TppUserService,
         InfoService,
-        { provide: Store, useValue: {} },
+        { provide: Store, useValue: { dispatch: jasmine.createSpy('dispatch') } },
         { provide: BsModalService, useValue: {} },
         { provide: AuthService, useValue: mockAuthUserService },
         { provide: TppUserService, useValue: mockTppUserService },
