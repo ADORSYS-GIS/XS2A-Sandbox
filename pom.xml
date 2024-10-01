@@ -133,7 +133,7 @@
         <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
         <liquibase-maven-plugin.version>4.25.1</liquibase-maven-plugin.version>
         <maven-pmd-plugin.version>3.21.2</maven-pmd-plugin.version>
-        <maven-javadoc-plugin.version>3.21.2</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>3.6.0</maven-javadoc-plugin.version>
 
         <!-- XS2A versions -->
         <xs2a.version>16.5-SNAPSHOT</xs2a.version>
