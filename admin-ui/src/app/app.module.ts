@@ -31,7 +31,6 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { FileUploadModule } from 'ng2-file-upload';
-import { FilterPipeModule } from 'ngx-filter-pipe';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -126,7 +125,6 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     BrowserAnimationsModule,
     NoopAnimationsModule,
     FileUploadModule,
-    FilterPipeModule,
     NgHttpLoaderModule.forRoot(),
     NgbModalModule,
     NgbPaginationModule,

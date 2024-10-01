@@ -21,7 +21,6 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { FilterPipeModule } from 'ngx-filter-pipe';
 import { of } from 'rxjs';
 
 import { User } from '../../models/user.model';
@@ -45,7 +44,6 @@ describe('UsersComponent', () => {
         imports: [
           ReactiveFormsModule,
           FormsModule,
-          FilterPipeModule,
           RouterTestingModule,
           HttpClientTestingModule,
           NgbPaginationModule,

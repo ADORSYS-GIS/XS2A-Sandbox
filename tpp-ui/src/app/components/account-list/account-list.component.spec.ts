@@ -29,7 +29,6 @@ import { AccountService } from '../../services/account.service';
 import { AccountListComponent } from './account-list.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FilterPipeModule } from 'ngx-filter-pipe';
 import { PaginationContainerComponent } from '../../commons/pagination-container/pagination-container.component';
 import { PaginationConfigModel } from '../../models/pagination-config.model';
 import { ADMIN_KEY } from '../../commons/constant/constant';
@@ -47,7 +46,6 @@ describe('AccountListComponent', () => {
         HttpClientTestingModule,
         InfoModule,
         RouterTestingModule,
-        FilterPipeModule,
         IconModule,
         NgbPaginationModule,
         FormsModule,
