@@ -10,7 +10,7 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "ES2019",
+    "target": "ES2022",
     "paths": {
       "jszip": [
         "node_modules/jszip/dist/jszip.min.js"
