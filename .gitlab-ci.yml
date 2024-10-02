@@ -426,7 +426,7 @@ Test (Admin UI Tests):
   variables:
     CHROME_BIN: "/usr/bin/chromium"
   before_script:
-    - apt-get update && apt-get install -yq wget unzip make libglib-2.0.so.0 libatk-1.0.so.0
+    - apt-get update && apt-get install -yq wget unzip make
     - wget https://download-chromium.appspot.com/dl/Linux_x64?type=snapshots -O chromium.zip
     - unzip chromium.zip -d /usr/bin/
     - chmod +x /usr/bin/chrome-linux/chrome
