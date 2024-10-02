@@ -426,14 +426,15 @@ Test (Admin UI Tests):
   variables:
     CHROME_BIN: "/usr/bin/chromium"
   before_script:
-    - apt-get update && apt-get install -yq wget unzip make && apt-get clean
-    - curl -L -o chromium.zip "https://download-chromium.appspot.com/dl/Linux_x64?type=snapshots" || { echo "Download failed"; exit 1; }
-    - unzip chromium.zip -d /usr/local/bin/ && rm chromium.zip
-    - chmod +x /usr/local/bin/chrome-linux/chrome
-    - ln -sf /usr/local/bin/chrome-linux/chrome /usr/bin/chromium
+    - apt-get update && apt-get install -yq wget unzip make
+    - wget https://download-chromium.appspot.com/dl/Linux_x64?type=snapshots -O chromium.zip
+    - unzip chromium.zip -d /usr/bin/
+    - chmod +x /usr/bin/chrome-linux/chrome
+    - ln -s /usr/bin/chrome-linux/chrome /usr/bin/chromium
   script:
     - echo 'Unit tests Admin UI'
-    - make unit-tests-admin-ui || { echo "Unit tests failed"; exit 1; }
+    - make unit-tests-admin-ui
+
 
 Test (OBA UI Tests):
   image: node:18.19.1-buster-slim
