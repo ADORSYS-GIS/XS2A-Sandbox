@@ -426,7 +426,7 @@ Test (Admin UI Tests):
   variables:
     CHROME_BIN: "/usr/bin/chromium"
   script:
-    - apt-get update && apt-get install -yq make chromium-browser
+    - apt-get update && apt-get install -yq make chromium
     - echo 'Unit tests Admin UI'
     - make unit-tests-admin-ui
 
