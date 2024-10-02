@@ -3,14 +3,14 @@
   "compilerOptions": {
     "baseUrl": "./",
     "downlevelIteration": true,
-    "module": "es2022",
+    "module": "es2020",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es2022",
+    "target": "ES2019",
     "paths": {
       "jszip": [
         "node_modules/jszip/dist/jszip.min.js"
@@ -29,7 +29,7 @@
       "node_modules/@types"
     ],
     "lib": [
-      "es2022",
+      "es2017",
       "dom"
     ],
     "useDefineForClassFields": false
