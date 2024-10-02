@@ -431,10 +431,17 @@ Test (Admin UI Tests):
 #    - unzip chromium.zip -d /usr/bin/
 #    - chmod +x /usr/bin/chrome-linux/chrome
 #    - ln -s /usr/bin/chrome-linux/chrome /usr/bin/chromium
+#  script:
+#    - apt-get update && apt-get install -y software-properties-common
+#    - add-apt-repository ppa:canonical-chromium-builds/stage -y
+#    - apt-get update && apt-get install -yq make chromium chromium-l10n
+#    - echo 'Unit tests Admin UI'
+#    - make unit-tests-admin-ui
+
   script:
-    - apt-get update && apt-get install -y software-properties-common
-    - add-apt-repository ppa:canonical-chromium-builds/stage -y
-    - apt-get update && apt-get install -yq make chromium chromium-l10n
+    - apt-get update && apt-get install -y wget gnupg make
+    - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    - apt-get install -y ./google-chrome-stable_current_amd64.deb
     - echo 'Unit tests Admin UI'
     - make unit-tests-admin-ui
 
