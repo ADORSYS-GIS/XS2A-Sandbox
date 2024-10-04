@@ -424,11 +424,14 @@ Test (Admin UI Tests):
     - schedules
   needs: ["Build (Admin UI)"]
   variables:
-    CHROME_BIN: "/usr/bin/chromium"
+    CHROME_BIN: "/usr/bin/google-chrome"
   script:
-    - apt-get update && apt-get install make chromium chromium-l10n -yq
+    - apt-get update && apt-get install -y wget gnupg make
+    - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    - apt-get install -y ./google-chrome-stable_current_amd64.deb
     - echo 'Unit tests Admin UI'
     - make unit-tests-admin-ui
+
 
 Test (OBA UI Tests):
   image: node:18.19.1-buster-slim
