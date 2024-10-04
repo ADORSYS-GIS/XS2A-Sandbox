@@ -128,9 +128,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.encryptedConsentId = params.encryptedConsentId;
       this.redirectId = params.redirectId;
       // set oauth2 param in shared service
-      params.oauth2
-        ? this.shareService.setOauthParam(true)
-        : this.shareService.setOauthParam(false);
+        this.shareService.setOauthParam(!!params.oauth2);
     });
   }
 

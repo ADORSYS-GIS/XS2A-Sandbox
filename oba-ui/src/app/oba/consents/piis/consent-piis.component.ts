@@ -1,3 +1,5 @@
+
+
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   UntypedFormBuilder,
@@ -114,14 +116,14 @@ export class ConsentPiisComponent implements OnInit, OnDestroy {
       .revokePiisConsents(consent.cmsPiisConsent.id)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((isSuccess) => {
-        isSuccess
-          ? this.getPiisConsents(
-              this.config.currentPage,
-              this.config.itemsPerPage
-            )
-          : this.infoService.openFeedback('could not revoke the consent', {
-              severity: 'error',
-            });
+        if (isSuccess) {
+          this.getPiisConsents(this.config.currentPage, this.config.itemsPerPage);
+        } else {
+          this.infoService.openFeedback('could not revoke the consent', {
+            severity: 'error',
+          });
+        }
       });
   }
+
 }

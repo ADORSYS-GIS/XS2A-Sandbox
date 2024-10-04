@@ -16,7 +16,6 @@
  * contact us at sales@adorsys.com.
  */
 
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgHttpLoaderModule } from 'ng-http-loader';

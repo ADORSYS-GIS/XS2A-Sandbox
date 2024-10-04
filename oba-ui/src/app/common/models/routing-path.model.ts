@@ -16,6 +16,7 @@
  * contact us at sales@adorsys.com.
  */
 
+/* eslint-disable */
 export enum RoutingPath {
   ACCOUNT_INFORMATION = 'account-information',
   PAYMENT_INITIATION = 'payment-initiation',

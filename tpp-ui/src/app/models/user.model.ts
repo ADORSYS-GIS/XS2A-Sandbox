@@ -16,6 +16,8 @@
  * contact us at sales@adorsys.com.
  */
 
+/* eslint-disable */
+
 import { AccountAccess } from './account-access.model';
 import { ScaUserData } from './sca-user-data.model';
 

@@ -16,7 +16,6 @@
  * contact us at sales@adorsys.com.
  */
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { User } from '../../models/user.model';
 import { ActivatedRoute, Router } from '@angular/router';
