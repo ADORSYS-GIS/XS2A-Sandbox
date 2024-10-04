@@ -1,6 +1,6 @@
 # ObaUi
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.
 
 ## how to start the frontend Project
 1. navigate into the repository `ledgers` and go throw the project `xs2a-connector-redirect-test` and run in the terminal or console the following command
