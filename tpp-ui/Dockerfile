@@ -5,11 +5,9 @@ LABEL maintainer="https://git.adorsys.de/adorsys/xs2a/psd2-dynamic-sandbox"
 ENV NGINX_ACCESS_LOG_DEBUG combined
 ENV NGINX_ERROR_LOG_DEBUG error
 
-RUN \
-  apt-get update && \
-  apt-get remove -y curl && \
-  apt-get install -y ruby3.1 --no-install-recommends && \
-  rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y curl ruby3.1 ruby3.1-dev build-essential --no-install-recommends && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY ./nginx.conf.erb /etc/nginx/conf.d/default.conf.erb
 COPY entry.sh /opt/entry.sh
