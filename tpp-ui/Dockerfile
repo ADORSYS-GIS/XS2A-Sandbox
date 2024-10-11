@@ -8,7 +8,7 @@ ENV NGINX_ERROR_LOG_DEBUG error
 RUN \
   apt-get update && \
   apt-get install -y \
-    ruby3.1=3.1.2-8.4 --no-install-recommends \
+    ruby3.1=3.1.2-7+deb12u1 --no-install-recommends \
   && apt-get remove -y curl \
   && rm -rf /var/lib/apt/lists/*
 
