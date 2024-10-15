@@ -24,3 +24,4 @@ Current version consists of following components:
     -   commons-io - to 2.11.0
     -   jackson-core - to 2.15.1
     -   opencsv - to 5.7.1
+    -   Angular - to 16.2.12

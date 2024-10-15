@@ -136,11 +136,11 @@
         <maven-javadoc-plugin.version>3.6.0</maven-javadoc-plugin.version>
 
         <!-- XS2A versions -->
-        <xs2a.version>16.5-SNAPSHOT</xs2a.version>
-        <connector.version>16.5-SNAPSHOT</connector.version>
+        <xs2a.version>16.4</xs2a.version>
+        <connector.version>16.4</connector.version>
 
         <!-- Ledgers version -->
-        <ledgers.version>6.1-SNAPSHOT</ledgers.version>
+        <ledgers.version>6.0</ledgers.version>
 
         <!-- Spring-related versions -->
         <spring-boot-dependencies.version>3.2.7</spring-boot-dependencies.version>

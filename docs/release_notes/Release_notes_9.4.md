@@ -13,11 +13,3 @@ Current version consists of following components:
 
 -   Dependencies versions were bumped up:
 
-    -   Spring Boot - to 3.2.7
-    -   nimbus-jose-jwt - to 9.37.2
-    -   Spring Security - to 6.1.9
-    -   Angular - to 17.3.10
-    -   Vite - to 5.1.8
-    -   webpack-dev-middleware - to 6.1.2
-    -   angular-devkit - to 17.0.0
-    -   Node-modules  - upgraded to latest versions.
