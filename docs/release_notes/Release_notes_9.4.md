@@ -8,8 +8,6 @@ Current version consists of following components:
 4. **Consent-Management v.17.4**
 5. **XS2A Connector-Examples v.17.4**
 
-- bugfix:
-    - update tpp default redirect url in devportal
 
 -   Dependencies versions were bumped up:
 
