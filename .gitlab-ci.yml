@@ -555,7 +555,6 @@ Change dependencies versions (support-8.x):
     - cd sandbox-openshift
     - git branch -a
     - git checkout master
-    - apt-get install -y google-chrome-stable
   script:
     - XS2A_VERSION=$(cat $CI_PROJECT_DIR/pom.xml | grep "<xs2a.version>" | awk -F"[<>]" '//{print $3}')
     - CONNECTOR_VERSION=$(cat $CI_PROJECT_DIR/pom.xml | grep "<connector.version>" | awk -F"[<>]" '//{print $3}')
