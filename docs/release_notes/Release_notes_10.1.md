@@ -8,5 +8,6 @@ Current version consists of following components:
 4. **Consent-Management v.18.0**
 5. **XS2A Connector-Examples v.18.0**
 
-Libraries were updated:
+- Libraries were updated:
+- URL links updated.
 
