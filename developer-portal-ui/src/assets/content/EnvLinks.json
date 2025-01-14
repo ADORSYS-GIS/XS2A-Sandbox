@@ -1,61 +1,80 @@
 {
   "servicesAvailable": {
     "ledgers": {
-      "environmentLink": "http://localhost:8088/swagger-ui.html"
+      "environmentLink": "http://localhost:8088/swagger-ui.html",
+      "deploymentLink": "ledgers-modelbank.support.sol.adorsys.com"
     },
     "XS2AInterfaceSwagger": {
-      "environmentLink": "http://localhost:8089/swagger-ui.html"
+      "environmentLink": "http://localhost:8089/swagger-ui.html",
+      "deploymentLink": "https://xs2a-aspsp-profile.support.sol.adorsys.com/"
     },
     "XS2AInterfaceSwagger2": {
-      "environmentLink": "http://localhost:8089/swagger-ui.html"
+      "environmentLink": "http://localhost:8089/swagger-ui.html",
+      "deploymentLink": "https://xs2a-aspsp-profile.support.sol.adorsys.com/"
     },
     "developerPortal": {
-      "environmentLink": "http://localhost:4206/"
+      "environmentLink": "http://localhost:4206/",
+      "deploymentLink": "https://devportal-modelbank.support.sol.adorsys.com/"
     },
     "consentManagementSystem": {
-      "environmentLink": "http://localhost:38080/swagger-ui.html"
+      "environmentLink": "http://localhost:38080/swagger-ui.html",
+      "deploymentLink": "https://xs2a-consent-management-modelbank.support.sol.adorsys.com"
     },
     "ASPSPProfileSwagger": {
-      "environmentLink": "http://localhost:48080/swagger-ui.html"
+      "environmentLink": "http://localhost:48080/swagger-ui.html",
+      "deploymentLink": "https://xs2a-aspsp-profile.support.sol.adorsys.com"
     },
     "TPPUserInterface": {
-      "environmentLink": "http://localhost:4205/"
+      "environmentLink": "http://localhost:4205/",
+      "deploymentLink": "https://tpp-modelbank.support.sol.adorsys.com"
     },
     "TPPUserInterface2": {
-      "environmentLink": "http://localhost:4205/"
+      "environmentLink": "http://localhost:4205/",
+      "deploymentLink": "https://tpp-modelbank.support.sol.adorsys.com"
     },
     "AdminUserInterface": {
-      "environmentLink": "http://localhost:4207/"
+      "environmentLink": "http://localhost:4207/",
+      "deploymentLink": "https://xs2a-admin-ui-modelbank.support.sol.adorsys.com"
     },
     "AdminUserInterface2": {
-      "environmentLink": "http://localhost:4207/"
+      "environmentLink": "http://localhost:4207/",
+      "deploymentLink": "https://xs2a-admin-ui-modelbank.support.sol.adorsys.com/login"
     },
     "onlineBankingUI": {
-      "environmentLink": "http://localhost:4400/"
+      "environmentLink": "http://localhost:4400/",
+      "deploymentLink": "https://xs2a-online-modelbank.support.sol.adorsys.com/login"
     },
     "onlineBankingUI2": {
-      "environmentLink": "http://localhost:4400/"
+      "environmentLink": "http://localhost:4400/",
+      "deploymentLink": "https://xs2a-online-modelbank.support.sol.adorsys.com/login"
     },
     "onlineBankingBackend": {
-      "environmentLink": "http://localhost:8090/swagger-ui.html"
+      "environmentLink": "http://localhost:8090/swagger-ui.html",
+      "deploymentLink": "https://xs2a-online-banking-modelbank.support.sol.adorsys.com/"
     },
     "certificateGenerator": {
-      "environmentLink": "http://localhost:8092/swagger-ui.html"
+      "environmentLink": "http://localhost:8092/swagger-ui.html",
+      "deploymentLink": "https://certificate-generator-modelbank.support.sol.adorsys.com/swagger-ui/index.html#/Certificate%20Controller/createCert"
     },
     "footerLogo": {
-      "environmentLink": "http://localhost:4206/home"
+      "environmentLink": "http://localhost:4206/home",
+      "deploymentLink": ""
     },
     "gettingStarted": {
-      "environmentLink": "http://localhost:4206/getting-started"
+      "environmentLink": "http://localhost:4206/getting-started",
+      "deploymentLink": ""
     },
     "testCase": {
-      "environmentLink": "http://localhost:4206/test-cases"
+      "environmentLink": "http://localhost:4206/test-cases",
+      "deploymentLink": ""
     },
     "faq": {
-      "environmentLink": "http://localhost:4206/page/faq"
+      "environmentLink": "http://localhost:4206/page/faq",
+      "deploymentLink": ""
     },
     "contacts": {
-      "environmentLink": "http://localhost:4206/contact"
+      "environmentLink": "http://localhost:4206/contact",
+      "deploymentLink": ""
     }
   }
 }

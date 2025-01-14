@@ -17,6 +17,7 @@
  */
 
 import { Component, Input, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { LanguageService } from '../../../services/language.service';
 import { DataService } from '../../../services/data.service';
 import { CustomizeService } from '../../../services/customize.service';
@@ -35,13 +36,16 @@ export class NavComponent implements OnInit {
   showNavDropDown = false;
   language = 'en';
   supportedLanguages: string[];
-
   navBarSettings: NavigationSettings;
   @Input() supportedLanguagesDictionary;
   @Input() navigation;
   menu: any;
 
+  // Services from JSON file
+  services: { id: string; url: string }[] = [];
+
   constructor(
+    private http: HttpClient,
     private languageService: LanguageService,
     public dataService: DataService,
     private customizeService: CustomizeService,
@@ -49,13 +53,12 @@ export class NavComponent implements OnInit {
   ) {
     this.customizeService.currentTheme.subscribe((data: Theme) => {
       if (data.globalSettings.logo) {
-        this.navBarSettings = {logo: data.globalSettings.logo}
+        this.navBarSettings = { logo: data.globalSettings.logo };
       }
     });
 
     this.setLangCollapsed(true);
   }
-
 
   ngOnInit() {
     this.languageService.currentLanguage.subscribe((data) => {
@@ -69,6 +72,28 @@ export class NavComponent implements OnInit {
     if (this.navigation) {
       this.toggleMenuIfOutOfSize();
     }
+
+    // Load JSON file for service links
+    this.loadServiceLinks();
+  }
+
+  private loadServiceLinks() {
+    this.http.get<{ servicesAvailable: Record<string, { developmentLink: string; productionLink: string }> }>('assets/links.json').subscribe(
+      (data) => {
+        this.services = this.processLinks(data.servicesAvailable);
+      },
+      (error) => {
+        console.error('Error loading service links:', error);
+      }
+    );
+  }
+
+  private processLinks(servicesAvailable: Record<string, { developmentLink: string; productionLink: string }>): { id: string; url: string }[] {
+    const isProduction = location.hostname !== 'localhost'; // Determine the environment
+    return Object.entries(servicesAvailable).map(([id, links]) => ({
+      id,
+      url: isProduction ? links.productionLink : links.developmentLink,
+    }));
   }
 
   changeLang(language: string) {
