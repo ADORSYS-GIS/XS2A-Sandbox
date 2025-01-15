@@ -78,7 +78,7 @@ export class NavComponent implements OnInit {
   }
 
   private loadServiceLinks() {
-    this.http.get<{ servicesAvailable: Record<string, { developmentLink: string; productionLink: string }> }>('assets/links.json').subscribe(
+    this.http.get<{ servicesAvailable: Record<string, { environmentLink: string; deploymentLink: string }> }>('assets/content/EvnLinks.json').subscribe(
       (data) => {
         this.services = this.processLinks(data.servicesAvailable);
       },
@@ -88,11 +88,11 @@ export class NavComponent implements OnInit {
     );
   }
 
-  private processLinks(servicesAvailable: Record<string, { developmentLink: string; productionLink: string }>): { id: string; url: string }[] {
+  private processLinks(servicesAvailable: Record<string, { environmentLink: string; deploymentLink: string }>): { id: string; url: string }[] {
     const isProduction = location.hostname !== 'localhost'; // Determine the environment
     return Object.entries(servicesAvailable).map(([id, links]) => ({
       id,
-      url: isProduction ? links.productionLink : links.developmentLink,
+      url: isProduction ? links.deploymentLink : links.environmentLink,
     }));
   }
 

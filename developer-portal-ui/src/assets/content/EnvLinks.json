@@ -2,7 +2,7 @@
   "servicesAvailable": {
     "ledgers": {
       "environmentLink": "http://localhost:8088/swagger-ui.html",
-      "deploymentLink": "ledgers-modelbank.support.sol.adorsys.com"
+      "deploymentLink": "https://ledgers-modelbank.support.sol.adorsys.com"
     },
     "XS2AInterfaceSwagger": {
       "environmentLink": "http://localhost:8089/swagger-ui.html",
