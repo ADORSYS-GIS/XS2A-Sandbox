@@ -165,6 +165,41 @@ export class HomeComponent implements OnInit, AfterViewInit {
       date: 1699511621000,
       isToday: false,
       orderNumber: 12,
+    },
+    {
+      title: 'HOME.HISTORY.PRODUCT.POINT_14.TITLE',
+      text: 'HOME.HISTORY.PRODUCT.POINT_14.CONTENT',
+      date: 1704412800000,
+      isToday: false,
+      orderNumber: 13,
+    },
+    {
+      title: 'HOME.HISTORY.PRODUCT.POINT_15.TITLE',
+      text: 'HOME.HISTORY.PRODUCT.POINT_15.CONTENT',
+      date: 1709596800000,
+      isToday: false,
+      orderNumber: 14,
+    },
+    {
+      title: 'HOME.HISTORY.PRODUCT.POINT_16.TITLE',
+      text: 'HOME.HISTORY.PRODUCT.POINT_16.CONTENT',
+      date: 1728086400000,
+      isToday: false,
+      orderNumber: 15,
+    },
+    {
+      title: 'HOME.HISTORY.PRODUCT.POINT_17.TITLE',
+      text: 'HOME.HISTORY.PRODUCT.POINT_17.CONTENT',
+      date: 1728086400000,
+      isToday: false,
+      orderNumber: 16,
+    },
+    {
+      title: 'HOME.HISTORY.PRODUCT.POINT_18.TITLE',
+      text: 'HOME.HISTORY.PRODUCT.POINT_18.CONTENT',
+      date: 1728086400000,
+      isToday: false,
+      orderNumber: 17,
     }
   ];
 

@@ -90,6 +90,26 @@
         "POINT_13": {
           "TITLE": "Release ver 9.0",
           "CONTENT": "Auf Java 17 verschoben, Spring Boot 3"
+        },
+        "POINT_14": {
+          "TITLE": "Release Version 9.1",
+          "CONTENT": "Behoben: Fehlerhafte IBAN-Fehlerbehandlung in der TPP-Benutzeroberfläche"
+        },
+        "POINT_15": {
+          "TITLE": "Release Version 8.2/9.2",
+          "CONTENT": "Die Nginx-Version in den UI-Docker-Images wurde auf 1.25.4 aktualisiert, um Sicherheitslücken zu schließen"
+        },
+        "POINT_16": {
+          "TITLE": "Release Version 8.3",
+          "CONTENT": "Umstellung auf Angular 17 und Java 17"
+        },
+        "POINT_17": {
+          "TITLE": "Release Version 9.3",
+          "CONTENT": "Umstellung auf Angular 17"
+        },
+        "POINT_18": {
+          "TITLE": "Release Version 10.0/11.0",
+          "CONTENT": "Aktualisierte Links zu Adorsys-Diensten auf Swagger-Benutzeroberflächen"
         }
       }
     },

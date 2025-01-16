@@ -90,6 +90,26 @@
         "POINT_13": {
           "TITLE": "Реліз версії 9.0",
           "CONTENT": "Міграція на Java 17, Spring Boot 3"
+        },
+        "POINT_14": {
+          "TITLE": "Реліз версії 9.1",
+          "CONTENT": "Виправлено помилку обробки IBAN у TPP UI"
+        },
+        "POINT_15": {
+          "TITLE": "Реліз версії 8.2/9.2",
+          "CONTENT": "Версію Nginx в UI Docker-образах оновлено до 1.25.4 для усунення вразливостей"
+        },
+        "POINT_16": {
+          "TITLE": "Реліз версії 8.3",
+          "CONTENT": "Перехід на Angular 17 і Java 17"
+        },
+        "POINT_17": {
+          "TITLE": "Реліз версії 9.3",
+          "CONTENT": "Перехід на Angular 17"
+        },
+        "POINT_18": {
+          "TITLE": "Реліз версії 10.0/11.0",
+          "CONTENT": "Оновлено посилання на сервіси Adorsys у Swagger UI"
         }
       }
     },

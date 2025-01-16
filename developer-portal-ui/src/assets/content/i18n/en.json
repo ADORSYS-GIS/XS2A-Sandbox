@@ -90,6 +90,26 @@
         "POINT_13": {
           "TITLE": "Release ver 9.0",
           "CONTENT": "Moved to Java 17, Spring Boot 3"
+        },
+        "POINT_14":{
+          "TITLE": "Release ver 9.1",
+          "CONTENT": "Fixed TPP UI Wrong IBAN error handling"
+        },
+        "POINT_15":{
+          "TITLE": "Release ver 8.2/9.2",
+          "CONTENT": "Nginx version in UI docker images was bumped to 1.25.4 to close vulnerabilities"
+        },
+        "POINT_16":{
+          "TITLE": "Release ver 8.3 ",
+          "CONTENT": "Moved to Angular 17 and java 17"
+        },
+        "POINT_17":{
+          "TITLE": "Release ver 9.3 ",
+          "CONTENT": "Moved to Angular 17"
+        },
+        "POINT_18": {
+          "TITLE": "Release ver 10.0/11.0 ",
+          "CONTENT": "Updated links to Adorsys services on Swagger UIs"
         }
       }
     },
