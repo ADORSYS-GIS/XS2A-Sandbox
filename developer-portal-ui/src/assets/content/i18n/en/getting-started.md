@@ -137,18 +137,18 @@ In case of REDIRECT SCA approach a user wants to provide consent for using their
 
 # Links to environments
 
-| Service                   |                                                        Demo environment |
-| ------------------------- | ----------------------------------------------------------------------: |
-| XS2A Interface Swagger    |       <a href="#" id="XS2AInterfaceSwagger2">XS2A Interface Swagger</a> |
-| Developer portal          |                   <a href="#" id="developerPortal">Developer Portal</a> |
-| Consent management system | <a href="#" id="consentManagementSystem" >Consent management system</a> |
-| Ledgers                   |                                   <a href="#" id="ledgers" >Ledgers</a> |
-| ASPSP-Profile Swagger     |         <a href="#" id="ASPSPProfileSwagger" >ASPSP-Profile Swagger</a> |
-| TPP User Interface        |               <a href="#" id="TPPUserInterface" >TPP User Interface</a> |
-| Admin Interface           |                <a href="#" id="AdminUserInterface" >Admin Interface</a> |
-| Online banking UI         |                 <a href="#" id="onlineBankingUI" >Online banking UI</a> |
-| Online banking backend    |       <a href="#" id="onlineBankingBackend" >Online banking backend</a> |
-| Certificate Generator     |        <a href="#" id="certificateGenerator" >Certificate Generator</a> |
+| Service                   |                                                                       Demo environment |
+| ------------------------- |---------------------------------------------------------------------------------------:|
+| XS2A Interface Swagger    |       <a href="#" target="blank" id="XS2AInterfaceSwagger2">XS2A Interface Swagger</a> |
+| Developer portal          |                                  <a href="#" id="developerPortal">Developer Portal</a> |
+| Consent management system | <a href="#" target="blank" id="consentManagementSystem" >Consent management system</a> |
+| Ledgers                   |                                   <a href="#" target="blank" id="ledgers" >Ledgers</a> |
+| ASPSP-Profile Swagger     |         <a href="#" target="blank" id="ASPSPProfileSwagger" >ASPSP-Profile Swagger</a> |
+| TPP User Interface        |               <a href="#" target="blank" id="TPPUserInterface" >TPP User Interface</a> |
+| Admin Interface           |                <a href="#" target="blank" id="AdminUserInterface" >Admin Interface</a> |
+| Online banking UI         |                 <a href="#" target="blank" id="onlineBankingUI" >Online banking UI</a> |
+| Online banking backend    |       <a href="#" target="blank" id="onlineBankingBackend" >Online banking backend</a> |
+| Certificate Generator     |                      <a href="#" target="blank" id="certificateGenerator" >Certificate Generator</a> |
 
 <div class="divider">
 </div>

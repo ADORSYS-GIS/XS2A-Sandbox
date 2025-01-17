@@ -1,46 +1,46 @@
 {
   "servicesAvailable": {
     "ledgers": {
-      "environmentLink": "http://localhost:8088/swagger-ui.html"
+      "environmentLink": "https://ledgers-modelbank.support.sol.adorsys.com/"
     },
     "XS2AInterfaceSwagger": {
       "environmentLink": "http://localhost:8089/swagger-ui.html"
     },
     "XS2AInterfaceSwagger2": {
-      "environmentLink": "http://localhost:8089/swagger-ui.html"
+      "environmentLink": "https://xs2a-aspsp-profile.support.sol.adorsys.com/"
     },
     "developerPortal": {
-      "environmentLink": "http://localhost:4206/"
+      "environmentLink": "https://devportal-modelbank.support.sol.adorsys.com/"
     },
     "consentManagementSystem": {
-      "environmentLink": "http://localhost:38080/swagger-ui.html"
+      "environmentLink": "https://xs2a-consent-management-modelbank.support.sol.adorsys.com/"
     },
     "ASPSPProfileSwagger": {
-      "environmentLink": "http://localhost:48080/swagger-ui.html"
+      "environmentLink": "https://xs2a-aspsp-profile.support.sol.adorsys.com/"
     },
     "TPPUserInterface": {
-      "environmentLink": "http://localhost:4205/"
+      "environmentLink": "https://tpp-modelbank.support.sol.adorsys.com"
     },
     "TPPUserInterface2": {
-      "environmentLink": "http://localhost:4205/"
+      "environmentLink": "https://tpp-modelbank.support.sol.adorsys.com"
     },
     "AdminUserInterface": {
       "environmentLink": "http://localhost:4207/"
     },
     "AdminUserInterface2": {
-      "environmentLink": "http://localhost:4207/"
+      "environmentLink": "https://xs2a-admin-ui-modelbank.dev.sol.adorsys.com"
     },
     "onlineBankingUI": {
-      "environmentLink": "http://localhost:4400/"
+      "environmentLink": "https://xs2a-online-modelbank.support.sol.adorsys.com"
     },
     "onlineBankingUI2": {
-      "environmentLink": "http://localhost:4400/"
+      "environmentLink": "https://xs2a-online-modelbank.support.sol.adorsys.com"
     },
     "onlineBankingBackend": {
-      "environmentLink": "http://localhost:8090/swagger-ui.html"
+      "environmentLink": "https://xs2a-online-modelbank.support.sol.adorsys.com/login"
     },
     "certificateGenerator": {
-      "environmentLink": "http://localhost:8092/swagger-ui.html"
+      "environmentLink": "https://certificate-generator-modelbank.support.sol.adorsys.com/swagger-ui/index.html"
     },
     "footerLogo": {
       "environmentLink": "http://localhost:4206/home"

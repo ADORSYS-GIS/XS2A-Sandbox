@@ -140,7 +140,7 @@
         <connector.version>18.0</connector.version>
 
         <!-- Ledgers version -->
-        <ledgers.version>6.0</ledgers.version>
+        <ledgers.version>6.1</ledgers.version>
 
         <!-- Spring-related versions -->
         <spring-boot-dependencies.version>3.2.7</spring-boot-dependencies.version>
