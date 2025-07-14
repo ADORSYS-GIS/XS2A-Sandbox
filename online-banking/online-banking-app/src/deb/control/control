@@ -1,0 +1,8 @@
+Package: online-banking-app
+Version: 1.0.0
+Section: misc
+Priority: low
+Architecture: all
+Description: This package contains the LedgersXs2aObaApplication.
+Maintainer: Francis Pouatcha <Francis.Pouatcha@adorsys.com>
+Depends: openjdk-17-jre

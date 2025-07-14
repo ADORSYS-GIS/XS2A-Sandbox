@@ -7,7 +7,7 @@
     "swagger-gen": "npm run load-api && ng-swagger-gen -i ./src/app/api/swagger/oba.json -o ./src/app/api",
     "remove-and-swagger-gen": "rm -rf ./src/app/api && npm run swagger-gen",
     "build": "ng build",
-    "build:prod": "ng build --prod",
+    "build:prod": "ng build --configuration production",
     "test-with-swagger": "rm -rf ./src/app/api && npm run swagger-gen && ng test",
     "test": "ng test",
     "test-ci": "ng test --browsers ChromeCi --watch=false --code-coverage",

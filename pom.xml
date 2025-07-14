@@ -183,6 +183,10 @@
             **/tpp-rest-client/**/*,**/admin-rest-api/**/*,**/admin-rest-client/**/*,**/online-banking-app/**/*,
             **/consent-psu-rest-client/**/*,**/*Configuration.java,**/*Properties.java,**/*PermittedResources.java
         </sonar.coverage.exclusions>
+
+        <!--jdeb for debian packaging-->
+        <jdeb.version>1.13</jdeb.version>
+
         <sonar.exclusions>
             **/*Entity.java,**/*TO.java,**/*BO.java,**/*PO.java,**/*Application.java,**/*Exception.java,**/*Filter.java,
             **/*Config.java,pom.xml,**/oba-rest-api/**/*,**/oba-service-api/**/*,**/tpp-cms-api/**/*,**/tpp-rest-api/**/*,
